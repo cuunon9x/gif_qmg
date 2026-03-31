@@ -31,7 +31,7 @@ export default function ProductCard({ product, className = '' }) {
           </span>
         )}
         {inCart && (
-          <span className="absolute top-3 right-3 bg-green-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
+          <span className="absolute top-3 right-3 bg-green-500 text-white text-[10px] font-bold px-2.5 py-1 rounded-full">
             ✓ Trong giỏ
           </span>
         )}
