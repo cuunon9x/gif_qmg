@@ -1,0 +1,42 @@
+import { useState } from 'react'
+import { HashRouter, Routes, Route } from 'react-router-dom'
+import { CartProvider } from './context/CartContext'
+import Navbar from './components/Navbar'
+import Footer from './components/Footer'
+import FloatingContact from './components/FloatingContact'
+import BackToTop from './components/BackToTop'
+import CartDrawer from './components/CartDrawer'
+import HomePage from './pages/HomePage'
+import CategoryPage from './pages/CategoryPage'
+import ProductDetailPage from './pages/ProductDetailPage'
+import ServicePage from './pages/ServicePage'
+import CheckoutPage from './pages/CheckoutPage'
+
+function App() {
+  const [cartOpen, setCartOpen] = useState(false)
+
+  return (
+    <CartProvider>
+      <HashRouter>
+        <div className="font-sans bg-white text-gray-800">
+          <Navbar onCartOpen={() => setCartOpen(true)} />
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/qua-tet" element={<CategoryPage category="qua-tet" />} />
+            <Route path="/banh-trung-thu" element={<CategoryPage category="banh-trung-thu" />} />
+            <Route path="/san-pham-khac" element={<CategoryPage category="san-pham-khac" />} />
+            <Route path="/thiet-ke-rieng" element={<ServicePage />} />
+            <Route path="/san-pham/:slug" element={<ProductDetailPage onCartOpen={() => setCartOpen(true)} />} />
+            <Route path="/checkout" element={<CheckoutPage />} />
+          </Routes>
+          <Footer />
+          <FloatingContact />
+          <BackToTop />
+          <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} />
+        </div>
+      </HashRouter>
+    </CartProvider>
+  )
+}
+
+export default App

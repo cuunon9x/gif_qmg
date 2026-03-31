@@ -1,0 +1,252 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+  body {
+    margin: 0;
+    font-family: 'Be Vietnam Pro', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    background-color: #fff;
+    color: #1a1a1a;
+  }
+  a { text-decoration: none; }
+  img { max-width: 100%; display: block; }
+}
+
+/* ═══════════════════════════════════════════════════
+   SCROLL REVEAL  (useInView adds .in-view)
+═══════════════════════════════════════════════════ */
+.fade-up {
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity 0.65s cubic-bezier(0.22,1,0.36,1),
+              transform 0.65s cubic-bezier(0.22,1,0.36,1);
+}
+.fade-up.in-view { opacity: 1; transform: translateY(0); }
+
+.fade-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.65s cubic-bezier(0.22,1,0.36,1),
+              transform 0.65s cubic-bezier(0.22,1,0.36,1);
+}
+.fade-left.in-view { opacity: 1; transform: translateX(0); }
+
+.fade-right {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.65s cubic-bezier(0.22,1,0.36,1),
+              transform 0.65s cubic-bezier(0.22,1,0.36,1);
+}
+.fade-right.in-view { opacity: 1; transform: translateX(0); }
+
+.zoom-in {
+  opacity: 0;
+  transform: scale(0.88);
+  transition: opacity 0.6s cubic-bezier(0.22,1,0.36,1),
+              transform 0.6s cubic-bezier(0.22,1,0.36,1);
+}
+.zoom-in.in-view { opacity: 1; transform: scale(1); }
+
+/* Stagger delays */
+.delay-1 { transition-delay: 0.08s !important; }
+.delay-2 { transition-delay: 0.16s !important; }
+.delay-3 { transition-delay: 0.24s !important; }
+.delay-4 { transition-delay: 0.32s !important; }
+.delay-5 { transition-delay: 0.40s !important; }
+.delay-6 { transition-delay: 0.48s !important; }
+.delay-7 { transition-delay: 0.56s !important; }
+.delay-8 { transition-delay: 0.64s !important; }
+
+/* ═══════════════════════════════════════════════════
+   HERO — text reveal per slide
+═══════════════════════════════════════════════════ */
+@keyframes hero-badge-in {
+  from { opacity: 0; transform: translateY(-10px) scale(0.9); }
+  to   { opacity: 1; transform: translateY(0)     scale(1); }
+}
+@keyframes hero-title-in {
+  from { opacity: 0; transform: translateY(20px) skewY(1deg); }
+  to   { opacity: 1; transform: translateY(0)    skewY(0deg); }
+}
+@keyframes hero-sub-in {
+  from { opacity: 0; transform: translateX(-16px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes hero-cta-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero-badge   { animation: hero-badge-in 0.5s cubic-bezier(0.22,1,0.36,1) both; }
+.hero-title   { animation: hero-title-in 0.6s cubic-bezier(0.22,1,0.36,1) 0.1s both; }
+.hero-sub     { animation: hero-sub-in   0.6s cubic-bezier(0.22,1,0.36,1) 0.22s both; }
+.hero-cta     { animation: hero-cta-in   0.5s cubic-bezier(0.22,1,0.36,1) 0.35s both; }
+
+/* Hero slide crossfade */
+.slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1.2s ease; }
+.slide.active { opacity: 1; }
+
+/* Ken-Burns zoom on active slide image */
+@keyframes ken-burns {
+  from { transform: scale(1); }
+  to   { transform: scale(1.08); }
+}
+.slide.active img { animation: ken-burns 6s ease-out forwards; }
+
+/* ═══════════════════════════════════════════════════
+   HERO STATS — count-up number pop
+═══════════════════════════════════════════════════ */
+@keyframes stat-pop {
+  0%   { opacity: 0; transform: scale(0.6) translateY(8px); }
+  70%  { transform: scale(1.08) translateY(-2px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+.stat-pop { animation: stat-pop 0.5s cubic-bezier(0.22,1,0.36,1) both; }
+.stat-pop.delay-1 { animation-delay: 0.1s; }
+.stat-pop.delay-2 { animation-delay: 0.2s; }
+.stat-pop.delay-3 { animation-delay: 0.3s; }
+.stat-pop.delay-4 { animation-delay: 0.4s; }
+
+/* ═══════════════════════════════════════════════════
+   PRODUCT CARD — shimmer on hover
+═══════════════════════════════════════════════════ */
+@keyframes shimmer {
+  from { transform: translateX(-100%) skewX(-15deg); }
+  to   { transform: translateX(200%)  skewX(-15deg); }
+}
+.card-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+.card-shimmer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(197,160,89,0.18) 50%, transparent 100%);
+  transform: translateX(-100%) skewX(-15deg);
+  transition: none;
+  pointer-events: none;
+}
+.card-shimmer:hover::after {
+  animation: shimmer 0.7s ease forwards;
+}
+
+/* ═══════════════════════════════════════════════════
+   GOLD GLOW — primary buttons
+═══════════════════════════════════════════════════ */
+@keyframes gold-glow-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(197,160,89,0.45); }
+  50%       { box-shadow: 0 0 0 8px rgba(197,160,89,0); }
+}
+.btn-glow:hover {
+  animation: gold-glow-pulse 1.2s ease infinite;
+}
+
+/* ═══════════════════════════════════════════════════
+   FLOATING ICON — FloatingContact
+═══════════════════════════════════════════════════ */
+@keyframes float-bob {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-5px); }
+}
+.float-bob { animation: float-bob 2.6s ease-in-out infinite; }
+
+@keyframes pulse-ring {
+  0%   { transform: scale(1);   opacity: 0.6; }
+  100% { transform: scale(1.75); opacity: 0; }
+}
+.pulse-ring { position: relative; }
+.pulse-ring::before {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  border-radius: 50%;
+  border: 2px solid #C5A059;
+  animation: pulse-ring 1.8s ease-out infinite;
+  pointer-events: none;
+}
+
+/* ═══════════════════════════════════════════════════
+   PARTNER MARQUEE
+═══════════════════════════════════════════════════ */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 32s linear infinite;
+}
+.marquee-track:hover { animation-play-state: paused; }
+
+/* ═══════════════════════════════════════════════════
+   CATEGORY CARD — icon bounce on hover
+═══════════════════════════════════════════════════ */
+@keyframes icon-bounce {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  30%       { transform: translateY(-6px) rotate(-5deg) scale(1.15); }
+  60%       { transform: translateY(-3px) rotate(3deg); }
+}
+.icon-bounce:hover .cat-icon {
+  animation: icon-bounce 0.6s ease;
+}
+
+/* ═══════════════════════════════════════════════════
+   WHY-US CARD — lift with gold border
+═══════════════════════════════════════════════════ */
+.why-card {
+  transition: transform 0.3s cubic-bezier(0.22,1,0.36,1),
+              box-shadow 0.3s ease,
+              border-color 0.3s ease;
+  border: 1.5px solid transparent;
+}
+.why-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 32px rgba(197,160,89,0.18);
+  border-color: #C5A059;
+}
+
+/* ═══════════════════════════════════════════════════
+   TESTIMONIAL CARD
+═══════════════════════════════════════════════════ */
+.review-card {
+  transition: transform 0.3s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s ease;
+}
+.review-card:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.1);
+}
+
+/* ═══════════════════════════════════════════════════
+   NAV LINK — underline slide
+═══════════════════════════════════════════════════ */
+.nav-underline {
+  position: relative;
+}
+.nav-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 50%;
+  width: 0; height: 2px;
+  background: #C5A059;
+  border-radius: 2px;
+  transition: width 0.3s ease, left 0.3s ease;
+}
+.nav-underline:hover::after {
+  width: 80%; left: 10%;
+}
+
+/* ═══════════════════════════════════════════════════
+   PAGE TRANSITION
+═══════════════════════════════════════════════════ */
+@keyframes page-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.page-enter { animation: page-in 0.45s cubic-bezier(0.22,1,0.36,1) both; }
+
