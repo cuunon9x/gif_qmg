@@ -11,6 +11,9 @@ import CategoryPage from './pages/CategoryPage'
 import ProductDetailPage from './pages/ProductDetailPage'
 import ServicePage from './pages/ServicePage'
 import CheckoutPage from './pages/CheckoutPage'
+import AdminPage from './pages/AdminPage'
+import AdminCategoriesPage from './pages/AdminCategoriesPage'
+import AdminProductsPage from './pages/AdminProductsPage'
 
 function App() {
   const [cartOpen, setCartOpen] = useState(false)
@@ -26,8 +29,12 @@ function App() {
             <Route path="/banh-trung-thu" element={<CategoryPage category="banh-trung-thu" />} />
             <Route path="/san-pham-khac" element={<CategoryPage category="san-pham-khac" />} />
             <Route path="/thiet-ke-rieng" element={<ServicePage />} />
+            <Route path="/:category" element={<CategoryPage />} />
             <Route path="/san-pham/:slug" element={<ProductDetailPage onCartOpen={() => setCartOpen(true)} />} />
             <Route path="/checkout" element={<CheckoutPage />} />
+            <Route path="/admin" element={<AdminPage />} />
+            <Route path="/admin/products" element={<AdminProductsPage />} />
+            <Route path="/admin/categories" element={<AdminCategoriesPage />} />
           </Routes>
           <Footer />
           <FloatingContact />

@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { getCategoryBySlug } from '../data/categories'
 import { getProductsByCategory } from '../data/products'
 import ProductCard from '../components/ProductCard'
 import useInView from '../hooks/useInView'
 
-export default function CategoryPage({ category }) {
+export default function CategoryPage({ category: categoryProp }) {
+  const { category: categoryParam } = useParams()
+  const category = categoryProp ?? categoryParam
   const cat = getCategoryBySlug(category)
   const allProducts = getProductsByCategory(category)
   const [activeSubcat, setActiveSubcat] = useState('all')
@@ -27,18 +29,10 @@ export default function CategoryPage({ category }) {
 
   const displayed = activeSubcat === 'all' ? allProducts : allProducts.filter(p => p.subcat === activeSubcat)
 
-  if (!cat) return <div className="pt-20 text-center py-20 text-gray-500">Danh mục không tìm thấy.</div>
+  if (!cat) return <div className="pt-20 mt-20 text-center text-4xl py-20 text-gray-500">Danh mục không tìm thấy.</div>
 
   return (
     <main className="pt-20 min-h-screen">
-      {/* Breadcrumb */}
-      {/* <div className="bg-primary-light py-3 px-4">
-        <div className="max-w-7xl mx-auto text-xs text-gray-500 flex items-center gap-1.5">
-          <Link to="/" className="hover:text-primary">Trang Chủ</Link>
-          <span>/</span>
-          <span className="text-gray-700 font-medium">{cat.label}</span>
-        </div>
-      </div> */}
 
       {/* Category hero */}
       <div className="relative h-52 md:h-72 overflow-hidden">

@@ -40,16 +40,6 @@ export default function ProductDetailPage({ onCartOpen }) {
 
   return (
     <main className="pt-20 min-h-screen">
-      {/* Breadcrumb */}
-      {/* <div className="bg-primary-light py-3 px-4">
-        <div className="max-w-7xl mx-auto text-xs text-gray-500 flex items-center gap-1.5">
-          <Link to="/" className="hover:text-primary">Trang Chủ</Link>
-          <span>/</span>
-          {cat && <Link to={`/${product.category}`} className="hover:text-primary">{cat.label}</Link>}
-          {cat && <span>/</span>}
-          <span className="text-gray-700 font-medium truncate max-w-[200px]">{product.name}</span>
-        </div>
-      </div> */}
 
       {/* Main detail */}
       <section className="max-w-7xl mx-auto px-4 py-10">

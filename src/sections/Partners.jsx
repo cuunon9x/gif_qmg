@@ -1,22 +1,21 @@
 import useInView from '../hooks/useInView'
 
-const BASE = '/gif_qmg';
 const PARTNERS = [
-  { name: 'Vingroup',      logo: `${BASE}/logos/vingroup.svg` },
-  { name: 'Masan Group',   logo: `${BASE}/logos/masan.svg` },
-  { name: 'Techcombank',   logo: `${BASE}/logos/techcombank.svg` },
-  { name: 'Vinamilk',      logo: `${BASE}/logos/vinamilk.svg` },
-  { name: 'VNG Corp',      logo: `${BASE}/logos/vng.svg` },
-  { name: 'PNJ',           logo: `${BASE}/logos/pnj.svg` },
-  { name: 'Grab',          logo: `${BASE}/logos/grab.svg` },
-  { name: 'Shopee',        logo: `${BASE}/logos/shopee.svg` },
-  { name: 'Tiki',          logo: `${BASE}/logos/tiki.svg` },
-  { name: 'Be Group',      logo: `${BASE}/logos/be.svg` },
-  { name: 'VinFast',       logo: `${BASE}/logos/vinfast.svg` },
-  { name: 'MoMo',          logo: `${BASE}/logos/momo.svg` },
-  { name: 'ViettelPay',    logo: `${BASE}/logos/viettelpay.svg` },
-  { name: 'Vietcombank',   logo: `${BASE}/logos/vietcombank.svg` },
-  { name: 'BIDV',          logo: `${BASE}/logos/bidv.svg` },
+  { name: 'Vingroup',      logo: '/logos/vingroup.svg' },
+  { name: 'Masan Group',   logo: '/logos/masan.svg' },
+  { name: 'Techcombank',   logo: '/logos/techcombank.svg' },
+  { name: 'Vinamilk',      logo: '/logos/vinamilk.svg' },
+  { name: 'VNG Corp',      logo: '/logos/vng.svg' },
+  { name: 'PNJ',           logo: '/logos/pnj.svg' },
+  { name: 'Grab',          logo: '/logos/grab.svg' },
+  { name: 'Shopee',        logo: '/logos/shopee.svg' },
+  { name: 'Tiki',          logo: '/logos/tiki.svg' },
+  { name: 'Be Group',      logo: '/logos/be.svg' },
+  { name: 'VinFast',       logo: '/logos/vinfast.svg' },
+  { name: 'MoMo',          logo: '/logos/momo.svg' },
+  { name: 'ViettelPay',    logo: '/logos/viettelpay.svg' },
+  { name: 'Vietcombank',   logo: '/logos/vietcombank.svg' },
+  { name: 'BIDV',          logo: '/logos/bidv.svg' },
 ]
 
 // Duplicate for seamless infinite loop
