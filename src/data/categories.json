@@ -42,5 +42,16 @@
     "color": "from-primary to-primary-dark",
     "count": null,
     "isService": true
+  },
+  {
+    "slug": "ewrer",
+    "label": "ewrer",
+    "shortLabel": "",
+    "description": "",
+    "icon": "",
+    "image": "",
+    "color": "from-red-700 to-red-500",
+    "count": null,
+    "isService": false
   }
 ]
