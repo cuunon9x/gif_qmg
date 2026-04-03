@@ -5,7 +5,7 @@
     "name": "Detumima",
     "price": "690.000 ₫",
     "priceNum": 690000,
-    "category": "ewrer",
+    "category": "san-pham-khac",
     "subcat": "hop-qua",
     "subcatLabel": "Hộp Quà Tết",
     "featured": true,
@@ -194,13 +194,13 @@
     "name": "Hộp Bánh Trung Thu Ngọc Ngân",
     "price": "580.000 ₫",
     "priceNum": 580000,
-    "category": "banh-trung-thu",
+    "category": "qua-tet",
     "subcat": "hop-banh",
     "subcatLabel": "Hộp Bánh",
     "featured": true,
     "image": "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=600&q=80",
     "images": [
-      "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&q=80"
+      "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=600&q=80"
     ],
     "badge": "Premium",
     "description": "Hộp 6 bánh trung thu Ngọc Ngân cao cấp – nhân durian, nhân sầu riêng, nhân socola đặc biệt.",
@@ -225,13 +225,13 @@
     "name": "Bánh Trung Thu Chay Thanh Tâm",
     "price": "380.000 ₫",
     "priceNum": 380000,
-    "category": "banh-trung-thu",
+    "category": "qua-tet",
     "subcat": "hop-banh",
     "subcatLabel": "Hộp Bánh",
     "featured": false,
     "image": "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=600&q=80",
     "images": [
-      "https://images.unsplash.com/photo-1578662996442-48f60103fc80?w=800&q=80"
+      "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=600&q=80"
     ],
     "badge": "Chay",
     "description": "Bánh trung thu chay Thanh Tâm – phù hợp mọi đối tượng, nhân đậu xanh lá dứa và khoai môn.",

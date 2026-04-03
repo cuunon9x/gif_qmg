@@ -20,9 +20,9 @@ export default function AdminPage() {
   if (!authed) return <AdminLogin onAuth={handleAuth} />
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 mt-32">
 
-      <div className="max-w-2xl mx-auto p-8">
+      <div className="max-w-2xl mx-auto p-8 mt-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
 
           <Link to="/admin/products"
