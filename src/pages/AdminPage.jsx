@@ -21,10 +21,6 @@ export default function AdminPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="bg-white border-b px-6 py-5">
-        <h1 className="text-2xl font-bold text-gray-800">🏠 QMG Gift – Admin</h1>
-        <p className="text-gray-400 text-sm mt-1">Chọn phần cần quản lý</p>
-      </div>
 
       <div className="max-w-2xl mx-auto p-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
