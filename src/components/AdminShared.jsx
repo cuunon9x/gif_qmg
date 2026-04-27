@@ -1,8 +1,8 @@
 import { useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 
-export const ADMIN_PASS = 'qmg2026'
-export const API = 'http://localhost:3001'
+export const API = import.meta.env.VITE_API_URL || 'http://localhost:3001'
+export const ADMIN_PASS = import.meta.env.VITE_ADMIN_PASSWORD || 'qmg2026'
 
 export function slugify(str) {
   return str.toLowerCase()
