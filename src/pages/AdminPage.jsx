@@ -1,6 +1,6 @@
 ﻿import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { API, AdminLogin } from '../components/AdminShared'
+import { API, AdminLogin, adminHeaders } from '../components/AdminShared'
 
 /* ── Dashboard ── */
 export default function AdminPage() {
@@ -10,8 +10,8 @@ export default function AdminPage() {
   useEffect(() => {
     if (!authed) return
     Promise.all([
-      fetch(`${API}/api/products`).then(r => r.json()).catch(() => []),
-      fetch(`${API}/api/categories`).then(r => r.json()).catch(() => []),
+      fetch(`${API}/api/products`, { headers: adminHeaders() }).then(r => r.json()).catch(() => []),
+      fetch(`${API}/api/categories`, { headers: adminHeaders() }).then(r => r.json()).catch(() => []),
     ]).then(([p, c]) => setStats({ products: p.length, categories: c.length }))
   }, [authed])
 

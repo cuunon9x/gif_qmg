@@ -1,19 +1,19 @@
 import { useState, useEffect } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
-import { CATEGORIES } from '../data/categories'
 import { useCart } from '../context/CartContext'
-
-const NAV_LINKS = [
-  { label: 'Trang Chủ', to: '/' },
-  ...CATEGORIES.filter(c => !c.isService).map(c => ({ label: c.label, to: `/${c.slug}` })),
-  { label: 'Thiết Kế Riêng', to: '/thiet-ke-rieng' },
-]
+import { useCatalog } from '../context/CatalogContext'
 
 export default function Navbar({ onCartOpen }) {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const { pathname } = useLocation()
   const { totalQty } = useCart()
+  const { categories } = useCatalog()
+  const navLinks = [
+    { label: 'Trang Chủ', to: '/' },
+    ...categories.filter(c => !c.isService).map(c => ({ label: c.label, to: `/${c.slug}` })),
+    { label: 'Thiết Kế Riêng', to: '/thiet-ke-rieng' },
+  ]
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
@@ -46,7 +46,7 @@ export default function Navbar({ onCartOpen }) {
 
         {/* Desktop nav */}
         <ul className="hidden lg:flex items-center gap-1">
-          {NAV_LINKS.map(link => (
+          {navLinks.map(link => (
             <li key={link.to}>
               <NavLink
                 to={link.to}
@@ -107,7 +107,7 @@ export default function Navbar({ onCartOpen }) {
       {/* Mobile menu */}
       <div className={`lg:hidden overflow-hidden transition-all duration-300 ${open ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'}`}>
         <div className="bg-white border-t border-gray-100 px-4 py-3 flex flex-col gap-1">
-          {NAV_LINKS.map((link, i) => (
+          {navLinks.map((link, i) => (
             <NavLink
               key={link.to}
               to={link.to}

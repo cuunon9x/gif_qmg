@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { HashRouter, Routes, Route } from 'react-router-dom'
 import { CartProvider } from './context/CartContext'
+import { CatalogProvider } from './context/CatalogContext'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import FloatingContact from './components/FloatingContact'
@@ -20,28 +21,30 @@ function App() {
 
   return (
     <CartProvider>
-      <HashRouter>
-        <div className="font-sans bg-white text-gray-800">
-          <Navbar onCartOpen={() => setCartOpen(true)} />
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/qua-tet" element={<CategoryPage category="qua-tet" />} />
-            <Route path="/banh-trung-thu" element={<CategoryPage category="banh-trung-thu" />} />
-            <Route path="/san-pham-khac" element={<CategoryPage category="san-pham-khac" />} />
-            <Route path="/thiet-ke-rieng" element={<ServicePage />} />
-            <Route path="/:category" element={<CategoryPage />} />
-            <Route path="/san-pham/:slug" element={<ProductDetailPage onCartOpen={() => setCartOpen(true)} />} />
-            <Route path="/checkout" element={<CheckoutPage />} />
-            <Route path="/admin" element={<AdminPage />} />
-            <Route path="/admin/products" element={<AdminProductsPage />} />
-            <Route path="/admin/categories" element={<AdminCategoriesPage />} />
-          </Routes>
-          <Footer />
-          <FloatingContact />
-          <BackToTop />
-          <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} />
-        </div>
-      </HashRouter>
+      <CatalogProvider>
+        <HashRouter>
+          <div className="font-sans bg-white text-gray-800">
+            <Navbar onCartOpen={() => setCartOpen(true)} />
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/qua-tet" element={<CategoryPage category="qua-tet" />} />
+              <Route path="/banh-trung-thu" element={<CategoryPage category="banh-trung-thu" />} />
+              <Route path="/san-pham-khac" element={<CategoryPage category="san-pham-khac" />} />
+              <Route path="/thiet-ke-rieng" element={<ServicePage />} />
+              <Route path="/:category" element={<CategoryPage />} />
+              <Route path="/san-pham/:slug" element={<ProductDetailPage onCartOpen={() => setCartOpen(true)} />} />
+              <Route path="/checkout" element={<CheckoutPage />} />
+              <Route path="/admin" element={<AdminPage />} />
+              <Route path="/admin/products" element={<AdminProductsPage />} />
+              <Route path="/admin/categories" element={<AdminCategoriesPage />} />
+            </Routes>
+            <Footer />
+            <FloatingContact />
+            <BackToTop />
+            <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} />
+          </div>
+        </HashRouter>
+      </CatalogProvider>
     </CartProvider>
   )
 }

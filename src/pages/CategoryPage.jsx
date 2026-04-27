@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { getCategoryBySlug } from '../data/categories'
-import { getProductsByCategory } from '../data/products'
 import ProductCard from '../components/ProductCard'
 import useInView from '../hooks/useInView'
+import { useCatalog } from '../context/CatalogContext'
 
 export default function CategoryPage({ category: categoryProp }) {
   const { category: categoryParam } = useParams()
   const category = categoryProp ?? categoryParam
-  const cat = getCategoryBySlug(category)
-  const allProducts = getProductsByCategory(category)
+  const { categories, products, loading } = useCatalog()
+  const cat = categories.find(c => c.slug === category)
+  const allProducts = products.filter(p => p.category === category)
   const [activeSubcat, setActiveSubcat] = useState('all')
   const [ref, inView] = useInView()
 
@@ -29,6 +29,7 @@ export default function CategoryPage({ category: categoryProp }) {
 
   const displayed = activeSubcat === 'all' ? allProducts : allProducts.filter(p => p.subcat === activeSubcat)
 
+  if (loading) return <div className="pt-20 mt-20 text-center text-2xl py-20 text-gray-500">Đang tải dữ liệu...</div>
   if (!cat) return <div className="pt-20 mt-20 text-center text-4xl py-20 text-gray-500">Danh mục không tìm thấy.</div>
 
   return (

@@ -1,11 +1,12 @@
-import { getFeaturedProducts } from '../data/products'
 import ProductCard from '../components/ProductCard'
 import useInView from '../hooks/useInView'
+import { useCatalog } from '../context/CatalogContext'
 
 export default function FeaturedProducts() {
   const [headRef, headIn] = useInView()
   const [gridRef, gridIn] = useInView()
-  const products = getFeaturedProducts()
+  const { products, loading } = useCatalog()
+  const featuredProducts = products.filter(p => p.featured)
 
   return (
     <section className="py-16 bg-white">
@@ -19,7 +20,7 @@ export default function FeaturedProducts() {
         </div>
 
         <div ref={gridRef} className={`grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5 fade-up ${gridIn ? 'in-view' : ''}`}>
-          {products.map((p, i) => (
+          {!loading && featuredProducts.map((p, i) => (
             <ProductCard
               key={p.id}
               product={p}
@@ -27,6 +28,7 @@ export default function FeaturedProducts() {
               style={{ transitionDelay: `${i * 60}ms` }}
             />
           ))}
+          {loading && <p className="col-span-full text-center text-sm text-gray-500">Đang tải sản phẩm...</p>}
         </div>
       </div>
     </section>

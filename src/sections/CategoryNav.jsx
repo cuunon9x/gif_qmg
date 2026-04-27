@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom'
-import { CATEGORIES } from '../data/categories'
 import useInView from '../hooks/useInView'
+import { useCatalog } from '../context/CatalogContext'
 
 export default function CategoryNav() {
   const [ref, inView] = useInView()
+  const { categories, loading } = useCatalog()
+  const visibleCategories = categories.filter(c => !c.isService || c.slug === 'thiet-ke-rieng')
 
   return (
     <section className="py-14 bg-primary-light">
@@ -14,7 +16,7 @@ export default function CategoryNav() {
         </div>
 
         <div className={`grid grid-cols-2 lg:grid-cols-4 gap-5 fade-up ${inView ? 'in-view' : ''}`}>
-          {CATEGORIES.map((cat, i) => (
+          {!loading && visibleCategories.map((cat, i) => (
             <Link
               key={cat.slug}
               to={cat.isService ? '/thiet-ke-rieng' : `/${cat.slug}`}
@@ -31,6 +33,7 @@ export default function CategoryNav() {
               </div>
             </Link>
           ))}
+          {loading && <div className="col-span-full text-center text-sm text-gray-500">Đang tải danh mục...</div>}
         </div>
       </div>
     </section>

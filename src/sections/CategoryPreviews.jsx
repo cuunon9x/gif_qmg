@@ -1,13 +1,12 @@
 import { Link } from 'react-router-dom'
-import { CATEGORIES } from '../data/categories'
-import { getProductsByCategory } from '../data/products'
 import ProductCard from '../components/ProductCard'
 import useInView from '../hooks/useInView'
+import { useCatalog } from '../context/CatalogContext'
 
-function CategorySection({ cat }) {
+function CategorySection({ cat, products }) {
   const [ref, inView] = useInView()
-  const products = getProductsByCategory(cat.slug).slice(0, 4)
-  if (products.length === 0) return null
+  const previewProducts = products.filter(p => p.category === cat.slug).slice(0, 4)
+  if (previewProducts.length === 0) return null
 
   return (
     <div ref={ref} className={`fade-up ${inView ? 'in-view' : ''}`}>
@@ -25,7 +24,7 @@ function CategorySection({ cat }) {
         </Link>
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
-        {products.map(p => (
+        {previewProducts.map(p => (
           <ProductCard key={p.id} product={p} />
         ))}
       </div>
@@ -34,14 +33,14 @@ function CategorySection({ cat }) {
 }
 
 export default function CategoryPreviews() {
-  const cats = CATEGORIES.filter(c => !c.isService)
+  const { categories, products, loading } = useCatalog()
+  const cats = categories.filter(c => !c.isService)
 
   return (
     <section className="py-16 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 flex flex-col gap-16">
-        {cats.map(cat => (
-          <CategorySection key={cat.slug} cat={cat} />
-        ))}
+        {!loading && cats.map(cat => <CategorySection key={cat.slug} cat={cat} products={products} />)}
+        {loading && <p className="text-center text-sm text-gray-500">Đang tải danh mục và sản phẩm...</p>}
       </div>
     </section>
   )

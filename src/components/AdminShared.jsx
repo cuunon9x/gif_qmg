@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom'
 
 export const API = import.meta.env.VITE_API_URL || 'https://admin-qmg.onrender.com'
 export const ADMIN_PASS = import.meta.env.VITE_ADMIN_PASSWORD || 'qmg2026'
-export const ADMIN_API_KEY = import.meta.env.VITE_ADMIN_API_KEY || ''
+export const API_KEY = import.meta.env.VITE_API_KEY || ''
 
 export function adminHeaders(extra = {}) {
   return {
-    ...(ADMIN_API_KEY ? { 'x-admin-api-key': ADMIN_API_KEY } : {}),
+    ...(API_KEY ? { 'x-admin-api-key': API_KEY } : {}),
     ...extra,
   }
 }

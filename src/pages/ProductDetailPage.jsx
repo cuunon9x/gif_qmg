@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react'
-import { useParams, Link, useNavigate } from 'react-router-dom'
-import { getProductBySlug, getRelatedProducts } from '../data/products'
-import { getCategoryBySlug } from '../data/categories'
+import { useParams, Link } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
 import ProductCard from '../components/ProductCard'
 import useInView from '../hooks/useInView'
+import { useCatalog } from '../context/CatalogContext'
 
 export default function ProductDetailPage({ onCartOpen }) {
   const { slug } = useParams()
-  const product = getProductBySlug(slug)
+  const { products, categories, loading } = useCatalog()
+  const product = products.find(p => p.slug === slug)
   const [activeImg, setActiveImg] = useState(0)
   const [qty, setQty] = useState(1)
   const [addedMsg, setAddedMsg] = useState(false)
@@ -25,6 +25,15 @@ export default function ProductDetailPage({ onCartOpen }) {
     if (onCartOpen) onCartOpen()
   }
 
+  if (loading) {
+    return (
+      <main className="pt-24 min-h-screen flex flex-col items-center justify-center text-center px-4">
+        <div className="text-5xl mb-4">⏳</div>
+        <h2 className="text-xl font-bold text-gray-700 mb-2">Đang tải sản phẩm...</h2>
+      </main>
+    )
+  }
+
   if (!product) {
     return (
       <main className="pt-24 min-h-screen flex flex-col items-center justify-center text-center px-4">
@@ -35,8 +44,9 @@ export default function ProductDetailPage({ onCartOpen }) {
     )
   }
 
-  const cat = getCategoryBySlug(product.category)
-  const related = getRelatedProducts(product, 4)
+  const related = products
+    .filter(p => p.category === product.category && p.slug !== product.slug)
+    .slice(0, 4)
 
   return (
     <main className="pt-20 min-h-screen">
