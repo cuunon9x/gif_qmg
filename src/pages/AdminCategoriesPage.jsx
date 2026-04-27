@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { API, AdminLogin, AdminNav, ImageUploader, slugify, adminHeaders } from '../components/AdminShared'
+import { API, AdminLogin, AdminNav, ImageUploader, slugify, adminHeaders, checkApiHealth } from '../components/AdminShared'
 
 const COLOR_PRESETS = [
   { label: 'Đỏ Tết',     value: 'from-red-700 to-red-500' },
@@ -211,11 +211,12 @@ export default function AdminCategoriesPage() {
   async function load() {
     setLoading(true)
     try {
+      await checkApiHealth()
       const res = await fetch(`${API}/api/categories`, { headers: adminHeaders() })
       if (!res.ok) throw new Error(`HTTP ${res.status}`)
       setCategories(await res.json())
     } catch {
-      alert('❌ Không kết nối được server.\n\nMở terminal và chạy:\n  npm run server')
+      alert('❌ Không kết nối được API production.\n\nKiểm tra VITE_API_URL và trạng thái backend.')
     }
     setLoading(false)
   }
