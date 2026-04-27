@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { API, AdminLogin, AdminNav, ImageUploader, slugify } from '../components/AdminShared'
+import { API, AdminLogin, AdminNav, ImageUploader, slugify, adminHeaders } from '../components/AdminShared'
 
 const PRODUCT_CATS = [
   { value: 'qua-tet',        label: 'Quà Tết' },
@@ -167,7 +167,7 @@ export default function AdminProductsPage() {
   async function loadProducts() {
     setLoading(true)
     try {
-      const res = await fetch(`${API}/api/products`)
+      const res = await fetch(`${API}/api/products`, { headers: adminHeaders() })
       if (!res.ok) throw new Error(`HTTP ${res.status}`)
       setProducts(await res.json())
     } catch {
@@ -178,7 +178,7 @@ export default function AdminProductsPage() {
 
   async function loadCategories() {
     try {
-      const res = await fetch(`${API}/api/categories`)
+      const res = await fetch(`${API}/api/categories`, { headers: adminHeaders() })
       if (res.ok) setCategories(await res.json())
     } catch { /* silent */ }
   }
@@ -187,7 +187,11 @@ export default function AdminProductsPage() {
     const updated = product.id && products.some(p => p.id === product.id)
       ? products.map(p => p.id === product.id ? product : p)
       : [...products, product]
-    const res = await fetch(`${API}/api/products`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(updated) })
+    const res = await fetch(`${API}/api/products`, {
+      method: 'PUT',
+      headers: adminHeaders({ 'Content-Type': 'application/json' }),
+      body: JSON.stringify(updated),
+    })
     if (res.ok) { setProducts(updated); setEditing(null) }
     else alert('Lưu thất bại – kiểm tra server')
   }
@@ -196,7 +200,11 @@ export default function AdminProductsPage() {
     const p = products.find(pr => pr.id === id)
     if (!confirm(`Xóa sản phẩm "${p?.name}"?`)) return
     const updated = products.filter(pr => pr.id !== id)
-    const res = await fetch(`${API}/api/products`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(updated) })
+    const res = await fetch(`${API}/api/products`, {
+      method: 'PUT',
+      headers: adminHeaders({ 'Content-Type': 'application/json' }),
+      body: JSON.stringify(updated),
+    })
     if (res.ok) setProducts(updated)
     else alert('Xóa thất bại – kiểm tra server')
   }

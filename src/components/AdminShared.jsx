@@ -3,6 +3,14 @@ import { Link } from 'react-router-dom'
 
 export const API = import.meta.env.VITE_API_URL || 'http://localhost:3001'
 export const ADMIN_PASS = import.meta.env.VITE_ADMIN_PASSWORD || 'qmg2026'
+export const ADMIN_API_KEY = import.meta.env.VITE_ADMIN_API_KEY || ''
+
+export function adminHeaders(extra = {}) {
+  return {
+    ...(ADMIN_API_KEY ? { 'x-admin-api-key': ADMIN_API_KEY } : {}),
+    ...extra,
+  }
+}
 
 export function slugify(str) {
   return str.toLowerCase()
@@ -64,7 +72,7 @@ export function ImageUploader({ value, onChange }) {
     const fd = new FormData()
     fd.append('image', file)
     try {
-      const res = await fetch(`${API}/api/upload`, { method: 'POST', body: fd })
+      const res = await fetch(`${API}/api/upload`, { method: 'POST', headers: adminHeaders(), body: fd })
       const json = await res.json()
       if (json.url) onChange(json.url)
       else throw new Error(json.error)

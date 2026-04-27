@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { API, AdminLogin, AdminNav, ImageUploader, slugify } from '../components/AdminShared'
+import { API, AdminLogin, AdminNav, ImageUploader, slugify, adminHeaders } from '../components/AdminShared'
 
 const COLOR_PRESETS = [
   { label: 'Đỏ Tết',     value: 'from-red-700 to-red-500' },
@@ -211,7 +211,7 @@ export default function AdminCategoriesPage() {
   async function load() {
     setLoading(true)
     try {
-      const res = await fetch(`${API}/api/categories`)
+      const res = await fetch(`${API}/api/categories`, { headers: adminHeaders() })
       if (!res.ok) throw new Error(`HTTP ${res.status}`)
       setCategories(await res.json())
     } catch {
@@ -223,7 +223,7 @@ export default function AdminCategoriesPage() {
   async function persist(updated) {
     const res = await fetch(`${API}/api/categories`, {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
+      headers: adminHeaders({ 'Content-Type': 'application/json' }),
       body: JSON.stringify(updated),
     })
     if (res.ok) { setCategories(updated); setEditing(null) }
