@@ -15,14 +15,6 @@ export default function BrandLockup({ footer = false }) {
         height={40}
         decoding="async"
       />
-      <div className="leading-tight min-w-0">
-        <div className={`font-bold text-base leading-none ${footer ? 'text-white' : 'text-gray-900'}`}>
-          QMG Gift
-        </div>
-        <div className="text-[10px] text-primary font-medium tracking-wide">
-          Quà Tặng Doanh Nghiệp
-        </div>
-      </div>
     </Link>
   )
 }

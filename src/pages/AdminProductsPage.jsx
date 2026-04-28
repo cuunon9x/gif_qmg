@@ -3,7 +3,7 @@ import {
   API,
   AdminLogin,
   AdminNav,
-  ImageUploader,
+  ImagesUploader,
   slugify,
   adminHeaders,
   checkApiHealth,
@@ -25,6 +25,7 @@ const EMPTY_PRODUCT = {
   subcatLabel: "",
   featured: false,
   image: "",
+  images: [],
   badge: "",
   description: "",
   contents: "",
@@ -34,17 +35,22 @@ const EMPTY_PRODUCT = {
 };
 
 function toProductForm(p) {
+  const imgs = Array.isArray(p.images) ? p.images.filter(Boolean) : []
+  const merged = imgs.length ? imgs : (p.image ? [p.image] : [])
   return {
     ...p,
     contents: Array.isArray(p.contents) ? p.contents.join("\n") : "",
     tags: Array.isArray(p.tags) ? p.tags.join(", ") : "",
     badge: p.badge ?? "",
+    images: merged,
+    image: merged[0] || "",
   };
 }
 
 function fromProductForm(f, existing) {
   const id = f.id || Math.max(0, ...existing.map((p) => p.id)) + 1;
   const slug = f.slug.trim() || slugify(f.name);
+  const images = Array.isArray(f.images) ? f.images.filter(Boolean) : (f.image ? [f.image] : []);
   return {
     ...f,
     id,
@@ -60,7 +66,8 @@ function fromProductForm(f, existing) {
       .split(",")
       .map((s) => s.trim())
       .filter(Boolean),
-    images: f.image ? [f.image] : [],
+    images,
+    image: images[0] || "",
   };
 }
 
@@ -141,7 +148,7 @@ function ProductList({
                 >
                   <td className="px-4 py-3">
                     <img
-                      src={p.image}
+                      src={p.images?.[0] || p.image}
                       alt=""
                       className="w-12 h-12 object-cover rounded-lg bg-gray-100"
                       onError={(e) => {
@@ -249,8 +256,14 @@ function ProductForm({ product, allProducts, categories, onSave, onCancel }) {
         className="max-w-5xl mx-auto p-6 grid grid-cols-1 lg:grid-cols-3 gap-6"
       >
         <div className="lg:col-span-1 space-y-3">
-          <label className={label}>Ảnh sản phẩm</label>
-          <ImageUploader value={form.image} onChange={(v) => set("image", v)} />
+          <label className={label}>Ảnh sản phẩm (nhiều ảnh)</label>
+          <ImagesUploader
+            value={form.images || []}
+            onChange={(arr) => {
+              set("images", arr);
+              set("image", arr?.[0] || "");
+            }}
+          />
         </div>
         <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="sm:col-span-2">

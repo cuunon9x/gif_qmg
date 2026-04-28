@@ -47,7 +47,7 @@ export default function CartDrawer({ open, onClose }) {
                   {/* Image */}
                   <Link to={`/san-pham/${item.slug}`} onClick={onClose}
                     className="shrink-0 w-20 h-20 rounded-xl overflow-hidden bg-gray-100">
-                    <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
+                    <img src={item.images?.[0] || item.image} alt={item.name} className="w-full h-full object-cover" />
                   </Link>
 
                   {/* Info */}

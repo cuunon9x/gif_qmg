@@ -250,3 +250,33 @@
 }
 .page-enter { animation: page-in 0.45s cubic-bezier(0.22,1,0.36,1) both; }
 
+/* ═══════════════════════════════════════════════════
+   PARTNERS — infinite single-row marquee
+═══════════════════════════════════════════════════ */
+@keyframes partners-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.partners-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: partners-marquee 50s linear infinite;
+  will-change: transform;
+}
+.partners-marquee-track:hover {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .partners-marquee-track {
+    animation: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 1rem;
+    width: 100% !important;
+    max-width: 100%;
+  }
+  .partners-marquee-track > div:last-of-type {
+    display: none;
+  }
+}
+

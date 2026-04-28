@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
 
 export default function ProductCard({ product, className = '' }) {
-  const { slug, name, price, image, badge } = product
+  const { slug, name, price, image, images, badge } = product
+  const primaryImage = (Array.isArray(images) && images.length ? images[0] : null) || image
   const { add, items } = useCart()
   const [added, setAdded] = useState(false)
   const inCart = items.some(i => i.slug === slug)
@@ -20,7 +21,7 @@ export default function ProductCard({ product, className = '' }) {
       {/* Image */}
       <Link to={`/san-pham/${slug}`} className="block relative overflow-hidden aspect-square bg-gray-50">
         <img
-          src={image}
+          src={primaryImage}
           alt={name}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           loading="lazy"

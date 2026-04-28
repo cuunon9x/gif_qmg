@@ -110,3 +110,153 @@ export function ImageUploader({ value, onChange }) {
     </div>
   )
 }
+
+/* ── Multi images uploader ── */
+export function ImagesUploader({ value = [], onChange }) {
+  const [uploading, setUploading] = useState(false)
+  const [url, setUrl] = useState('')
+  const fileRef = useRef()
+
+  const images = Array.isArray(value) ? value.filter(Boolean) : []
+
+  function setImages(next) {
+    onChange(next.filter(Boolean))
+  }
+
+  async function uploadOne(file) {
+    const fd = new FormData()
+    fd.append('image', file)
+    const res = await fetch(`${API}/api/upload`, { method: 'POST', headers: adminHeaders(), body: fd })
+    const json = await res.json()
+    if (!json.url) throw new Error(json.error || 'Upload failed')
+    return json.url
+  }
+
+  async function handleFiles(e) {
+    const files = Array.from(e.target.files || []).filter(Boolean)
+    if (!files.length) return
+    setUploading(true)
+    try {
+      const uploaded = []
+      for (const f of files) {
+        // sequential to avoid server overload
+        // eslint-disable-next-line no-await-in-loop
+        uploaded.push(await uploadOne(f))
+      }
+      setImages([...images, ...uploaded])
+    } catch (err) {
+      alert(`Upload thất bại: ${err.message}\n\nKiểm tra server đang chạy: npm run server`)
+    } finally {
+      setUploading(false)
+      e.target.value = ''
+    }
+  }
+
+  function addUrl() {
+    const v = url.trim()
+    if (!v) return
+    setImages([...images, v])
+    setUrl('')
+  }
+
+  function removeAt(idx) {
+    setImages(images.filter((_, i) => i !== idx))
+  }
+
+  function move(idx, dir) {
+    const next = [...images]
+    const j = idx + dir
+    if (j < 0 || j >= next.length) return
+    ;[next[idx], next[j]] = [next[j], next[idx]]
+    setImages(next)
+  }
+
+  function setPrimary(idx) {
+    if (idx <= 0) return
+    const next = [...images]
+    const [picked] = next.splice(idx, 1)
+    next.unshift(picked)
+    setImages(next)
+  }
+
+  return (
+    <div className="space-y-3">
+      <div className="flex items-center gap-2 flex-wrap">
+        <button
+          type="button"
+          onClick={() => fileRef.current?.click()}
+          className="px-3 py-2 rounded-lg bg-primary text-white text-xs font-bold hover:bg-primary-dark transition-colors"
+          disabled={uploading}
+        >
+          {uploading ? 'Đang tải...' : '+ Tải ảnh lên'}
+        </button>
+        <input
+          ref={fileRef}
+          type="file"
+          accept="image/*"
+          multiple
+          className="hidden"
+          onChange={handleFiles}
+        />
+        <div className="flex-1 min-w-[220px] flex items-center gap-2">
+          <input
+            className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-primary"
+            placeholder="Dán URL ảnh rồi bấm Thêm"
+            value={url}
+            onChange={(e) => setUrl(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                e.preventDefault()
+                addUrl()
+              }
+            }}
+          />
+          <button
+            type="button"
+            onClick={addUrl}
+            className="px-3 py-2 rounded-lg border border-gray-300 text-xs font-bold hover:border-primary hover:text-primary transition-colors"
+          >
+            Thêm
+          </button>
+        </div>
+      </div>
+
+      {images.length === 0 ? (
+        <div className="rounded-xl border-2 border-dashed border-gray-300 bg-gray-50 p-6 text-center text-gray-400 text-sm">
+          Chưa có ảnh. Tải ảnh lên hoặc dán URL.
+        </div>
+      ) : (
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+          {images.map((src, i) => (
+            <div key={`${src}-${i}`} className="rounded-xl border border-gray-200 bg-white overflow-hidden">
+              <div className="relative aspect-video bg-gray-50">
+                <img src={src} alt="" className="w-full h-full object-cover" />
+                {i === 0 && (
+                  <span className="absolute top-2 left-2 bg-primary text-white text-[10px] font-bold px-2 py-1 rounded-full shadow">
+                    Ảnh chính
+                  </span>
+                )}
+              </div>
+              <div className="p-2 flex items-center justify-between gap-2">
+                <div className="flex items-center gap-1">
+                  <button type="button" onClick={() => move(i, -1)} className="px-2 py-1 text-xs border rounded hover:border-primary hover:text-primary transition-colors" disabled={i === 0}>
+                    ↑
+                  </button>
+                  <button type="button" onClick={() => move(i, 1)} className="px-2 py-1 text-xs border rounded hover:border-primary hover:text-primary transition-colors" disabled={i === images.length - 1}>
+                    ↓
+                  </button>
+                  <button type="button" onClick={() => setPrimary(i)} className="px-2 py-1 text-xs border rounded hover:border-primary hover:text-primary transition-colors" disabled={i === 0}>
+                    Đặt chính
+                  </button>
+                </div>
+                <button type="button" onClick={() => removeAt(i)} className="px-2 py-1 text-xs border border-red-200 text-red-500 rounded hover:bg-red-50 transition-colors">
+                  Xóa
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
