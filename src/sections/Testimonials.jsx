@@ -10,8 +10,8 @@ const REVIEWS = [
   },
   {
     name: 'Anh Phạm Văn Minh',
-    company: '',
-    avatar: 'VINCOM RETAIL',
+    company: 'VINCOM RETAIL',
+    avatar: 'M',
     text: 'Cảm ơn QMG đã nhiệt tình hỗ trợ. Hộp quà đẹp, sang trọng, khách hàng nhận đều khen. Mong QMG ngày càng phát triển và có nhiều đơn hàng.',
     stars: 5,
   },
