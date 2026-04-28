@@ -105,11 +105,11 @@ export default function ProductDetailPage({ onCartOpen }) {
 
             <div className="grid grid-cols-2 gap-3 text-xs text-gray-500 mb-6">
               <div className="bg-gray-50 rounded-lg p-3">
-                <div className="font-semibold text-gray-700 mb-0.5">Sá»‘ lÆ°á»£ng tá»‘i thiá»ƒu</div>
-                <div>{product.minOrder} sáº£n pháº©m</div>
+                <div className="font-semibold text-gray-700 mb-0.5">Số lượng tối thiểu</div>
+                <div>{product.minOrder} sản phẩm</div>
               </div>
               <div className="bg-gray-50 rounded-lg p-3">
-                <div className="font-semibold text-gray-700 mb-0.5">Thá»i gian sáº£n xuáº¥t</div>
+                <div className="font-semibold text-gray-700 mb-0.5">Thời gian sản xuất</div>
                 <div>{product.lead}</div>
               </div>
             </div>
