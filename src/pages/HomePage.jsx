@@ -2,6 +2,8 @@ import Hero from '../sections/Hero'
 import CategoryNav from '../sections/CategoryNav'
 import CompanyIntro from '../sections/CompanyIntro'
 import FeaturedProducts from '../sections/FeaturedProducts'
+import MobileCatalogCTA from '../sections/MobileCatalogCTA'
+import MobileFeaturedProducts from '../sections/MobileFeaturedProducts'
 import CategoryPreviews from '../sections/CategoryPreviews'
 import WhyUs from '../sections/WhyUs'
 import Partners from '../sections/Partners'
@@ -15,7 +17,12 @@ export default function HomePage() {
       <Hero />
       <CategoryNav />
       <CompanyIntro />
-      <FeaturedProducts />
+      <MobileCatalogCTA />
+      <MobileFeaturedProducts />
+
+      <div className="hidden sm:block">
+        <FeaturedProducts />
+      </div>
       <WhyUs />
       <CategoryPreviews />
       <Partners />
