@@ -48,8 +48,8 @@ function toProductForm(p) {
   };
 }
 
-function fromProductForm(f, existing) {
-  const id = f.id || Math.max(0, ...existing.map((p) => p.id)) + 1;
+function fromProductForm(f) {
+  const id = f.id || null;
   const slug = f.slug.trim() || slugify(f.name);
   const images = Array.isArray(f.images) ? f.images.filter(Boolean) : (f.image ? [f.image] : []);
   const numericPrice = Number(f.priceNum) || 0
@@ -77,20 +77,28 @@ function fromProductForm(f, existing) {
 /* ── Product list ── */
 function ProductList({
   products,
+  total,
+  page,
+  pageSize,
+  search,
+  filterCat,
   categories,
   loading,
+  onSearchChange,
+  onFilterCatChange,
+  onPageChange,
+  onPageSizeChange,
   onAdd,
   onEdit,
   onDelete,
 }) {
-  const [filterCat, setFilterCat] = useState("all");
   const catList = categories.filter((c) => !c.isService).length
     ? categories.filter((c) => !c.isService)
     : PRODUCT_CATS.map((c) => ({ slug: c.value, label: c.label }));
-  const visible =
-    filterCat === "all"
-      ? products
-      : products.filter((p) => p.category === filterCat);
+  const totalItems = total;
+  const totalPages = Math.max(1, Math.ceil(totalItems / pageSize));
+  const currentPage = Math.min(Math.max(page, 1), totalPages);
+
   return (
     <div className="max-w-6xl mx-auto p-6 mt-3">
       <div className="flex items-center justify-between mb-5 mt-3 flex-wrap gap-3">
@@ -98,7 +106,7 @@ function ProductList({
           {[{ slug: "all", label: "Tất cả" }, ...catList].map((c) => (
             <button
               key={c.slug}
-              onClick={() => setFilterCat(c.slug)}
+              onClick={() => onFilterCatChange(c.slug)}
               className={`px-4 py-1.5 rounded-full text-sm font-semibold border transition-colors ${filterCat === c.slug ? "bg-primary text-white border-primary" : "border-gray-300 text-gray-600 hover:border-primary hover:text-primary"}`}
             >
               {c.icon ? `${c.icon} ` : ""}
@@ -106,12 +114,20 @@ function ProductList({
             </button>
           ))}
         </div>
-        <button
-          onClick={onAdd}
-          className="bg-primary text-white font-bold px-5 py-2 rounded-lg hover:bg-primary-dark transition-colors text-sm"
-        >
-          + Thêm Sản Phẩm
-        </button>
+        <div className="flex items-center gap-2">
+          <input
+            value={search}
+            onChange={(e) => onSearchChange(e.target.value)}
+            placeholder="Tìm theo tên, slug, tag..."
+            className="w-64 max-w-full border border-gray-300 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-primary"
+          />
+          <button
+            onClick={onAdd}
+            className="bg-primary text-white font-bold px-5 py-2 rounded-lg hover:bg-primary-dark transition-colors text-sm"
+          >
+            + Thêm Sản Phẩm
+          </button>
+        </div>
       </div>
       {loading ? (
         <div className="text-center py-20 text-gray-400">
@@ -121,7 +137,28 @@ function ProductList({
           </p>
         </div>
       ) : (
-        <div className="bg-white rounded-2xl shadow-sm overflow-auto">
+        <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
+          <div className="px-4 py-3 border-b border-gray-100 flex flex-wrap items-center justify-between gap-3 bg-gray-50/70">
+            <p className="text-sm text-gray-500">
+              {totalItems} sản phẩm • Trang {currentPage}/{totalPages}
+            </p>
+            <div className="flex items-center gap-2 text-sm">
+              <span className="text-gray-500">Hiển thị</span>
+              <select
+                value={pageSize}
+                onChange={(e) => onPageSizeChange(Number(e.target.value))}
+                className="border border-gray-300 rounded-md px-2 py-1 text-sm outline-none focus:ring-2 focus:ring-primary"
+              >
+                {[10, 20, 50].map((n) => (
+                  <option key={n} value={n}>
+                    {n}
+                  </option>
+                ))}
+              </select>
+              <span className="text-gray-500">/ trang</span>
+            </div>
+          </div>
+          <div className="overflow-auto">
           <table className="w-full text-sm min-w-[640px]">
             <thead className="bg-gray-50 border-b">
               <tr>
@@ -144,7 +181,7 @@ function ProductList({
               </tr>
             </thead>
             <tbody>
-              {visible.map((p, i) => (
+              {products.map((p, i) => (
                 <tr
                   key={p.id}
                   className={`border-b last:border-0 ${i % 2 ? "bg-gray-50/50" : ""}`}
@@ -198,7 +235,7 @@ function ProductList({
                   </td>
                 </tr>
               ))}
-              {visible.length === 0 && (
+              {products.length === 0 && (
                 <tr>
                   <td colSpan={6} className="text-center py-12 text-gray-400">
                     Không có sản phẩm
@@ -208,13 +245,35 @@ function ProductList({
             </tbody>
           </table>
         </div>
+          {totalPages > 1 && (
+            <div className="px-4 py-3 border-t border-gray-100 flex items-center justify-end gap-2 bg-white">
+              <button
+                onClick={() => onPageChange(Math.max(1, currentPage - 1))}
+                disabled={currentPage === 1}
+                className="px-3 py-1.5 text-sm border border-gray-300 rounded-md disabled:opacity-50 hover:border-primary hover:text-primary transition-colors"
+              >
+                Trước
+              </button>
+              <span className="text-sm text-gray-600 px-2">
+                {currentPage}/{totalPages}
+              </span>
+              <button
+                onClick={() => onPageChange(Math.min(totalPages, currentPage + 1))}
+                disabled={currentPage === totalPages}
+                className="px-3 py-1.5 text-sm border border-gray-300 rounded-md disabled:opacity-50 hover:border-primary hover:text-primary transition-colors"
+              >
+                Sau
+              </button>
+            </div>
+          )}
+        </div>
       )}
     </div>
   );
 }
 
 /* ── Product form ── */
-function ProductForm({ product, allProducts, categories, onSave, onCancel }) {
+function ProductForm({ product, categories, onSave, onCancel }) {
   const isNew = !product.id;
   const [form, setForm] = useState(
     isNew ? { ...EMPTY_PRODUCT } : toProductForm(product),
@@ -242,7 +301,7 @@ function ProductForm({ product, allProducts, categories, onSave, onCancel }) {
   async function handleSubmit(e) {
     e.preventDefault();
     setSaving(true);
-    await onSave(fromProductForm(form, allProducts));
+    await onSave(fromProductForm(form));
     setSaving(false);
     showToast("✅ Đã lưu!");
   }
@@ -441,29 +500,70 @@ export default function AdminProductsPage() {
   const [categories, setCategories] = useState([]);
   const [editing, setEditing] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [searchInput, setSearchInput] = useState("");
+  const [search, setSearch] = useState("");
+  const [filterCat, setFilterCat] = useState("all");
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+  const [total, setTotal] = useState(0);
+
+  useEffect(() => {
+    const t = setTimeout(() => {
+      setSearch(searchInput.trim());
+      setPage(1);
+    }, 300);
+    return () => clearTimeout(t);
+  }, [searchInput]);
 
   useEffect(() => {
     if (authed) {
-      loadProducts();
       loadCategories();
     }
   }, [authed]);
+
+  useEffect(() => {
+    if (authed) loadProducts();
+  }, [authed, search, filterCat, page, pageSize]);
 
   async function loadProducts() {
     setLoading(true);
     try {
       await checkApiHealth();
-      const res = await fetch(`${API}/api/products`, {
+      const params = new URLSearchParams({
+        page: String(page),
+        pageSize: String(pageSize),
+      });
+      if (search) params.set("search", search);
+      if (filterCat !== "all") params.set("category", filterCat);
+
+      const res = await fetch(`${API}/api/products?${params.toString()}`, {
         headers: adminHeaders(),
       });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      setProducts(await res.json());
+      const data = await res.json();
+      if (Array.isArray(data)) {
+        setProducts(data);
+        setTotal(data.length);
+      } else {
+        setProducts(Array.isArray(data.items) ? data.items : []);
+        setTotal(Number(data.total) || 0);
+        if (Number.isFinite(Number(data.page))) setPage(Number(data.page));
+      }
     } catch {
       alert(
         "❌ Không kết nối được API production.\n\nKiểm tra VITE_API_URL và trạng thái backend.",
       );
     }
     setLoading(false);
+  }
+
+  async function fetchAllProductsRaw() {
+    const res = await fetch(`${API}/api/products`, {
+      headers: adminHeaders(),
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    return Array.isArray(data) ? data : (Array.isArray(data.items) ? data.items : []);
   }
 
   async function loadCategories() {
@@ -478,31 +578,51 @@ export default function AdminProductsPage() {
   }
 
   async function handleSave(product) {
+    let fullList = [];
+    try {
+      fullList = await fetchAllProductsRaw();
+    } catch {
+      alert("Không tải được danh sách sản phẩm hiện tại để lưu.");
+      return;
+    }
+    const normalized = product.id
+      ? product
+      : {
+          ...product,
+          id: Math.max(0, ...fullList.map((p) => Number(p.id) || 0)) + 1,
+        };
     const updated =
-      product.id && products.some((p) => p.id === product.id)
-        ? products.map((p) => (p.id === product.id ? product : p))
-        : [...products, product];
+      normalized.id && fullList.some((p) => p.id === normalized.id)
+        ? fullList.map((p) => (p.id === normalized.id ? normalized : p))
+        : [...fullList, normalized];
     const res = await fetch(`${API}/api/products`, {
       method: "PUT",
       headers: adminHeaders({ "Content-Type": "application/json" }),
       body: JSON.stringify(updated),
     });
     if (res.ok) {
-      setProducts(updated);
+      await loadProducts();
       setEditing(null);
     } else alert("Lưu thất bại – kiểm tra server");
   }
 
   async function handleDelete(id) {
-    const p = products.find((pr) => pr.id === id);
+    let fullList = [];
+    try {
+      fullList = await fetchAllProductsRaw();
+    } catch {
+      alert("Không tải được danh sách sản phẩm hiện tại để xóa.");
+      return;
+    }
+    const p = fullList.find((pr) => pr.id === id);
     if (!confirm(`Xóa sản phẩm "${p?.name}"?`)) return;
-    const updated = products.filter((pr) => pr.id !== id);
+    const updated = fullList.filter((pr) => pr.id !== id);
     const res = await fetch(`${API}/api/products`, {
       method: "PUT",
       headers: adminHeaders({ "Content-Type": "application/json" }),
       body: JSON.stringify(updated),
     });
-    if (res.ok) setProducts(updated);
+    if (res.ok) await loadProducts();
     else alert("Xóa thất bại – kiểm tra server");
   }
 
@@ -517,7 +637,6 @@ export default function AdminProductsPage() {
     return (
       <ProductForm
         product={editing}
-        allProducts={products}
         categories={categories}
         onSave={handleSave}
         onCancel={() => setEditing(null)}
@@ -529,8 +648,23 @@ export default function AdminProductsPage() {
       <AdminNav title="📦 Sản Phẩm" />
       <ProductList
         products={products}
+        total={total}
+        page={page}
+        pageSize={pageSize}
+        search={searchInput}
+        filterCat={filterCat}
         categories={categories}
         loading={loading}
+        onSearchChange={setSearchInput}
+        onFilterCatChange={(v) => {
+          setFilterCat(v);
+          setPage(1);
+        }}
+        onPageChange={setPage}
+        onPageSizeChange={(v) => {
+          setPageSize(v);
+          setPage(1);
+        }}
         onAdd={() => setEditing({ ...EMPTY_PRODUCT })}
         onEdit={(p) => setEditing({ ...p })}
         onDelete={handleDelete}
