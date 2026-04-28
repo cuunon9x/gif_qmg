@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { HashRouter, Routes, Route } from 'react-router-dom'
 import { CartProvider } from './context/CartContext'
 import { CatalogProvider } from './context/CatalogContext'
@@ -27,9 +27,8 @@ function App() {
             <Navbar onCartOpen={() => setCartOpen(true)} />
             <Routes>
               <Route path="/" element={<HomePage />} />
-              <Route path="/qua-tet" element={<CategoryPage category="qua-tet" />} />
-              <Route path="/banh-trung-thu" element={<CategoryPage category="banh-trung-thu" />} />
-              <Route path="/san-pham-khac" element={<CategoryPage category="san-pham-khac" />} />
+              <Route path="/qua-tang-doanh-nghiep" element={<CategoryPage category="qua-tang-doanh-nghiep" />} />
+              <Route path="/qua-tang-suc-khoe" element={<CategoryPage category="qua-tang-suc-khoe" />} />
               <Route path="/thiet-ke-rieng" element={<ServicePage />} />
               <Route path="/:category" element={<CategoryPage />} />
               <Route path="/san-pham/:slug" element={<ProductDetailPage onCartOpen={() => setCartOpen(true)} />} />
@@ -50,3 +49,4 @@ function App() {
 }
 
 export default App
+

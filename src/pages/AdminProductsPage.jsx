@@ -10,9 +10,8 @@ import {
 } from "../components/AdminShared";
 
 const PRODUCT_CATS = [
-  { value: "qua-tet", label: "Quà Tết" },
-  { value: "banh-trung-thu", label: "Bánh Trung Thu" },
-  { value: "san-pham-khac", label: "Sản Phẩm Khác" },
+  { value: "qua-tang-doanh-nghiep", label: "Quà Tặng Doanh Nghiệp" },
+  { value: "qua-tang-suc-khoe", label: "Quà Tặng Sức Khỏe" },
 ];
 
 const EMPTY_PRODUCT = {
@@ -21,7 +20,7 @@ const EMPTY_PRODUCT = {
   name: "",
   price: "",
   priceNum: 0,
-  category: "qua-tet",
+  category: "qua-tang-doanh-nghiep",
   subcat: "",
   subcatLabel: "",
   featured: false,

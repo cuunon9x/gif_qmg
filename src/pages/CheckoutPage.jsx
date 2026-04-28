@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+﻿import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
 import useInView from '../hooks/useInView'
@@ -14,7 +14,6 @@ export default function CheckoutPage() {
 
   useEffect(() => { window.scrollTo(0, 0) }, [])
 
-  // Redirect if cart empty and not placed
   useEffect(() => {
     if (!done && items.length === 0) navigate('/', { replace: true })
   }, [items, done, navigate])
@@ -30,7 +29,7 @@ export default function CheckoutPage() {
 
     try {
       const { ok, message } = await submitWeb3Forms({
-        subject: `🛒 Đơn hàng mới – ${form.name} (${form.phone})`,
+        subject: `Đơn hàng mới – ${form.name} (${form.phone})`,
         order_items: orderLines,
         order_total: total,
         ...form,
@@ -51,18 +50,21 @@ export default function CheckoutPage() {
       <main className="pt-20 min-h-screen flex items-center justify-center px-4">
         <div className="text-center max-w-md">
           <div className="text-7xl mb-5">🎁</div>
-          <h1 className="text-2xl font-extrabold text-gray-800 mb-3">Đặt Hàng Thành Công!</h1>
+          <h1 className="text-2xl font-extrabold text-gray-800 mb-3">Đặt hàng thành công!</h1>
+          <p className="text-gray-500 text-sm leading-relaxed mb-2">
+            Xin chào Quý khách 👋 QMG đã nhận được thông tin của bạn.
+          </p>
           <p className="text-gray-500 text-sm leading-relaxed mb-6">
-            Cảm ơn bạn đã đặt hàng. Đội ngũ QMG Gift sẽ liên hệ xác nhận đơn và báo giá chi tiết trong vòng 30 phút làm việc.
+            Đội ngũ tư vấn sẽ liên hệ trong 5–15 phút để gửi báo giá và hỗ trợ chi tiết. Cảm ơn bạn đã quan tâm đến QMG!
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link to="/"
               className="bg-primary text-white font-bold px-7 py-3 rounded-full hover:bg-primary-dark transition-colors text-sm">
-              Về Trang Chủ
+              Về trang chủ
             </Link>
-            <a href="tel:0909123456"
+            <a href="tel:0938777888"
               className="border border-primary text-primary font-semibold px-7 py-3 rounded-full hover:bg-primary-light transition-colors text-sm">
-              📞 Gọi Ngay
+              Gọi ngay
             </a>
           </div>
         </div>
@@ -72,25 +74,15 @@ export default function CheckoutPage() {
 
   return (
     <main className="pt-20 min-h-screen bg-gray-50">
-      {/* Breadcrumb */}
-      {/* <div className="bg-primary-light py-3 px-4">
-        <div className="max-w-6xl mx-auto text-xs text-gray-500 flex items-center gap-1.5">
-          <Link to="/" className="hover:text-primary">Trang Chủ</Link>
-          <span>/</span>
-          <span className="text-gray-700 font-medium">Đặt Hàng</span>
-        </div>
-      </div> */}
-
       <div className="max-w-6xl mx-auto px-4 py-10">
-        <h1 className="text-2xl font-extrabold text-gray-800 mb-8">Xác Nhận Đơn Hàng</h1>
+        <h1 className="text-2xl font-extrabold text-gray-800 mb-8">Xác nhận đơn hàng</h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
-          {/* Form */}
           <div ref={ref} className={`lg:col-span-3 fade-up ${inView ? 'in-view' : ''}`}>
             <div className="bg-white rounded-2xl p-6 shadow-sm">
               <h2 className="font-bold text-gray-700 text-base mb-5 flex items-center gap-2">
                 <span className="w-6 h-6 rounded-full bg-primary text-white text-xs flex items-center justify-center font-bold">1</span>
-                Thông Tin Liên Hệ
+                Thông tin liên hệ
               </h2>
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -103,7 +95,7 @@ export default function CheckoutPage() {
                   <div>
                     <label className="block text-xs font-medium text-gray-700 mb-1">Số điện thoại *</label>
                     <input name="phone" required value={form.phone} onChange={handleChange}
-                      placeholder="0909 xxx xxx"
+                      placeholder="0938 xxx xxx"
                       className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary" />
                   </div>
                 </div>
@@ -135,22 +127,21 @@ export default function CheckoutPage() {
                 <div className="pt-2">
                   <button type="submit" disabled={loading}
                     className="w-full bg-primary text-white py-3.5 rounded-full font-bold hover:bg-primary-dark transition-colors text-sm shadow-lg disabled:opacity-60">
-                    {loading ? 'Đang gửi đơn...' : '🎁 Xác Nhận Đặt Hàng'}
+                    {loading ? 'Đang gửi đơn...' : 'Xác nhận đặt hàng'}
                   </button>
                   <p className="text-xs text-gray-400 text-center mt-2">
-                    Nhân viên sẽ gọi xác nhận & báo giá chi tiết trong 30 phút.
+                    Nhân viên sẽ gọi xác nhận và báo giá chi tiết trong 5–15 phút (giờ làm việc 7h30–17h).
                   </p>
                 </div>
               </form>
             </div>
           </div>
 
-          {/* Order summary */}
           <div className="lg:col-span-2">
             <div className="bg-white rounded-2xl p-6 shadow-sm sticky top-24">
               <h2 className="font-bold text-gray-700 text-base mb-5 flex items-center gap-2">
                 <span className="w-6 h-6 rounded-full bg-primary text-white text-xs flex items-center justify-center font-bold">2</span>
-                Đơn Hàng ({totalQty} sản phẩm)
+                Đơn hàng ({totalQty} sản phẩm)
               </h2>
 
               <div className="flex flex-col gap-4 mb-5">
@@ -188,7 +179,7 @@ export default function CheckoutPage() {
               </div>
 
               <div className="mt-5 p-3 bg-primary-light rounded-xl text-xs text-gray-600">
-                ✨ <strong>Ưu đãi:</strong> Thiết kế hộp quà theo thương hiệu doanh nghiệp – hoàn toàn miễn phí.
+                <strong>Ưu đãi:</strong> Thiết kế hộp quà theo thương hiệu doanh nghiệp – hoàn toàn miễn phí.
               </div>
 
               <Link to="/"

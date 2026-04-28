@@ -1,5 +1,6 @@
 import Hero from '../sections/Hero'
 import CategoryNav from '../sections/CategoryNav'
+import CompanyIntro from '../sections/CompanyIntro'
 import FeaturedProducts from '../sections/FeaturedProducts'
 import CategoryPreviews from '../sections/CategoryPreviews'
 import WhyUs from '../sections/WhyUs'
@@ -13,6 +14,7 @@ export default function HomePage() {
     <main>
       <Hero />
       <CategoryNav />
+      <CompanyIntro />
       <FeaturedProducts />
       <WhyUs />
       <CategoryPreviews />

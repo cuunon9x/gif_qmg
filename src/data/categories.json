@@ -1,34 +1,23 @@
 [
   {
-    "slug": "qua-tet",
-    "label": "Quà Tết",
-    "shortLabel": "Quà Tết",
-    "description": "Hộp quà Tết sang trọng, giỏ quà tinh tế – thiết kế riêng theo thương hiệu doanh nghiệp.",
-    "icon": "🧧",
-    "image": "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=600&q=80",
+    "slug": "qua-tang-suc-khoe",
+    "label": "Quà Tặng Sức Khỏe",
+    "shortLabel": "Sức khỏe",
+    "description": "Các sản phẩm quà tặng sức khỏe và dinh dưỡng phù hợp cho doanh nghiệp, nhân viên và đối tác.",
+    "icon": "💪",
+    "image": "https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=600&q=80",
+    "color": "from-green-700 to-emerald-500",
+    "count": 3,
+    "isService": false
+  },
+  {
+    "slug": "qua-tang-doanh-nghiep",
+    "label": "Quà Tặng Doanh Nghiệp",
+    "shortLabel": "Doanh nghiệp",
+    "description": "Giải pháp quà tặng mang dấu ấn thương hiệu doanh nghiệp: giftset, ly giữ nhiệt, sổ tay và quà sự kiện.",
+    "icon": "🎁",
+    "image": "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=600&q=80",
     "color": "from-red-700 to-red-500",
-    "count": 12,
-    "isService": false
-  },
-  {
-    "slug": "banh-trung-thu",
-    "label": "Bánh Trung Thu",
-    "shortLabel": "Trung Thu",
-    "description": "Bánh trung thu nhân thập cẩm, nhân đậu xanh cao cấp – hộp quà thiết kế độc quyền.",
-    "icon": "🥮",
-    "image": "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&q=80",
-    "color": "from-amber-600 to-yellow-500",
-    "count": 8,
-    "isService": false
-  },
-  {
-    "slug": "san-pham-khac",
-    "label": "Sản Phẩm Khác",
-    "shortLabel": "Sản phẩm",
-    "description": "Rượu vang nhập khẩu, hạt mứt cao cấp, trà & cà phê đặc sản Việt Nam.",
-    "icon": "🍷",
-    "image": "https://images.unsplash.com/photo-1570197788417-0e82375c9371?w=600&q=80",
-    "color": "from-purple-700 to-pink-500",
     "count": 10,
     "isService": false
   },
@@ -36,22 +25,11 @@
     "slug": "thiet-ke-rieng",
     "label": "Thiết Kế Riêng",
     "shortLabel": "Thiết kế",
-    "description": "Thiết kế hộp quà theo logo & bộ nhận diện thương hiệu. Miễn phí thiết kế – giao hàng tận nơi.",
+    "description": "Thiết kế và in logo theo nhận diện thương hiệu, tối ưu trải nghiệm quà tặng doanh nghiệp.",
     "icon": "✏️",
     "image": "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=600&q=80",
     "color": "from-primary to-primary-dark",
     "count": null,
     "isService": true
-  },
-  {
-    "slug": "ewrer",
-    "label": "ewrer",
-    "shortLabel": "",
-    "description": "",
-    "icon": "",
-    "image": "",
-    "color": "from-red-700 to-red-500",
-    "count": null,
-    "isService": false
   }
 ]

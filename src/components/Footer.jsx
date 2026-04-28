@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+﻿import { Link } from 'react-router-dom'
 
 export default function Footer() {
   return (
@@ -16,14 +16,14 @@ export default function Footer() {
               </div>
             </div>
             <p className="text-sm leading-relaxed text-gray-400">
-              Chuyên cung cấp giải pháp quà tặng doanh nghiệp cao cấp – quà Tết, bánh Trung Thu, thiết kế hộp quà riêng theo thương hiệu.
+              QMG cung cấp giải pháp quà tặng doanh nghiệp và quà tặng sức khỏe, kết hợp thiết kế sáng tạo với in logo theo nhận diện thương hiệu.
             </p>
             <div className="flex gap-3 mt-4">
-              <a href="https://facebook.com/quatangqmg" target="_blank" rel="noreferrer"
+              <a href="https://facebook.com/QuangMinhGiftQMG" target="_blank" rel="noreferrer"
                 className="w-9 h-9 rounded-full bg-gray-700 hover:bg-primary flex items-center justify-center transition-colors text-sm">
                 f
               </a>
-              <a href="https://zalo.me/0909123456" target="_blank" rel="noreferrer"
+              <a href="https://zalo.me/0938777888" target="_blank" rel="noreferrer"
                 className="w-9 h-9 rounded-full bg-gray-700 hover:bg-primary flex items-center justify-center transition-colors text-xs font-bold">
                 Z
               </a>
@@ -34,9 +34,8 @@ export default function Footer() {
           <div>
             <h4 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">Sản Phẩm</h4>
             <ul className="space-y-2 text-sm">
-              <li><Link to="/qua-tet" className="hover:text-primary transition-colors">Quà Tết Doanh Nghiệp</Link></li>
-              <li><Link to="/banh-trung-thu" className="hover:text-primary transition-colors">Bánh Trung Thu</Link></li>
-              <li><Link to="/san-pham-khac" className="hover:text-primary transition-colors">Rượu Vang & Hạt Mứt</Link></li>
+              <li><Link to="/qua-tang-doanh-nghiep" className="hover:text-primary transition-colors">Quà Tặng Doanh Nghiệp</Link></li>
+              <li><Link to="/qua-tang-suc-khoe" className="hover:text-primary transition-colors">Quà Tặng Sức Khỏe</Link></li>
               <li><Link to="/thiet-ke-rieng" className="hover:text-primary transition-colors">Thiết Kế Hộp Quà Riêng</Link></li>
             </ul>
           </div>
@@ -58,19 +57,19 @@ export default function Footer() {
             <ul className="space-y-3 text-sm">
               <li className="flex items-start gap-2">
                 <span className="text-primary">📍</span>
-                <span>123 Đường ABC, Phường XYZ, TP. Hồ Chí Minh</span>
+                <span>3/49 đường Thủ Khoa Huân, Khu phố Bình Thuận 1, TP. Thuận An, Bình Dương</span>
               </li>
               <li className="flex items-center gap-2">
                 <span className="text-primary">📞</span>
-                <a href="tel:0909123456" className="hover:text-primary transition-colors">0909 123 456</a>
+                <a href="tel:0938777888" className="hover:text-primary transition-colors">0938 777 888 - 0976 926 868</a>
               </li>
               <li className="flex items-center gap-2">
                 <span className="text-primary">✉️</span>
-                <a href="mailto:info@quatangqmg.vn" className="hover:text-primary transition-colors">info@quatangqmg.vn</a>
+                <a href="mailto:quangminhgift.qmg@gmail.com" className="hover:text-primary transition-colors">quangminhgift.qmg@gmail.com</a>
               </li>
               <li className="flex items-center gap-2">
                 <span className="text-primary">⏰</span>
-                <span>T2 – T7: 8:00 – 18:00</span>
+                <span>7:30 – 17:00</span>
               </li>
             </ul>
           </div>

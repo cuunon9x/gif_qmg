@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+﻿import { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
 import ProductCard from '../components/ProductCard'
@@ -28,8 +28,8 @@ export default function ProductDetailPage({ onCartOpen }) {
   if (loading) {
     return (
       <main className="pt-24 min-h-screen flex flex-col items-center justify-center text-center px-4">
-        <div className="text-5xl mb-4">⏳</div>
-        <h2 className="text-xl font-bold text-gray-700 mb-2">Đang tải sản phẩm...</h2>
+        <div className="text-5xl mb-4">â³</div>
+        <h2 className="text-xl font-bold text-gray-700 mb-2">Äang táº£i sáº£n pháº©m...</h2>
       </main>
     )
   }
@@ -37,9 +37,9 @@ export default function ProductDetailPage({ onCartOpen }) {
   if (!product) {
     return (
       <main className="pt-24 min-h-screen flex flex-col items-center justify-center text-center px-4">
-        <div className="text-5xl mb-4">😕</div>
-        <h2 className="text-xl font-bold text-gray-700 mb-2">Không tìm thấy sản phẩm</h2>
-        <Link to="/" className="text-primary hover:underline text-sm">← Về trang chủ</Link>
+        <div className="text-5xl mb-4">ðŸ˜•</div>
+        <h2 className="text-xl font-bold text-gray-700 mb-2">KhÃ´ng tÃ¬m tháº¥y sáº£n pháº©m</h2>
+        <Link to="/" className="text-primary hover:underline text-sm">â† Vá» trang chá»§</Link>
       </main>
     )
   }
@@ -92,11 +92,11 @@ export default function ProductDetailPage({ onCartOpen }) {
             {/* Contents */}
             {product.contents && (
               <div className="bg-primary-light rounded-xl p-5 mb-6">
-                <h3 className="font-bold text-gray-700 text-sm mb-3">📦 Thành Phần Quà</h3>
+                <h3 className="font-bold text-gray-700 text-sm mb-3">ðŸ“¦ ThÃ nh Pháº§n QuÃ </h3>
                 <ul className="space-y-1.5">
                   {product.contents.map((item, i) => (
                     <li key={i} className="flex items-start gap-2 text-sm text-gray-600">
-                      <span className="text-primary mt-0.5">✓</span>{item}
+                      <span className="text-primary mt-0.5">âœ“</span>{item}
                     </li>
                   ))}
                 </ul>
@@ -105,21 +105,21 @@ export default function ProductDetailPage({ onCartOpen }) {
 
             <div className="grid grid-cols-2 gap-3 text-xs text-gray-500 mb-6">
               <div className="bg-gray-50 rounded-lg p-3">
-                <div className="font-semibold text-gray-700 mb-0.5">Số lượng tối thiểu</div>
-                <div>{product.minOrder} sản phẩm</div>
+                <div className="font-semibold text-gray-700 mb-0.5">Sá»‘ lÆ°á»£ng tá»‘i thiá»ƒu</div>
+                <div>{product.minOrder} sáº£n pháº©m</div>
               </div>
               <div className="bg-gray-50 rounded-lg p-3">
-                <div className="font-semibold text-gray-700 mb-0.5">Thời gian sản xuất</div>
+                <div className="font-semibold text-gray-700 mb-0.5">Thá»i gian sáº£n xuáº¥t</div>
                 <div>{product.lead}</div>
               </div>
             </div>
 
             {/* Qty + Add to cart */}
             <div className="flex items-center gap-3 mb-4">
-              <label className="text-sm font-medium text-gray-700">Số lượng:</label>
+              <label className="text-sm font-medium text-gray-700">Sá»‘ lÆ°á»£ng:</label>
               <div className="flex items-center border border-gray-200 rounded-xl overflow-hidden">
                 <button onClick={() => setQty(q => Math.max(1, q - 1))}
-                  className="w-10 h-10 flex items-center justify-center hover:bg-gray-100 text-gray-600 font-bold transition-colors text-lg">−</button>
+                  className="w-10 h-10 flex items-center justify-center hover:bg-gray-100 text-gray-600 font-bold transition-colors text-lg">âˆ’</button>
                 <span className="w-12 h-10 flex items-center justify-center text-sm font-bold border-x border-gray-200">{qty}</span>
                 <button onClick={() => setQty(q => q + 1)}
                   className="w-10 h-10 flex items-center justify-center hover:bg-gray-100 text-gray-600 font-bold transition-colors text-lg">+</button>
@@ -131,20 +131,20 @@ export default function ProductDetailPage({ onCartOpen }) {
                 onClick={handleAddToCart}
                 className={`w-full font-bold py-3 rounded-full transition-all text-sm shadow ${ addedMsg ? 'bg-green-500 text-white' : 'bg-primary text-white hover:bg-primary-dark'}`}
               >
-                {addedMsg ? '✓ Đã thêm vào giỏ hàng!' : '🛒 Thêm Vào Giỏ Hàng'}
+                {addedMsg ? 'âœ“ ÄÃ£ thÃªm vÃ o giá» hÃ ng!' : 'ðŸ›’ ThÃªm VÃ o Giá» HÃ ng'}
               </button>
               <div className="flex gap-3">
-                <a href="https://zalo.me/0909123456" target="_blank" rel="noreferrer"
+                <a href="https://zalo.me/0938777888" target="_blank" rel="noreferrer"
                   className="flex-1 text-center border-2 border-primary text-primary font-bold py-2.5 rounded-full hover:bg-primary-light transition-colors text-sm">
-                  💬 Zalo
+                  ðŸ’¬ Zalo
                 </a>
-                <a href="tel:0909123456"
+                <a href="tel:0938777888"
                   className="flex-1 text-center border-2 border-gray-300 text-gray-700 font-bold py-2.5 rounded-full hover:bg-gray-50 transition-colors text-sm">
-                  📞 Gọi Ngay
+                  ðŸ“ž Gá»i Ngay
                 </a>
               </div>
             </div>
-            <p className="text-xs text-gray-400 mt-3 text-center">✨ Miễn phí thiết kế riêng theo thương hiệu doanh nghiệp</p>
+            <p className="text-xs text-gray-400 mt-3 text-center">âœ¨ Miá»…n phÃ­ thiáº¿t káº¿ riÃªng theo thÆ°Æ¡ng hiá»‡u doanh nghiá»‡p</p>
           </div>
         </div>
       </section>
@@ -153,7 +153,7 @@ export default function ProductDetailPage({ onCartOpen }) {
       {related.length > 0 && (
         <section className="py-10 bg-gray-50">
           <div className="max-w-7xl mx-auto px-4">
-            <h2 className="text-xl font-bold text-gray-800 mb-6">Sản Phẩm Liên Quan</h2>
+            <h2 className="text-xl font-bold text-gray-800 mb-6">Sáº£n Pháº©m LiÃªn Quan</h2>
             <div ref={relRef} className={`grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5 fade-up ${relIn ? 'in-view' : ''}`}>
               {related.map(p => <ProductCard key={p.id} product={p} />)}
             </div>
@@ -163,3 +163,4 @@ export default function ProductDetailPage({ onCartOpen }) {
     </main>
   )
 }
+

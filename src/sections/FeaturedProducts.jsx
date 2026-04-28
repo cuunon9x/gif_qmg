@@ -12,10 +12,10 @@ export default function FeaturedProducts() {
     <section className="py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4">
         <div ref={headRef} className={`text-center mb-10 fade-up ${headIn ? 'in-view' : ''}`}>
-          <span className="text-primary font-semibold text-xs uppercase tracking-widest">Nổi Bật</span>
-          <h2 className="text-2xl md:text-3xl font-bold mt-1 text-gray-800">Sản Phẩm Được Yêu Thích Nhất</h2>
+          <span className="text-primary font-semibold text-xs uppercase tracking-widest">Sản phẩm nổi bật</span>
+          <h2 className="text-2xl md:text-3xl font-bold mt-1 text-gray-800">Gợi ý từ QMG</h2>
           <p className="text-gray-500 text-sm mt-2 max-w-lg mx-auto">
-            Được hơn 500 doanh nghiệp tin chọn – từ start-up đến tập đoàn lớn.
+            Danh mục nổi bật: Quà Tặng Sức Khỏe, Quà Tặng Doanh Nghiệp — chọn mẫu phù hợp chiến dịch của bạn.
           </p>
         </div>
 

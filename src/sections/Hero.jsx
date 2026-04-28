@@ -4,17 +4,17 @@ import { Link } from 'react-router-dom'
 const SLIDES = [
   {
     image: 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=1600&q=80',
-    tag: 'Quà Tết 2026',
-    title: 'Sang Trọng Trong\nTừng Hộp Quà',
+    tag: 'Quà Tặng Doanh Nghiệp',
+    title: 'Sang Trọng Trong\nTừng Món Quà',
     sub: 'Thiết kế riêng theo thương hiệu doanh nghiệp – miễn phí thiết kế – giao hàng toàn quốc.',
-    cta: { label: 'Xem Quà Tết', to: '/qua-tet' },
+    cta: { label: 'Xem Quà Doanh Nghiệp', to: '/qua-tang-doanh-nghiep' },
   },
   {
-    image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=1600&q=80',
-    tag: 'Bánh Trung Thu 2026',
-    title: 'Hộp Bánh Trung Thu\nCao Cấp',
-    sub: 'Nhân thập cẩm, nhân đậu xanh, nhân sầu riêng – hộp thiếc in logo riêng cho doanh nghiệp.',
-    cta: { label: 'Xem Bánh Trung Thu', to: '/banh-trung-thu' },
+    image: 'https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=1600&q=80',
+    tag: 'Quà Tặng Sức Khỏe',
+    title: 'Quà Tặng Sống Khỏe\nCho Doanh Nghiệp',
+    sub: 'Granola, ngũ cốc và thực phẩm dinh dưỡng phù hợp cho nhân sự, đối tác và các chiến dịch chăm sóc sức khỏe.',
+    cta: { label: 'Xem Quà Sức Khỏe', to: '/qua-tang-suc-khoe' },
   },
   {
     image: 'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1600&q=80',
@@ -24,11 +24,11 @@ const SLIDES = [
     cta: { label: 'Thiết Kế Ngay', to: '/thiet-ke-rieng' },
   },
   {
-    image: 'https://images.unsplash.com/photo-1570197788417-0e82375c9371?w=1600&q=80',
-    tag: 'Rượu Vang & Quà Cao Cấp',
-    title: 'Giỏ Quà Nhập Khẩu\nĐẳng Cấp',
-    sub: 'Rượu vang Pháp, Ý – hạt mứt cao cấp – tổ hợp quà tặng lý tưởng cho lãnh đạo & đối tác VIP.',
-    cta: { label: 'Xem Sản Phẩm', to: '/san-pham-khac' },
+    image: 'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1600&q=80',
+    tag: 'Slogan QMG',
+    title: 'Trao Yêu Thương,\nNhận Hạnh Phúc',
+    sub: 'Mỗi sản phẩm tại QMG không chỉ đẹp về hình thức mà còn truyền tải thông điệp thương hiệu một cách hiệu quả.',
+    cta: { label: 'Xem Sản Phẩm', to: '/qua-tang-doanh-nghiep' },
   },
 ]
 
@@ -82,7 +82,7 @@ export default function Hero() {
               {slide.cta.label}
             </Link>
             <a
-              href="tel:0909123456"
+              href="tel:0938777888"
               className="bg-white/15 backdrop-blur-sm border border-white/30 text-white font-semibold px-7 py-3 rounded-full hover:bg-white/25 transition-colors text-sm"
             >
               📞 Tư Vấn Miễn Phí

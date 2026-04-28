@@ -7,7 +7,7 @@ const REASONS = [
   { icon: '🚚', title: 'Giao Hàng Toàn Quốc', desc: 'Đội ngũ logistics chuyên nghiệp, giao tận địa chỉ trong và ngoài TP. HCM, đúng hẹn theo hợp đồng.' },
   { icon: '💰', title: 'Giá Tốt – Số Lượng Lớn', desc: 'Bảng giá linh hoạt theo số lượng – đơn từ 50 hộp trở lên được chiết khấu hấp dẫn.' },
   { icon: '⚡', title: 'Phản Hồi Trong 24h', desc: 'Đội tư vấn làm việc T2–T7, phản hồi báo giá và bản thiết kế thử trong vòng 24 giờ làm việc.' },
-  { icon: '🤝', title: '500+ Doanh Nghiệp Tin Dùng', desc: 'Từ startup đến tập đoàn lớn – hơn 500 doanh nghiệp đã lựa chọn QMG Gift cho mùa quà doanh nghiệp.' },
+  { icon: '🤝', title: 'Đồng Hành Tận Tâm', desc: 'Đội ngũ QMG luôn sẵn sàng hỗ trợ nhanh chóng, tư vấn chi tiết và đồng hành cùng doanh nghiệp trong mọi chiến dịch quà tặng.' },
 ]
 
 export default function WhyUs() {
@@ -22,7 +22,7 @@ export default function WhyUs() {
         <div className="max-w-7xl mx-auto px-4">
           <div ref={headRef} className={`text-center mb-12 fade-up ${headIn ? 'in-view' : ''}`}>
             <span className="text-primary font-semibold text-xs uppercase tracking-widest">Tại Sao Chọn Chúng Tôi</span>
-            <h2 className="text-2xl md:text-3xl font-bold mt-1 text-gray-800">QMG Gift – Giải Pháp Quà Tặng Tin Cậy</h2>
+            <h2 className="text-2xl md:text-3xl font-bold mt-1 text-gray-800">QMG – Giải pháp quà tặng tin cậy</h2>
           </div>
           <div ref={gridRef} className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 fade-up ${gridIn ? 'in-view' : ''}`}>
             {REASONS.map((r, i) => (
@@ -61,7 +61,7 @@ export default function WhyUs() {
                 className="bg-primary text-white font-bold px-7 py-3 rounded-full hover:bg-primary-dark transition-colors text-sm">
                 Đặt Thiết Kế Ngay
               </Link>
-              <a href="tel:0909123456"
+              <a href="tel:0938777888"
                 className="border border-white/40 text-white font-semibold px-7 py-3 rounded-full hover:bg-white/10 transition-colors text-sm">
                 Gọi Tư Vấn
               </a>

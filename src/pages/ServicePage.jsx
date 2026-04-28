@@ -134,7 +134,7 @@ export default function ServicePage() {
                   <div>
                     <label className="block text-xs font-medium text-gray-700 mb-1">Số điện thoại *</label>
                     <input name="phone" required value={form.phone} onChange={handleChange}
-                      placeholder="0909 xxx xxx"
+                      placeholder="0938 xxx xxx"
                       className="w-full border border-gray-200 bg-white rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40" />
                   </div>
                 </div>
