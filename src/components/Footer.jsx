@@ -1,4 +1,5 @@
 ﻿import { Link } from 'react-router-dom'
+import BrandLockup from './BrandLockup'
 
 export default function Footer() {
   return (
@@ -8,12 +9,8 @@ export default function Footer() {
 
           {/* Brand */}
           <div>
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-9 h-9 rounded-full bg-primary flex items-center justify-center text-white font-bold text-sm">QMG</div>
-              <div>
-                <div className="font-bold text-white text-base leading-none">QMG Gift</div>
-                <div className="text-[10px] text-primary font-medium tracking-wide">Quà Tặng Doanh Nghiệp</div>
-              </div>
+            <div className="mb-4">
+              <BrandLockup footer />
             </div>
             <p className="text-sm leading-relaxed text-gray-400">
               QMG cung cấp giải pháp quà tặng doanh nghiệp và quà tặng sức khỏe, kết hợp thiết kế sáng tạo với in logo theo nhận diện thương hiệu.

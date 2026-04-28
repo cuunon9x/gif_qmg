@@ -5,3 +5,4 @@ server
 server/*
 .env
 .env.example
+Checklist .docx/*

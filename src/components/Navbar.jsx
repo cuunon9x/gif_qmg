@@ -1,7 +1,8 @@
 ﻿import { useState, useEffect } from 'react'
-import { Link, NavLink, useLocation } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
 import { useCatalog } from '../context/CatalogContext'
+import BrandLockup from './BrandLockup'
 
 export default function Navbar({ onCartOpen }) {
   const [open, setOpen] = useState(false)
@@ -35,14 +36,7 @@ export default function Navbar({ onCartOpen }) {
       </div>
 
       <nav className="max-w-7xl mx-auto px-4 flex items-center justify-between h-16">
-        {/* Logo */}
-        <Link to="/" className="flex items-center gap-2 shrink-0">
-          <div className="w-9 h-9 rounded-full bg-primary flex items-center justify-center text-white font-bold text-sm">QMG</div>
-          <div className="leading-tight">
-            <div className="font-bold text-gray-900 text-base leading-none">QMG Gift</div>
-            <div className="text-[10px] text-primary font-medium tracking-wide">Quà Tặng Doanh Nghiệp</div>
-          </div>
-        </Link>
+        <BrandLockup />
 
         {/* Desktop nav */}
         <ul className="hidden lg:flex items-center gap-1">

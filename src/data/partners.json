@@ -1,0 +1,18 @@
+[
+  { "name": "VIB", "note": "Ngân hàng Quốc tế Việt Nam", "logo": "vib.jpg" },
+  { "name": "MB", "note": "Ngân hàng Quân đội", "logo": "mb.jpg" },
+  { "name": "VietinBank", "note": "", "logo": "vietin.png" },
+  { "name": "Vietcombank", "note": "", "logo": "Vietcombank.png" },
+  { "name": "BIC", "note": "Bảo hiểm BIDV", "logo": "bic.png" },
+  { "name": "Prudential", "note": "", "logo": "prudential.jpg" },
+  { "name": "TPBank", "note": "Ngân hàng Tiên Phong", "logo": "TPBank.png" },
+  { "name": "Bảo Việt", "note": "Tập đoàn Bảo Việt", "logo": "baoviet.webp" },
+  { "name": "LPBank", "note": "Ngân hàng Lộc Phát Việt Nam", "logo": "lp.png" },
+  { "name": "Vincom Retail", "note": "", "logo": "vincom.jpg" },
+  { "name": "Central", "note": "Build Trust. Create Value", "logo": "central.png" },
+  { "name": "Hòa Phát", "note": "", "logo": "hoaphat.png" },
+  { "name": "Ba Thanh", "note": "Vôi công nghiệp", "logo": "bathanh.png" },
+  { "name": "Nam Long", "note": "", "logo": "namlong.webp" },
+  { "name": "Bảo Minh", "note": "", "logo": "baominh.png" },
+  { "name": "PNJ", "note": "Vàng bạc đá quý Phú Nhuận", "logo": "pnj.jpg" }
+]
