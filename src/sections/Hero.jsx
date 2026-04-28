@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 const SLIDES = [
@@ -16,20 +16,6 @@ const SLIDES = [
     sub: 'Granola, ngũ cốc và thực phẩm dinh dưỡng phù hợp cho nhân sự, đối tác và các chiến dịch chăm sóc sức khỏe.',
     cta: { label: 'Xem Quà Sức Khỏe', to: '/qua-tang-suc-khoe' },
   },
-  {
-    image: 'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1600&q=80',
-    tag: 'Thiết Kế Riêng',
-    title: 'Hộp Quà Mang\nDấu Ấn Thương Hiệu',
-    sub: '100% miễn phí thiết kế – in logo, màu sắc theo bộ nhận diện doanh nghiệp bạn.',
-    cta: { label: 'Thiết Kế Ngay', to: '/thiet-ke-rieng' },
-  },
-  {
-    image: 'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1600&q=80',
-    tag: 'Slogan QMG',
-    title: 'Trao Yêu Thương,\nNhận Hạnh Phúc',
-    sub: 'Mỗi sản phẩm tại QMG không chỉ đẹp về hình thức mà còn truyền tải thông điệp thương hiệu một cách hiệu quả.',
-    cta: { label: 'Xem Sản Phẩm', to: '/qua-tang-doanh-nghiep' },
-  },
 ]
 
 const STATS = [
@@ -41,11 +27,19 @@ const STATS = [
 
 export default function Hero() {
   const [current, setCurrent] = useState(0)
+  const [userInteracted, setUserInteracted] = useState(false)
+
+  const reducedMotion = useMemo(() => {
+    if (typeof window === 'undefined') return false
+    return window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches || false
+  }, [])
 
   useEffect(() => {
-    const timer = setInterval(() => setCurrent(i => (i + 1) % SLIDES.length), 4000)
+    if (reducedMotion) return
+    if (userInteracted) return
+    const timer = setInterval(() => setCurrent(i => (i + 1) % SLIDES.length), 9000)
     return () => clearInterval(timer)
-  }, [])
+  }, [reducedMotion, userInteracted])
 
   const slide = SLIDES[current]
 
@@ -66,7 +60,7 @@ export default function Hero() {
       <div className="relative flex-1 flex flex-col justify-center max-w-7xl mx-auto px-4 md:px-16 py-20">
         <div key={current} className="max-w-xl">
           <span className="hero-badge inline-block bg-primary/90 text-white text-xs font-semibold px-3 py-1.5 rounded-full mb-4 tracking-wide">
-            ✨ {slide.tag}
+            {slide.tag}
           </span>
           <h1 className="hero-title text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-5 whitespace-pre-line">
             {slide.title}
@@ -77,16 +71,26 @@ export default function Hero() {
           <div className="hero-cta flex flex-wrap gap-3">
             <Link
               to={slide.cta.to}
+              onClick={() => setUserInteracted(true)}
               className="btn-glow bg-primary text-white font-bold px-7 py-3 rounded-full hover:bg-primary-dark transition-colors text-sm shadow-lg"
             >
               {slide.cta.label}
             </Link>
             <a
               href="tel:0938777888"
+              onClick={() => setUserInteracted(true)}
               className="bg-white/15 backdrop-blur-sm border border-white/30 text-white font-semibold px-7 py-3 rounded-full hover:bg-white/25 transition-colors text-sm"
             >
-              📞 Tư Vấn Miễn Phí
+              Liên hệ tư vấn
             </a>
+          </div>
+
+          {/* Trust bar */}
+          <div className="mt-6 text-[12px] text-gray-200/90 leading-relaxed max-w-lg">
+            <span className="font-semibold text-white">MST:</span> 3703185328 <span className="mx-2 text-white/30">•</span>
+            Bình Dương <span className="mx-2 text-white/30">•</span>
+            Phản hồi 5–15 phút (7h30–17h) <span className="mx-2 text-white/30">•</span>
+            Thiết kế & in logo theo nhận diện
           </div>
         </div>
 
@@ -95,7 +99,7 @@ export default function Hero() {
           {SLIDES.map((_, i) => (
             <button
               key={i}
-              onClick={() => setCurrent(i)}
+              onClick={() => { setCurrent(i); setUserInteracted(true) }}
               className={`rounded-full transition-all ${i === current ? 'w-8 h-2 bg-primary' : 'w-2 h-2 bg-white/50'}`}
               aria-label={`Slide ${i + 1}`}
             />
