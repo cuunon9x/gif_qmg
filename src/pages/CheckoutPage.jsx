@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
 import useInView from '../hooks/useInView'
 import { submitWeb3Forms } from '../lib/web3forms'
+import { displayPrice } from '../lib/price'
 
 export default function CheckoutPage() {
   const { items, totalQty, totalPrice, formatVND, clear } = useCart()
@@ -24,7 +25,7 @@ export default function CheckoutPage() {
     e.preventDefault()
     setLoading(true)
 
-    const orderLines = items.map(i => `• ${i.name} x${i.qty} — ${i.price}`).join('\n')
+    const orderLines = items.map(i => `• ${i.name} x${i.qty} — ${displayPrice(i)}`).join('\n')
     const total = totalPrice > 0 ? `Tổng: ${formatVND(totalPrice)}` : 'Tổng: Liên hệ báo giá'
 
     try {

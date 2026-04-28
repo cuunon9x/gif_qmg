@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
+import { displayPrice } from '../lib/price'
 
 export default function CartDrawer({ open, onClose }) {
   const { items, totalQty, totalPrice, formatVND, remove, updateQty } = useCart()
@@ -57,7 +58,7 @@ export default function CartDrawer({ open, onClose }) {
                         {item.name}
                       </p>
                     </Link>
-                    <p className="text-primary font-bold text-sm mt-1">{item.price}</p>
+                    <p className="text-primary font-bold text-sm mt-1">{displayPrice(item)}</p>
 
                     {/* Qty controls */}
                     <div className="flex items-center justify-between mt-2">

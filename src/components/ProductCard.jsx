@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
+import { displayPrice } from '../lib/price'
 
 export default function ProductCard({ product, className = '' }) {
-  const { slug, name, price, image, images, badge } = product
+  const { slug, name, image, images, badge } = product
   const primaryImage = (Array.isArray(images) && images.length ? images[0] : null) || image
+  const shownPrice = displayPrice(product)
   const { add, items } = useCart()
   const [added, setAdded] = useState(false)
   const inCart = items.some(i => i.slug === slug)
@@ -45,7 +47,7 @@ export default function ProductCard({ product, className = '' }) {
             {name}
           </h3>
         </Link>
-        <p className="text-primary font-bold text-base mb-3">{price}</p>
+        <p className="text-primary font-bold text-base mb-3">{shownPrice}</p>
         <button
           onClick={handleAdd}
           className={`w-full text-center text-xs font-bold py-2 rounded-full transition-all ${

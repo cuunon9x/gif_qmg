@@ -4,6 +4,7 @@ import { useCart } from '../context/CartContext'
 import ProductCard from '../components/ProductCard'
 import useInView from '../hooks/useInView'
 import { useCatalog } from '../context/CatalogContext'
+import { displayPrice } from '../lib/price'
 
 export default function ProductDetailPage({ onCartOpen }) {
   const { slug } = useParams()
@@ -47,6 +48,7 @@ export default function ProductDetailPage({ onCartOpen }) {
   const related = products
     .filter(p => p.category === product.category && p.slug !== product.slug)
     .slice(0, 4)
+  const shownPrice = displayPrice(product)
 
   return (
     <main className="pt-20 min-h-screen">
@@ -86,7 +88,7 @@ export default function ProductDetailPage({ onCartOpen }) {
               </span>
             )}
             <h1 className="text-2xl md:text-3xl font-extrabold text-gray-800 mb-2">{product.name}</h1>
-            <div className="text-2xl font-bold text-primary mb-4">{product.price}</div>
+            <div className="text-2xl font-bold text-primary mb-4">{shownPrice}</div>
             <p className="text-gray-600 text-sm leading-relaxed mb-6">{product.description}</p>
 
             {/* Contents */}

@@ -8,6 +8,7 @@ import {
   adminHeaders,
   checkApiHealth,
 } from "../components/AdminShared";
+import { displayPrice, formatVND } from "../lib/price";
 
 const PRODUCT_CATS = [
   { value: "qua-tang-doanh-nghiep", label: "Quà Tặng Doanh Nghiệp" },
@@ -51,11 +52,13 @@ function fromProductForm(f, existing) {
   const id = f.id || Math.max(0, ...existing.map((p) => p.id)) + 1;
   const slug = f.slug.trim() || slugify(f.name);
   const images = Array.isArray(f.images) ? f.images.filter(Boolean) : (f.image ? [f.image] : []);
+  const numericPrice = Number(f.priceNum) || 0
   return {
     ...f,
     id,
     slug,
-    priceNum: Number(f.priceNum) || 0,
+    priceNum: numericPrice,
+    price: f.price?.trim() ? f.price.trim() : (numericPrice > 0 ? formatVND(numericPrice) : "Liên hệ"),
     minOrder: Number(f.minOrder) || 0,
     badge: f.badge.trim() || null,
     contents: f.contents
@@ -174,7 +177,7 @@ function ProductList({
                     }
                   </td>
                   <td className="px-4 py-3 font-semibold text-primary text-xs">
-                    {p.price}
+                    {displayPrice(p)}
                   </td>
                   <td className="px-4 py-3 text-center">
                     {p.featured ? "⭐" : "—"}
