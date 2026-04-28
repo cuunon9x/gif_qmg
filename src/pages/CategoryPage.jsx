@@ -18,7 +18,7 @@ export default function CategoryPage({ category: categoryProp }) {
 
   // Build subcat tabs
   const subcats = [
-    { key: 'all', label: 'Táº¥t Cáº£' },
+    { key: 'all', label: 'Tất cả' },
     ...Object.values(
       allProducts.reduce((acc, p) => {
         if (!acc[p.subcat]) acc[p.subcat] = { key: p.subcat, label: p.subcatLabel }
@@ -29,8 +29,8 @@ export default function CategoryPage({ category: categoryProp }) {
 
   const displayed = activeSubcat === 'all' ? allProducts : allProducts.filter(p => p.subcat === activeSubcat)
 
-  if (loading) return <div className="pt-20 mt-20 text-center text-2xl py-20 text-gray-500">Äang táº£i dá»¯ liá»‡u...</div>
-  if (!cat) return <div className="pt-20 mt-20 text-center text-4xl py-20 text-gray-500">Danh má»¥c khÃ´ng tÃ¬m tháº¥y.</div>
+  if (loading) return <div className="pt-20 mt-20 text-center text-2xl py-20 text-gray-500">Đang tải dữ liệu...</div>
+  if (!cat) return <div className="pt-20 mt-20 text-center text-4xl py-20 text-gray-500">Danh mục không tìm thấy.</div>
 
   return (
     <main className="pt-20 min-h-screen">
@@ -69,7 +69,7 @@ export default function CategoryPage({ category: categoryProp }) {
       <section className="py-10">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center justify-between mb-6">
-            <p className="text-gray-500 text-sm">{displayed.length} sáº£n pháº©m</p>
+            <p className="text-gray-500 text-sm">{displayed.length} sản phẩm</p>
           </div>
           <div ref={ref} className={`grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5 fade-up ${inView ? 'in-view' : ''}`}>
             {displayed.map(p => <ProductCard key={p.id} product={p} />)}
@@ -79,11 +79,11 @@ export default function CategoryPage({ category: categoryProp }) {
 
       {/* CTA */}
       <div className="bg-primary-light py-10 px-4 text-center">
-        <h3 className="text-xl font-bold text-gray-800 mb-2">KhÃ´ng tÃ¬m tháº¥y sáº£n pháº©m phÃ¹ há»£p?</h3>
-        <p className="text-gray-500 text-sm mb-4">LiÃªn há»‡ ngay Ä‘á»ƒ Ä‘Æ°á»£c tÆ° váº¥n & bÃ¡o giÃ¡ theo yÃªu cáº§u riÃªng.</p>
+        <h3 className="text-xl font-bold text-gray-800 mb-2">Không tìm thấy sản phẩm phù hợp?</h3>
+        <p className="text-gray-500 text-sm mb-4">Liên hệ ngay để được tư vấn và báo giá theo yêu cầu riêng.</p>
         <a href="tel:0938777888"
           className="inline-flex items-center gap-2 bg-primary text-white font-bold px-7 py-3 rounded-full hover:bg-primary-dark transition-colors text-sm">
-          ðŸ“ž Gá»i TÆ° Váº¥n Ngay
+          📞 Gọi tư vấn ngay
         </a>
       </div>
     </main>
