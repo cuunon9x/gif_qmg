@@ -3,28 +3,28 @@ import useInView from '../hooks/useInView'
 const REVIEWS = [
   {
     name: 'Chị Bảo Trân',
-    company: 'Healthcare Science Co.',
+    company: 'TP BANK',
     avatar: 'B',
     text: 'Làm việc với QMG Gift rất hài lòng – cả team hỗ trợ nhiệt tình, thiết kế đẹp đúng yêu cầu, giao hàng đúng hẹn. Năm sau chắc chắn sẽ tiếp tục đặt!',
     stars: 5,
   },
   {
     name: 'Anh Phạm Văn Minh',
-    company: 'Công ty Pionero',
-    avatar: 'M',
+    company: '',
+    avatar: 'VINCOM RETAIL',
     text: 'Cảm ơn QMG đã nhiệt tình hỗ trợ. Hộp quà đẹp, sang trọng, khách hàng nhận đều khen. Mong QMG ngày càng phát triển và có nhiều đơn hàng.',
     stars: 5,
   },
   {
     name: 'Anh Trần Linh',
-    company: 'Mekong Bros',
+    company: 'VIETCOMBANK',
     avatar: 'L',
     text: 'Nhân viên của QMG rất chuyên nghiệp. Hộp bánh Trung Thu year nay xinh lắm, kích thước vừa đủ, giá cả hợp lý. Sẽ hợp tác lâu dài.',
     stars: 5,
   },
   {
     name: 'Chị Kim Anh',
-    company: 'BĐS Thiên Minh Capital',
+    company: 'NAM LONG',
     avatar: 'K',
     text: 'Từng lo lắng vì đặt số lượng lớn lần đầu, nhưng QMG xử lý mọi thứ rất chuyên nghiệp – từ báo giá, thiết kế đến giao hàng. Hoàn toàn an tâm!',
     stars: 5,
