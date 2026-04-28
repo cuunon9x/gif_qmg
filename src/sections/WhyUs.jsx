@@ -75,7 +75,7 @@ export default function WhyUs() {
       {/* Design Promo Banner */}
       <section className="py-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 overflow-hidden relative">
         <div className="absolute inset-0 opacity-10"
-          style={{ backgroundImage: 'repeating-linear-gradient(45deg, #C5A059 0, #C5A059 1px, transparent 0, transparent 50%)', backgroundSize: '20px 20px' }}
+          style={{ backgroundImage: 'repeating-linear-gradient(45deg, #00A651 0, #00A651 1px, transparent 0, transparent 50%)', backgroundSize: '20px 20px' }}
         />
         <div ref={promoRef} className={`relative max-w-5xl mx-auto px-4 flex flex-col lg:flex-row items-center gap-10 fade-up ${promoIn ? 'in-view' : ''}`}>
           <div className="flex-1 text-center lg:text-left">

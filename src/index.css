@@ -126,7 +126,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, transparent 0%, rgba(197,160,89,0.18) 50%, transparent 100%);
+  background: linear-gradient(90deg, transparent 0%, rgba(0,166,81,0.18) 50%, transparent 100%);
   transform: translateX(-100%) skewX(-15deg);
   transition: none;
   pointer-events: none;
@@ -136,14 +136,14 @@
 }
 
 /* ═══════════════════════════════════════════════════
-   GOLD GLOW — primary buttons
+   PRIMARY GLOW — primary buttons
 ═══════════════════════════════════════════════════ */
-@keyframes gold-glow-pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(197,160,89,0.45); }
-  50%       { box-shadow: 0 0 0 8px rgba(197,160,89,0); }
+@keyframes primary-glow-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0,166,81,0.45); }
+  50%       { box-shadow: 0 0 0 8px rgba(0,166,81,0); }
 }
 .btn-glow:hover {
-  animation: gold-glow-pulse 1.2s ease infinite;
+  animation: primary-glow-pulse 1.2s ease infinite;
 }
 
 /* ═══════════════════════════════════════════════════
@@ -165,7 +165,7 @@
   position: absolute;
   inset: -5px;
   border-radius: 50%;
-  border: 2px solid #C5A059;
+  border: 2px solid #00A651;
   animation: pulse-ring 1.8s ease-out infinite;
   pointer-events: none;
 }
@@ -207,8 +207,8 @@
 }
 .why-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 12px 32px rgba(197,160,89,0.18);
-  border-color: #C5A059;
+  box-shadow: 0 12px 32px rgba(0,166,81,0.18);
+  border-color: #00A651;
 }
 
 /* ═══════════════════════════════════════════════════
@@ -233,7 +233,7 @@
   position: absolute;
   bottom: -2px; left: 50%;
   width: 0; height: 2px;
-  background: #C5A059;
+  background: #00A651;
   border-radius: 2px;
   transition: width 0.3s ease, left 0.3s ease;
 }

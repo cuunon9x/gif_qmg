@@ -85,7 +85,7 @@ export default function CompanyIntro() {
             {/* Right: visual card */}
             <div className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 p-6 sm:p-8 lg:border-l border-white/10">
               <div className="absolute inset-0 opacity-10"
-                style={{ backgroundImage: 'radial-gradient(circle, #C5A059 1px, transparent 1px)', backgroundSize: '28px 28px' }}
+                style={{ backgroundImage: 'radial-gradient(circle, #00A651 1px, transparent 1px)', backgroundSize: '28px 28px' }}
               />
               <div className="relative">
                 <div className="inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/15 px-3 py-1.5 text-xs text-white/90">

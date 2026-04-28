@@ -7,11 +7,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary:        '#C5A059',
-        'primary-dark': '#a07a30',
-        'primary-light':'#fdf5e6',
-        accent:         '#8B1A1A',
-        'accent-light': '#fff0f0',
+        primary:        '#00A651',
+        'primary-dark': '#007D3D',
+        'primary-light':'#E9F8F0',
+        accent:         '#F5A623',
+        'accent-light': '#FFF6E9',
       },
       fontFamily: {
         sans: ['Be Vietnam Pro', 'system-ui', 'sans-serif'],

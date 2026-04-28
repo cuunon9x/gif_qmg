@@ -54,7 +54,7 @@ export default function CTAForm() {
   return (
     <section className="py-16 bg-gradient-to-br from-gray-800 to-gray-900 relative overflow-hidden">
       <div className="absolute inset-0 opacity-5"
-        style={{ backgroundImage: 'radial-gradient(circle, #C5A059 1px, transparent 1px)', backgroundSize: '28px 28px' }}
+        style={{ backgroundImage: 'radial-gradient(circle, #00A651 1px, transparent 1px)', backgroundSize: '28px 28px' }}
       />
       <div ref={ref} className={`relative max-w-4xl mx-auto px-4 fade-up ${inView ? 'in-view' : ''}`}>
         <div className="text-center mb-10">
