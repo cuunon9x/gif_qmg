@@ -226,7 +226,7 @@ export function ImagesUploader({ value = [], onChange }) {
           Chưa có ảnh. Tải ảnh lên hoặc dán URL.
         </div>
       ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-3">
           {images.map((src, i) => (
             <div key={`${src}-${i}`} className="rounded-xl border border-gray-200 bg-white overflow-hidden">
               <div className="relative aspect-video bg-gray-50">
@@ -237,19 +237,42 @@ export function ImagesUploader({ value = [], onChange }) {
                   </span>
                 )}
               </div>
-              <div className="p-2 flex items-center justify-between gap-2">
-                <div className="flex items-center gap-1">
-                  <button type="button" onClick={() => move(i, -1)} className="px-2 py-1 text-xs border rounded hover:border-primary hover:text-primary transition-colors" disabled={i === 0}>
+              <div className="p-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                <div className="flex items-center gap-1 flex-wrap">
+                  <button
+                    type="button"
+                    onClick={() => move(i, -1)}
+                    className="px-2 py-1 text-[11px] border rounded hover:border-primary hover:text-primary transition-colors disabled:opacity-50 disabled:hover:border-gray-200 disabled:hover:text-gray-500"
+                    disabled={i === 0}
+                    title="Đưa lên"
+                  >
                     ↑
                   </button>
-                  <button type="button" onClick={() => move(i, 1)} className="px-2 py-1 text-xs border rounded hover:border-primary hover:text-primary transition-colors" disabled={i === images.length - 1}>
+                  <button
+                    type="button"
+                    onClick={() => move(i, 1)}
+                    className="px-2 py-1 text-[11px] border rounded hover:border-primary hover:text-primary transition-colors disabled:opacity-50 disabled:hover:border-gray-200 disabled:hover:text-gray-500"
+                    disabled={i === images.length - 1}
+                    title="Đưa xuống"
+                  >
                     ↓
                   </button>
-                  <button type="button" onClick={() => setPrimary(i)} className="px-2 py-1 text-xs border rounded hover:border-primary hover:text-primary transition-colors" disabled={i === 0}>
-                    Đặt chính
+                  <button
+                    type="button"
+                    onClick={() => setPrimary(i)}
+                    className="px-2 py-1 text-[11px] border rounded hover:border-primary hover:text-primary transition-colors disabled:opacity-50 disabled:hover:border-gray-200 disabled:hover:text-gray-500"
+                    disabled={i === 0}
+                    title="Đặt làm ảnh chính"
+                  >
+                    Ảnh chính
                   </button>
                 </div>
-                <button type="button" onClick={() => removeAt(i)} className="px-2 py-1 text-xs border border-red-200 text-red-500 rounded hover:bg-red-50 transition-colors">
+                <button
+                  type="button"
+                  onClick={() => removeAt(i)}
+                  className="px-2 py-1 text-[11px] border border-red-200 text-red-500 rounded hover:bg-red-50 transition-colors self-start sm:self-auto"
+                  title="Xóa ảnh"
+                >
                   Xóa
                 </button>
               </div>
