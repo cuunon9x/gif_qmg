@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import useInView from '../hooks/useInView'
+import { submitWeb3Forms } from '../lib/web3forms'
 
 const TYPES = ['Quà Tết Doanh Nghiệp', 'Bánh Trung Thu', 'Thiết Kế Hộp Quà Riêng', 'Rượu Vang & Đặc Sản', 'Khác']
 
@@ -15,16 +16,12 @@ export default function CTAForm() {
     e.preventDefault()
     setLoading(true)
     try {
-      const res = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({
-          access_key: 'YOUR_WEB3FORMS_ACCESS_KEY', // https://web3forms.com
-          subject: `Yêu cầu tư vấn quà tặng – ${form.name}`,
-          ...form,
-        }),
+      const { ok, message } = await submitWeb3Forms({
+        subject: `Yêu cầu tư vấn quà tặng – ${form.name}`,
+        ...form,
       })
-      if (res.ok) setSent(true)
+      if (ok) setSent(true)
+      else alert(message)
     } finally {
       setLoading(false)
     }

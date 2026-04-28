@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
 import useInView from '../hooks/useInView'
+import { submitWeb3Forms } from '../lib/web3forms'
 
 export default function CheckoutPage() {
   const { items, totalQty, totalPrice, formatVND, clear } = useCart()
@@ -28,20 +29,17 @@ export default function CheckoutPage() {
     const total = totalPrice > 0 ? `Tổng: ${formatVND(totalPrice)}` : 'Tổng: Liên hệ báo giá'
 
     try {
-      const res = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({
-          access_key: 'YOUR_WEB3FORMS_ACCESS_KEY', // https://web3forms.com
-          subject: `🛒 Đơn hàng mới – ${form.name} (${form.phone})`,
-          order_items: orderLines,
-          order_total: total,
-          ...form,
-        }),
+      const { ok, message } = await submitWeb3Forms({
+        subject: `🛒 Đơn hàng mới – ${form.name} (${form.phone})`,
+        order_items: orderLines,
+        order_total: total,
+        ...form,
       })
-      if (res.ok) {
+      if (ok) {
         clear()
         setDone(true)
+      } else {
+        alert(message)
       }
     } finally {
       setLoading(false)

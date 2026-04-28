@@ -56,11 +56,6 @@ export default function AdminPage() {
           </Link>
 
         </div>
-        <p className="text-center text-gray-400 text-xs mt-10">
-          Sau khi chỉnh sửa, chạy{' '}
-          <code className="bg-gray-100 px-1.5 py-0.5 rounded">npm run build</code>{' '}
-          để cập nhật website.
-        </p>
       </div>
     </div>
   )
