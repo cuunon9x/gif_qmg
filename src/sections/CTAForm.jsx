@@ -41,7 +41,7 @@ export default function CTAForm() {
     setLoading(true)
     try {
       const { ok, message } = await submitResendEmail({
-        subject: `Yêu cầu tư vấn quà tặng – ${form.name}`,
+        subject: `QMG GIF - Yêu cầu tư vấn quà tặng – ${form.name}`,
         fields: {
           ...form,
         },
