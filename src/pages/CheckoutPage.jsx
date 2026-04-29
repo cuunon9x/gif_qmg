@@ -2,7 +2,7 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
 import useInView from '../hooks/useInView'
-import { submitWeb3Forms } from '../lib/web3forms'
+import { submitResendEmail } from '../lib/resend'
 import { displayPrice } from '../lib/price'
 
 export default function CheckoutPage() {
@@ -29,11 +29,13 @@ export default function CheckoutPage() {
     const total = totalPrice > 0 ? `Tổng: ${formatVND(totalPrice)}` : 'Tổng: Liên hệ báo giá'
 
     try {
-      const { ok, message } = await submitWeb3Forms({
+      const { ok, message } = await submitResendEmail({
         subject: `Đơn hàng mới – ${form.name} (${form.phone})`,
-        order_items: orderLines,
-        order_total: total,
-        ...form,
+        fields: {
+          ...form,
+          order_items: orderLines,
+          order_total: total,
+        },
       })
       if (ok) {
         clear()

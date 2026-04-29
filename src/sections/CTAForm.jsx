@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import useInView from '../hooks/useInView'
-import { submitWeb3Forms } from '../lib/web3forms'
+import { submitResendEmail } from '../lib/resend'
 
 const NEED_OPTIONS = [
   'Quà tặng doanh nghiệp',
@@ -40,9 +40,11 @@ export default function CTAForm() {
     e.preventDefault()
     setLoading(true)
     try {
-      const { ok, message } = await submitWeb3Forms({
+      const { ok, message } = await submitResendEmail({
         subject: `Yêu cầu tư vấn quà tặng – ${form.name}`,
-        ...form,
+        fields: {
+          ...form,
+        },
       })
       if (ok) setSent(true)
       else alert(message)
