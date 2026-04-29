@@ -283,3 +283,175 @@ export function ImagesUploader({ value = [], onChange }) {
     </div>
   )
 }
+
+/* ── Multi videos uploader ── */
+export function VideosUploader({ value = [], onChange }) {
+  const [uploading, setUploading] = useState(false)
+  const [url, setUrl] = useState('')
+  const fileRef = useRef()
+
+  const videos = Array.isArray(value) ? value.filter(Boolean) : []
+
+  function setVideos(next) {
+    onChange(next.filter(Boolean))
+  }
+
+  async function uploadOne(file) {
+    const fd = new FormData()
+    fd.append('video', file)
+    const res = await fetch(`${API}/api/upload-video`, { method: 'POST', headers: adminHeaders(), body: fd })
+    const json = await res.json()
+    if (!json.url) throw new Error(json.error || 'Upload failed')
+    return json.url
+  }
+
+  async function handleFiles(e) {
+    const files = Array.from(e.target.files || []).filter(Boolean)
+    if (!files.length) return
+    setUploading(true)
+    try {
+      const uploaded = []
+      for (const f of files) {
+        // eslint-disable-next-line no-await-in-loop
+        uploaded.push(await uploadOne(f))
+      }
+      setVideos([...videos, ...uploaded])
+    } catch (err) {
+      alert(`Upload video thất bại: ${err.message}\n\nKiểm tra server đang chạy: npm run server`)
+    } finally {
+      setUploading(false)
+      e.target.value = ''
+    }
+  }
+
+  function addUrl() {
+    const v = url.trim()
+    if (!v) return
+    setVideos([...videos, v])
+    setUrl('')
+  }
+
+  function removeAt(idx) {
+    setVideos(videos.filter((_, i) => i !== idx))
+  }
+
+  function move(idx, dir) {
+    const next = [...videos]
+    const j = idx + dir
+    if (j < 0 || j >= next.length) return
+    ;[next[idx], next[j]] = [next[j], next[idx]]
+    setVideos(next)
+  }
+
+  function setPrimary(idx) {
+    if (idx <= 0) return
+    const next = [...videos]
+    const [picked] = next.splice(idx, 1)
+    next.unshift(picked)
+    setVideos(next)
+  }
+
+  return (
+    <div className="space-y-3">
+      <div className="flex items-center gap-2 flex-wrap">
+        <button
+          type="button"
+          onClick={() => fileRef.current?.click()}
+          className="px-3 py-2 rounded-lg bg-primary text-white text-xs font-bold hover:bg-primary-dark transition-colors"
+          disabled={uploading}
+        >
+          {uploading ? 'Đang tải...' : '+ Tải video lên'}
+        </button>
+        <input
+          ref={fileRef}
+          type="file"
+          accept="video/*"
+          multiple
+          className="hidden"
+          onChange={handleFiles}
+        />
+        <div className="flex-1 min-w-[220px] flex items-center gap-2">
+          <input
+            className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-primary"
+            placeholder="Dán URL video rồi bấm Thêm"
+            value={url}
+            onChange={(e) => setUrl(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                e.preventDefault()
+                addUrl()
+              }
+            }}
+          />
+          <button
+            type="button"
+            onClick={addUrl}
+            className="px-3 py-2 rounded-lg border border-gray-300 text-xs font-bold hover:border-primary hover:text-primary transition-colors"
+          >
+            Thêm
+          </button>
+        </div>
+      </div>
+
+      {videos.length === 0 ? (
+        <div className="rounded-xl border-2 border-dashed border-gray-300 bg-gray-50 p-6 text-center text-gray-400 text-sm">
+          Chưa có video. Tải video lên hoặc dán URL.
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-3">
+          {videos.map((src, i) => (
+            <div key={`${src}-${i}`} className="rounded-xl border border-gray-200 bg-white overflow-hidden">
+              <div className="relative aspect-video bg-gray-950">
+                <video src={src} muted preload="metadata" className="w-full h-full object-cover" />
+                {i === 0 && (
+                  <span className="absolute top-2 left-2 bg-primary text-white text-[10px] font-bold px-2 py-1 rounded-full shadow">
+                    Video chính
+                  </span>
+                )}
+              </div>
+              <div className="p-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                <div className="flex items-center gap-1 flex-wrap">
+                  <button
+                    type="button"
+                    onClick={() => move(i, -1)}
+                    className="px-2 py-1 text-[11px] border rounded hover:border-primary hover:text-primary transition-colors disabled:opacity-50 disabled:hover:border-gray-200 disabled:hover:text-gray-500"
+                    disabled={i === 0}
+                    title="Đưa lên"
+                  >
+                    ↑
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => move(i, 1)}
+                    className="px-2 py-1 text-[11px] border rounded hover:border-primary hover:text-primary transition-colors disabled:opacity-50 disabled:hover:border-gray-200 disabled:hover:text-gray-500"
+                    disabled={i === videos.length - 1}
+                    title="Đưa xuống"
+                  >
+                    ↓
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setPrimary(i)}
+                    className="px-2 py-1 text-[11px] border rounded hover:border-primary hover:text-primary transition-colors disabled:opacity-50 disabled:hover:border-gray-200 disabled:hover:text-gray-500"
+                    disabled={i === 0}
+                    title="Đặt làm video chính"
+                  >
+                    Video chính
+                  </button>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => removeAt(i)}
+                  className="px-2 py-1 text-[11px] border border-red-200 text-red-500 rounded hover:bg-red-50 transition-colors self-start sm:self-auto"
+                  title="Xóa video"
+                >
+                  Xóa
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}

@@ -11,13 +11,25 @@ export default function ProductDetailPage({ onCartOpen }) {
   const { products, categories, loading } = useCatalog()
   const product = products.find(p => p.slug === slug)
   const [activeImg, setActiveImg] = useState(0)
+  const [activeVid, setActiveVid] = useState(0)
+  const [mediaTab, setMediaTab] = useState('images')
   const [qty, setQty] = useState(1)
   const [addedMsg, setAddedMsg] = useState(false)
   const [relRef, relIn] = useInView()
   const { add } = useCart()
 
   useEffect(() => { window.scrollTo(0, 0) }, [slug])
-  useEffect(() => { setActiveImg(0); setQty(1) }, [slug])
+  useEffect(() => {
+    const imgs = Array.isArray(product?.images)
+      ? product.images.filter(Boolean)
+      : (product?.image ? [product.image] : [])
+    const vids = Array.isArray(product?.videos) ? product.videos.filter(Boolean) : []
+
+    setActiveImg(0)
+    setActiveVid(0)
+    setMediaTab(imgs.length ? 'images' : (vids.length ? 'video' : 'images'))
+    setQty(1)
+  }, [slug, product?.image, product?.images, product?.videos])
 
   function handleAddToCart() {
     add(product, qty)
@@ -45,6 +57,11 @@ export default function ProductDetailPage({ onCartOpen }) {
     )
   }
 
+  const images = Array.isArray(product.images)
+    ? product.images.filter(Boolean)
+    : (product.image ? [product.image] : [])
+  const videos = Array.isArray(product.videos) ? product.videos.filter(Boolean) : []
+
   const related = products
     .filter(p => p.category === product.category && p.slug !== product.slug)
     .slice(0, 4)
@@ -58,22 +75,84 @@ export default function ProductDetailPage({ onCartOpen }) {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
           {/* Gallery */}
           <div>
+            {(videos.length > 0 || images.length > 0) && (
+              <div className="flex gap-2 mb-3 flex-wrap">
+                {images.length > 0 && (
+                  <button
+                    type="button"
+                    onClick={() => setMediaTab('images')}
+                    className={`px-4 py-2 rounded-full text-xs font-bold border transition-colors ${
+                      mediaTab === 'images'
+                        ? 'bg-primary text-white border-primary'
+                        : 'bg-white text-gray-700 border-gray-200 hover:border-primary'
+                    }`}
+                  >
+                    Hình ảnh
+                  </button>
+                )}
+                {videos.length > 0 && (
+                  <button
+                    type="button"
+                    onClick={() => setMediaTab('video')}
+                    className={`px-4 py-2 rounded-full text-xs font-bold border transition-colors ${
+                      mediaTab === 'video'
+                        ? 'bg-primary text-white border-primary'
+                        : 'bg-white text-gray-700 border-gray-200 hover:border-primary'
+                    }`}
+                  >
+                    Video
+                  </button>
+                )}
+              </div>
+            )}
+
             <div className="rounded-2xl overflow-hidden aspect-square bg-gray-50 mb-3">
-              <img
-                src={product.images?.[activeImg] || product.image}
-                alt={product.name}
-                className="w-full h-full object-cover"
-              />
+              {mediaTab === 'video' && videos[activeVid] ? (
+                <video
+                  key={`video-${activeVid}`}
+                  src={videos[activeVid]}
+                  controls
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <img
+                  src={images[activeImg]}
+                  alt={product.name}
+                  className="w-full h-full object-cover"
+                />
+              )}
             </div>
-            {product.images?.length > 1 && (
+
+            {mediaTab === 'images' && images.length > 1 && (
               <div className="flex gap-2 overflow-x-auto pb-1">
-                {product.images.map((img, i) => (
+                {images.map((img, i) => (
                   <button
                     key={i}
                     onClick={() => setActiveImg(i)}
-                    className={`shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 transition-colors ${i === activeImg ? 'border-primary' : 'border-transparent'}`}
+                    className={`shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 transition-colors ${
+                      i === activeImg ? 'border-primary' : 'border-transparent'
+                    }`}
                   >
                     <img src={img} alt="" className="w-full h-full object-cover" />
+                  </button>
+                ))}
+              </div>
+            )}
+
+            {mediaTab === 'video' && videos.length > 1 && (
+              <div className="flex gap-2 overflow-x-auto pb-1">
+                {videos.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setActiveVid(i)}
+                    className={`shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 transition-colors bg-gray-50 ${
+                      i === activeVid ? 'border-primary' : 'border-transparent'
+                    }`}
+                    aria-label={`Chọn video ${i + 1}`}
+                  >
+                    <div className="w-full h-full flex items-center justify-center text-primary font-bold">
+                      ▶
+                    </div>
                   </button>
                 ))}
               </div>

@@ -4,6 +4,7 @@ import {
   AdminLogin,
   AdminNav,
   ImagesUploader,
+  VideosUploader,
   slugify,
   adminHeaders,
   checkApiHealth,
@@ -27,6 +28,7 @@ const EMPTY_PRODUCT = {
   featured: false,
   image: "",
   images: [],
+  videos: [],
   badge: "",
   description: "",
   contents: "",
@@ -38,6 +40,9 @@ const EMPTY_PRODUCT = {
 function toProductForm(p) {
   const imgs = Array.isArray(p.images) ? p.images.filter(Boolean) : []
   const merged = imgs.length ? imgs : (p.image ? [p.image] : [])
+  const vids = Array.isArray(p.videos)
+    ? p.videos.filter(Boolean)
+    : (p.video ? [p.video].filter(Boolean) : [])
   return {
     ...p,
     contents: Array.isArray(p.contents) ? p.contents.join("\n") : "",
@@ -45,6 +50,7 @@ function toProductForm(p) {
     badge: p.badge ?? "",
     images: merged,
     image: merged[0] || "",
+    videos: vids,
   };
 }
 
@@ -52,6 +58,9 @@ function fromProductForm(f) {
   const id = f.id || null;
   const slug = f.slug.trim() || slugify(f.name);
   const images = Array.isArray(f.images) ? f.images.filter(Boolean) : (f.image ? [f.image] : []);
+  const videos = Array.isArray(f.videos)
+    ? f.videos.filter(Boolean)
+    : (f.video ? [f.video].filter(Boolean) : []);
   const numericPrice = Number(f.priceNum) || 0
   return {
     ...f,
@@ -71,6 +80,7 @@ function fromProductForm(f) {
       .filter(Boolean),
     images,
     image: images[0] || "",
+    videos,
   };
 }
 
@@ -324,6 +334,15 @@ function ProductForm({ product, categories, onSave, onCancel }) {
             onChange={(arr) => {
               set("images", arr);
               set("image", arr?.[0] || "");
+            }}
+          />
+
+          <div className="pt-2" />
+          <label className={label}>Video sản phẩm (nhiều video)</label>
+          <VideosUploader
+            value={form.videos || []}
+            onChange={(arr) => {
+              set("videos", arr);
             }}
           />
         </div>
