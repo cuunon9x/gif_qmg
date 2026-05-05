@@ -1,5 +1,4 @@
-﻿import { Link } from 'react-router-dom'
-import BrandLockup from './BrandLockup'
+﻿import BrandLockup from './BrandLockup'
 
 export default function Footer() {
   return (
@@ -25,16 +24,6 @@ export default function Footer() {
                 Z
               </a>
             </div>
-          </div>
-
-          {/* Sản phẩm */}
-          <div>
-            <h4 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">Sản Phẩm</h4>
-            <ul className="space-y-2 text-sm">
-              <li><Link to="/qua-tang-doanh-nghiep" className="hover:text-primary transition-colors">Quà Tặng Doanh Nghiệp</Link></li>
-              <li><Link to="/qua-tang-suc-khoe" className="hover:text-primary transition-colors">Quà Tặng Sức Khỏe</Link></li>
-              <li><Link to="/thiet-ke-rieng" className="hover:text-primary transition-colors">Thiết Kế Hộp Quà Riêng</Link></li>
-            </ul>
           </div>
 
           {/* Dịch vụ */}
@@ -69,6 +58,21 @@ export default function Footer() {
                 <span>7:30 – 17:00</span>
               </li>
             </ul>
+          </div>
+
+          {/* Bản đồ */}
+          <div>
+            <h4 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">Bản Đồ</h4>
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5263.3427395865865!2d106.71394409999999!3d10.9703684!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3174d750ab0a0609%3A0x4ef9499493e766ec!2zUXXDoCBU4bq3bmcgRG9hbmggTmdoaeG7h3AgUU1H!5e1!3m2!1svi!2s!4v1777992226362!5m2!1svi!2s"
+              width="100%"
+              height="220"
+              style={{ border: 0, display: 'block', borderRadius: '8px' }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Bản đồ QMG Gift"
+            />
           </div>
         </div>
 
