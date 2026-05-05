@@ -1,5 +1,5 @@
 ﻿import { useState } from 'react'
-import { HashRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { CartProvider } from './context/CartContext'
 import { CatalogProvider } from './context/CatalogContext'
 import Navbar from './components/Navbar'
@@ -22,7 +22,7 @@ function App() {
   return (
     <CartProvider>
       <CatalogProvider>
-        <HashRouter>
+        <BrowserRouter>
           <div className="font-sans bg-white text-gray-800">
             <Navbar onCartOpen={() => setCartOpen(true)} />
             <Routes>
@@ -42,7 +42,7 @@ function App() {
             <BackToTop />
             <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} />
           </div>
-        </HashRouter>
+        </BrowserRouter>
       </CatalogProvider>
     </CartProvider>
   )

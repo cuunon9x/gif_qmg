@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Redirecting...</title>
+    <script>
+      // GitHub Pages: redirect unknown paths to index while preserving route/query/hash.
+      var segmentCount = 0
+      var l = window.location
+      var repoBase = l.pathname.split('/').slice(0, 1 + segmentCount).join('/')
+      var routePath = l.pathname
+        .slice(1)
+        .split('/')
+        .slice(segmentCount)
+        .join('/')
+        .replace(/&/g, '~and~')
+      var query = l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : ''
+      var target = l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') + repoBase + '/?/' + routePath + query + l.hash
+      l.replace(target)
+    </script>
+  </head>
+  <body></body>
+  </html>
