@@ -24,7 +24,7 @@ export default function CategoryNav() {
               className="icon-bounce group relative overflow-hidden rounded-2xl aspect-[4/3] shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
             >
               <img src={cat.image} alt={cat.label} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-              <div className={`absolute inset-0 bg-gradient-to-t ${cat.color} opacity-60 group-hover:opacity-75 transition-opacity`} />
+              <div className={`absolute inset-0 bg-gradient-to-t ${cat.color} opacity-0 group-hover:opacity-75 transition-opacity`} />
               <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center p-4">
                 <span className="cat-icon text-3xl mb-2">{cat.icon}</span>
                 <h3 className="font-bold text-base leading-tight">{cat.label}</h3>

@@ -1,22 +1,34 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-const SLIDES = [
+const bannerModules = import.meta.glob('../assets/banner/*.{png,jpg,jpeg,webp}', {
+  eager: true,
+  import: 'default',
+})
+
+const BANNER_URLS = Object.keys(bannerModules)
+  .sort((a, b) => a.localeCompare(b))
+  .map((path) => bannerModules[path])
+
+const SLIDE_META = [
   {
-    image: 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=1600&q=80',
     tag: 'Quà Tặng Doanh Nghiệp',
     title: 'Sang Trọng Trong\nTừng Món Quà',
     sub: 'Thiết kế riêng theo thương hiệu doanh nghiệp – miễn phí thiết kế – giao hàng toàn quốc.',
     cta: { label: 'Xem Quà Doanh Nghiệp', to: '/qua-tang-doanh-nghiep' },
   },
   {
-    image: 'https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=1600&q=80',
     tag: 'Quà Tặng Sức Khỏe',
     title: 'Quà Tặng Sống Khỏe\nCho Doanh Nghiệp',
     sub: 'Granola, ngũ cốc và thực phẩm dinh dưỡng phù hợp cho nhân sự, đối tác và các chiến dịch chăm sóc sức khỏe.',
     cta: { label: 'Xem Quà Sức Khỏe', to: '/qua-tang-suc-khoe' },
   },
 ]
+
+const SLIDES = SLIDE_META.map((meta, i) => ({
+  ...meta,
+  image: BANNER_URLS.length ? BANNER_URLS[i % BANNER_URLS.length] : '',
+}))
 
 const STATS = [
   { value: '500+', label: 'Doanh nghiệp tin dùng' },
@@ -49,7 +61,7 @@ export default function Hero() {
       <div className="absolute inset-0 overflow-hidden">
         {SLIDES.map((s, i) => (
           <div key={i} className={`slide ${i === current ? 'active' : ''}`}>
-            <img src={s.image} alt="" className="w-full h-full object-cover" />
+            <img src={s.image} alt={s.tag} className="w-full h-full object-cover" />
           </div>
         ))}
         {/* Overlay */}
