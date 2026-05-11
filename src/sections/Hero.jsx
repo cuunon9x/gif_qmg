@@ -56,76 +56,74 @@ export default function Hero() {
   const slide = SLIDES[current]
 
   return (
-    <section className="relative w-full min-h-screen flex flex-col" style={{ paddingTop: '72px' }}>
-      {/* Background slides */}
-      <div className="absolute inset-0 overflow-hidden">
-        {SLIDES.map((s, i) => (
-          <div key={i} className={`slide ${i === current ? 'active' : ''}`}>
-            <img src={s.image} alt={s.tag} className="w-full h-full object-cover" />
-          </div>
-        ))}
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
-      </div>
-
-      {/* Content */}
-      <div className="relative flex-1 flex flex-col justify-center max-w-7xl mx-auto px-4 md:px-16 py-20">
-        <div key={current} className="max-w-xl">
-          <span className="hero-badge inline-block bg-primary/90 text-white text-xs font-semibold px-3 py-1.5 rounded-full mb-4 tracking-wide">
-            {slide.tag}
-          </span>
-          <h1 className="hero-title text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-5 whitespace-pre-line">
-            {slide.title}
-          </h1>
-          <p className="hero-sub text-gray-200 text-base md:text-lg leading-relaxed mb-8 max-w-md">
-            {slide.sub}
-          </p>
-          <div className="hero-cta flex flex-wrap gap-3">
-            <Link
-              to={slide.cta.to}
-              onClick={() => setUserInteracted(true)}
-              className="btn-glow bg-primary text-white font-bold px-7 py-3 rounded-full hover:bg-primary-dark transition-colors text-sm shadow-lg"
-            >
-              {slide.cta.label}
-            </Link>
-            <a
-              href="tel:0938777888"
-              onClick={() => setUserInteracted(true)}
-              className="bg-white/15 backdrop-blur-sm border border-white/30 text-white font-semibold px-7 py-3 rounded-full hover:bg-white/25 transition-colors text-sm"
-            >
-              Liên hệ tư vấn
-            </a>
-          </div>
-
-          {/* Trust bar */}
-          <div className="mt-6 text-[12px] text-gray-200/90 leading-relaxed max-w-lg">
-            <span className="font-semibold text-white">MST:</span> 3703185328 <span className="mx-2 text-white/30">•</span>
-            Bình Dương <span className="mx-2 text-white/30">•</span>
-            Phản hồi 5–15 phút (7h30–17h) <span className="mx-2 text-white/30">•</span>
-            Thiết kế & in logo theo nhận diện
-          </div>
-        </div>
-
-        {/* Dot indicators */}
-        <div className="flex gap-2 mt-10">
-          {SLIDES.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => { setCurrent(i); setUserInteracted(true) }}
-              className={`rounded-full transition-all ${i === current ? 'w-8 h-2 bg-primary' : 'w-2 h-2 bg-white/50'}`}
-              aria-label={`Slide ${i + 1}`}
-            />
+    <section className="relative isolate w-full overflow-hidden bg-gray-900 pt-[72px]">
+      {/* Full-bleed banner: width = viewport; height follows content block below */}
+      <div className="relative w-full min-h-[84vh]">
+        <div className="absolute inset-0 overflow-hidden">
+          {SLIDES.map((s, i) => (
+            <div key={i} className={`slide ${i === current ? 'active' : ''}`}>
+              <img src={s.image} alt={s.tag} className="h-full w-full object-cover object-center" />
+            </div>
           ))}
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/75 via-black/45 to-black/25" />
+        </div>
+
+        <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col justify-center px-4 py-10 sm:px-6 sm:py-12 md:px-8 md:py-14 lg:px-10">
+          <div key={current} className="max-w-xl">
+            <span className="hero-badge inline-block bg-primary/90 text-white text-xs font-semibold px-3 py-1.5 rounded-full mb-4 tracking-wide">
+              {slide.tag}
+            </span>
+            <h1 className="hero-title text-3xl font-extrabold leading-tight text-white sm:text-4xl md:text-5xl lg:text-5xl mb-4 sm:mb-5 whitespace-pre-line">
+              {slide.title}
+            </h1>
+            <p className="hero-sub max-w-md text-sm leading-relaxed text-gray-200 sm:text-base md:text-lg mb-6 sm:mb-8">
+              {slide.sub}
+            </p>
+            <div className="hero-cta flex flex-wrap gap-3">
+              <Link
+                to={slide.cta.to}
+                onClick={() => setUserInteracted(true)}
+                className="btn-glow rounded-full bg-primary px-6 py-2.5 text-sm font-bold text-white shadow-lg transition-colors hover:bg-primary-dark sm:px-7 sm:py-3"
+              >
+                {slide.cta.label}
+              </Link>
+              <a
+                href="tel:0938777888"
+                onClick={() => setUserInteracted(true)}
+                className="rounded-full border border-white/30 bg-white/15 px-6 py-2.5 text-sm font-semibold text-white backdrop-blur-sm transition-colors hover:bg-white/25 sm:px-7 sm:py-3"
+              >
+                Liên hệ tư vấn
+              </a>
+            </div>
+
+            <div className="mt-4 max-w-lg text-[11px] leading-relaxed text-gray-200/90 sm:mt-6 sm:text-[12px]">
+              <span className="font-semibold text-white">MST:</span> 3703185328 <span className="mx-2 text-white/30">•</span>
+              Bình Dương <span className="mx-2 text-white/30">•</span>
+              Phản hồi 5–15 phút (7h30–17h) <span className="mx-2 text-white/30">•</span>
+              Thiết kế & in logo theo nhận diện
+            </div>
+          </div>
+
+          <div className="mt-6 flex gap-2 sm:mt-8">
+            {SLIDES.map((_, i) => (
+              <button
+                key={i}
+                type="button"
+                onClick={() => { setCurrent(i); setUserInteracted(true) }}
+                className={`rounded-full transition-all ${i === current ? 'h-2 w-8 bg-primary' : 'h-2 w-2 bg-white/50'}`}
+                aria-label={`Slide ${i + 1}`}
+              />
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* Stats bar */}
-      <div className="relative bg-black/40 backdrop-blur-sm border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-4 py-5 grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="relative z-20 w-full border-t border-white/10 bg-black/50 backdrop-blur-sm">
+        <div className="mx-auto grid max-w-7xl grid-cols-2 gap-3 px-4 py-4 sm:gap-4 sm:px-6 sm:py-5 md:grid-cols-4 md:px-8 lg:px-10">
           {STATS.map(s => (
             <div key={s.label} className="stat-pop text-center">
-              <div className="text-2xl font-extrabold text-primary">{s.value}</div>
-              <div className="text-xs text-gray-300 mt-0.5">{s.label}</div>
+              <div className="text-xl font-extrabold text-primary sm:text-2xl">{s.value}</div>
+              <div className="mt-0.5 text-[11px] text-gray-300 sm:text-xs">{s.label}</div>
             </div>
           ))}
         </div>
