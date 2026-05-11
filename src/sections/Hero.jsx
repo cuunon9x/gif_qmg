@@ -31,8 +31,8 @@ const SLIDES = SLIDE_META.map((meta, i) => ({
 }))
 
 const STATS = [
-  { value: '500+', label: 'Doanh nghiệp tin dùng' },
-  { value: '10.000+', label: 'Hộp quà đã giao' },
+  { value: '20+', label: 'Doanh nghiệp tin dùng' },
+  { value: '1.000+', label: 'Hộp quà đã giao' },
   { value: '100%', label: 'Miễn phí thiết kế' },
   { value: '24h', label: 'Phản hồi tư vấn' },
 ]
