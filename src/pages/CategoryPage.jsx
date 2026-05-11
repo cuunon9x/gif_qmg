@@ -38,7 +38,7 @@ export default function CategoryPage({ category: categoryProp }) {
       {/* Category hero */}
       <div className="relative h-52 md:h-72 overflow-hidden">
         <img src={cat.image} alt={cat.label} className="w-full h-full object-cover" />
-        <div className={`absolute inset-0 bg-gradient-to-r ${cat.color} opacity-70`} />
+        <div className={`absolute inset-0 bg-gradient-to-r ${cat.color} opacity-0`} />
         <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-4">
           <span className="text-5xl mb-2">{cat.icon}</span>
           <h1 className="text-3xl md:text-4xl font-extrabold">{cat.label}</h1>
