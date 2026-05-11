@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { CartProvider } from './context/CartContext'
 import { CatalogProvider } from './context/CatalogContext'
 import Navbar from './components/Navbar'
+import SeoHead from './components/SeoHead'
 import Footer from './components/Footer'
 import FloatingContact from './components/FloatingContact'
 import BackToTop from './components/BackToTop'
@@ -24,6 +25,7 @@ function App() {
       <CatalogProvider>
         <BrowserRouter>
           <div className="font-sans bg-white text-gray-800">
+            <SeoHead />
             <Navbar onCartOpen={() => setCartOpen(true)} />
             <Routes>
               <Route path="/" element={<HomePage />} />
