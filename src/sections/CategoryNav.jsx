@@ -5,7 +5,7 @@ import { useCatalog } from '../context/CatalogContext'
 export default function CategoryNav() {
   const [ref, inView] = useInView()
   const { categories, loading } = useCatalog()
-  const visibleCategories = categories.filter(c => !c.isService || c.slug === 'thiet-ke-rieng')
+  const visibleCategories = categories
 
   return (
     <section className="py-14 bg-primary-light">
@@ -19,7 +19,7 @@ export default function CategoryNav() {
           {!loading && visibleCategories.map((cat, i) => (
             <Link
               key={cat.slug}
-              to={cat.isService ? '/thiet-ke-rieng' : `/${cat.slug}`}
+              to={`/${cat.slug}`}
               style={{ transitionDelay: `${i * 80}ms` }}
               className="icon-bounce group relative overflow-hidden rounded-2xl aspect-[4/3] shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
             >

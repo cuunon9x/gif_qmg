@@ -16,7 +16,7 @@ const POSTS = [
     excerpt: 'Năm 2026, xu hướng hộp bánh trung thu doanh nghiệp nghiêng về thiết kế tối giản – vật liệu tái sử dụng – nhân bánh cao cấp độc đáo. QMG Gift tổng hợp chi tiết.',
   },
   {
-    image: 'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=600&q=80',
+    image: 'https://res.cloudinary.com/dflar7nvn/image/upload/v1778763998/qmg/products/t8oc7foaybjgonoix5ue.png?w=600&q=80',
     category: 'Thiết Kế',
     date: '10/03/2026',
     title: 'Thiết Kế Hộp Quà Theo Thương Hiệu – Lợi Ích Dài Hạn Cho Doanh Nghiệp',

@@ -89,7 +89,7 @@ export default function WhyUs() {
               Gửi logo, guideline màu sắc và thông điệp tri ân. QMG dựng mockup để doanh nghiệp duyệt nhanh, giảm rủi ro sai khác khi triển khai số lượng lớn.
             </p>
             <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
-              <Link to="/thiet-ke-rieng"
+              <Link to="/thiet-ke-theo-yeu-cau"
                 className="bg-primary text-white font-bold px-7 py-3 rounded-full hover:bg-primary-dark transition-colors text-sm">
                 Gửi brief thiết kế
               </Link>
@@ -101,7 +101,7 @@ export default function WhyUs() {
           </div>
           <div className="lg:w-96 w-full max-w-sm rounded-2xl overflow-hidden shadow-2xl">
             <img
-              src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=800&q=80"
+              src="https://res.cloudinary.com/dflar7nvn/image/upload/v1778763998/qmg/products/t8oc7foaybjgonoix5ue.png?w=800&q=80"
               alt="Thiết kế hộp quà riêng"
               className="w-full object-cover"
             />

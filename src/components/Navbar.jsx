@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from 'react'
+﻿import { useState, useEffect, useMemo } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
 import { useCatalog } from '../context/CatalogContext'
@@ -10,11 +10,15 @@ export default function Navbar({ onCartOpen }) {
   const { pathname } = useLocation()
   const { totalQty } = useCart()
   const { categories } = useCatalog()
-  const navLinks = [
-    { label: 'Trang Chủ', to: '/' },
-    ...categories.filter(c => !c.isService).map(c => ({ label: c.label, to: `/${c.slug}` })),
-    { label: 'Thiết Kế Riêng', to: '/thiet-ke-rieng' },
-  ]
+  const navLinks = useMemo(() => {
+    const productCats = categories.filter((c) => !c.isService)
+    const serviceCat = categories.find((c) => c.isService)
+    return [
+      { label: 'Trang Chủ', to: '/' },
+      ...productCats.map((c) => ({ label: c.label, to: `/${c.slug}` })),
+      ...(serviceCat ? [{ label: serviceCat.label, to: `/${serviceCat.slug}` }] : []),
+    ]
+  }, [categories])
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)

@@ -24,10 +24,15 @@ const ROUTES = {
     description:
       'Quà tặng sức khỏe cho doanh nghiệp: granola, ngũ cốc, set quà dinh dưỡng. Phù hợp nhân sự, đối tác và chiến dịch chăm sóc sức khỏe.',
   },
-  '/thiet-ke-rieng': {
-    title: 'Thiết Kế Hộp Quà Riêng | QMG Gift',
+  '/thiet-ke-theo-yeu-cau': {
+    title: 'Thiết Kế Theo Yêu Cầu | QMG Gift',
     description:
-      'Thiết kế hộp quà riêng theo thương hiệu: mockup trước sản xuất, in logo theo nhận diện, tối ưu ngân sách và timeline.',
+      'Thiết kế và in logo theo nhận diện thương hiệu, mockup trước sản xuất, tối ưu ngân sách và timeline cho quà tặng doanh nghiệp.',
+  },
+  '/thiet-ke-rieng': {
+    title: 'Thiết Kế Theo Yêu Cầu | QMG Gift',
+    description:
+      'Thiết kế và in logo theo nhận diện thương hiệu, mockup trước sản xuất, tối ưu ngân sách và timeline cho quà tặng doanh nghiệp.',
   },
   '/checkout': {
     title: 'Đặt Hàng / Liên Hệ | QMG Gift',

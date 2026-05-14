@@ -1,5 +1,5 @@
 ﻿import { useState } from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { CartProvider } from './context/CartContext'
 import { CatalogProvider } from './context/CatalogContext'
 import Navbar from './components/Navbar'
@@ -9,9 +9,8 @@ import FloatingContact from './components/FloatingContact'
 import BackToTop from './components/BackToTop'
 import CartDrawer from './components/CartDrawer'
 import HomePage from './pages/HomePage'
-import CategoryPage from './pages/CategoryPage'
 import ProductDetailPage from './pages/ProductDetailPage'
-import ServicePage from './pages/ServicePage'
+import CategoryOrService from './pages/CategoryOrService'
 import CheckoutPage from './pages/CheckoutPage'
 import AdminPage from './pages/AdminPage'
 import AdminCategoriesPage from './pages/AdminCategoriesPage'
@@ -29,15 +28,13 @@ function App() {
             <Navbar onCartOpen={() => setCartOpen(true)} />
             <Routes>
               <Route path="/" element={<HomePage />} />
-              <Route path="/qua-tang-doanh-nghiep" element={<CategoryPage category="qua-tang-doanh-nghiep" />} />
-              <Route path="/qua-tang-suc-khoe" element={<CategoryPage category="qua-tang-suc-khoe" />} />
-              <Route path="/thiet-ke-rieng" element={<ServicePage />} />
-              <Route path="/:category" element={<CategoryPage />} />
+              <Route path="/thiet-ke-rieng" element={<Navigate to="/thiet-ke-theo-yeu-cau" replace />} />
               <Route path="/san-pham/:slug" element={<ProductDetailPage onCartOpen={() => setCartOpen(true)} />} />
               <Route path="/checkout" element={<CheckoutPage />} />
               <Route path="/admin" element={<AdminPage />} />
               <Route path="/admin/products" element={<AdminProductsPage />} />
               <Route path="/admin/categories" element={<AdminCategoriesPage />} />
+              <Route path="/:category" element={<CategoryOrService />} />
             </Routes>
             <Footer />
             <FloatingContact />
