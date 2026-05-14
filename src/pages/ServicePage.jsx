@@ -53,7 +53,7 @@ export default function ServicePage() {
 
       {/* Hero banner */}
       <div className="relative h-60 md:h-80 overflow-hidden">
-        <img src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1600&q=80" alt="" className="w-full h-full object-cover" />
+        <img src="https://res.cloudinary.com/dflar7nvn/image/upload/v1778763998/qmg/products/t8oc7foaybjgonoix5ue.png?w=1600&q=80" alt="" className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-r from-gray-900/80 to-gray-900/40" />
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
           <span className="text-primary text-xs font-bold uppercase tracking-widest mb-2">Dịch Vụ Miễn Phí</span>
