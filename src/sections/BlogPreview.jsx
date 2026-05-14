@@ -2,7 +2,7 @@ import useInView from '../hooks/useInView'
 
 const POSTS = [
   {
-    image: 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=600&q=80',
+    image: 'https://res.cloudinary.com/dflar7nvn/image/upload/v1778487271/qmg/products/yde0dtlinu0dmxt68y3o.png?w=600&q=80',
     category: 'Quà Tết',
     date: '20/03/2026',
     title: '5 Gợi Ý Chọn Quà Tết Doanh Nghiệp Ý Nghĩa Năm 2026',
