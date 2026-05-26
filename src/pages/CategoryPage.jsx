@@ -81,7 +81,7 @@ export default function CategoryPage({ category: categoryProp }) {
       <div className="bg-primary-light py-10 px-4 text-center">
         <h3 className="text-xl font-bold text-gray-800 mb-2">Không tìm thấy sản phẩm phù hợp?</h3>
         <p className="text-gray-500 text-sm mb-4">Liên hệ ngay để được tư vấn và báo giá theo yêu cầu riêng.</p>
-        <a href="tel:0938777888"
+        <a href="tel:0397507766"
           className="inline-flex items-center gap-2 bg-primary text-white font-bold px-7 py-3 rounded-full hover:bg-primary-dark transition-colors text-sm">
           📞 Gọi tư vấn ngay
         </a>

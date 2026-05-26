@@ -65,7 +65,7 @@ export default function CheckoutPage() {
               className="bg-primary text-white font-bold px-7 py-3 rounded-full hover:bg-primary-dark transition-colors text-sm">
               Về trang chủ
             </Link>
-            <a href="tel:0938777888"
+            <a href="tel:0397507766"
               className="border border-primary text-primary font-semibold px-7 py-3 rounded-full hover:bg-primary-light transition-colors text-sm">
               Gọi ngay
             </a>

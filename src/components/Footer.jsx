@@ -19,7 +19,7 @@ export default function Footer() {
                 className="w-9 h-9 rounded-full bg-gray-700 hover:bg-primary flex items-center justify-center transition-colors text-sm">
                 f
               </a>
-              <a href="https://zalo.me/0938777888" target="_blank" rel="noreferrer"
+              <a href="https://zalo.me/0397507766" target="_blank" rel="noreferrer"
                 className="w-9 h-9 rounded-full bg-gray-700 hover:bg-primary flex items-center justify-center transition-colors text-xs font-bold">
                 Z
               </a>
@@ -47,7 +47,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-2">
                 <span className="text-primary">📞</span>
-                <a href="tel:0938777888" className="hover:text-primary transition-colors">0938 777 888 - 0976 926 868</a>
+                <a href="tel:0397507766" className="hover:text-primary transition-colors">0397 507 766</a>
               </li>
               <li className="flex items-center gap-2">
                 <span className="text-primary">✉️</span>

@@ -88,7 +88,7 @@ export default function Hero() {
                 {slide.cta.label}
               </Link>
               <a
-                href="tel:0938777888"
+                href="tel:0397507766"
                 onClick={() => setUserInteracted(true)}
                 className="rounded-full border border-white/30 bg-white/15 px-6 py-2.5 text-sm font-semibold text-white backdrop-blur-sm transition-colors hover:bg-white/25 sm:px-7 sm:py-3"
               >

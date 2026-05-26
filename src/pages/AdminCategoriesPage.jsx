@@ -91,9 +91,6 @@ function CategoryList({ categories, loading, onAdd, onEdit, onDelete }) {
           </table>
         </div>
       )}
-      <p className="text-gray-400 text-xs mt-6 text-center">
-        Sau khi lưu, chạy <code className="bg-gray-100 px-1.5 py-0.5 rounded">npm run build</code> để cập nhật website.
-      </p>
     </div>
   )
 }

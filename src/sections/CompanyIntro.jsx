@@ -116,13 +116,13 @@ export default function CompanyIntro() {
 
                 <div className="mt-6 flex flex-col sm:flex-row gap-3">
                   <a
-                    href="tel:0938777888"
+                    href="tel:0397507766"
                     className="inline-flex items-center justify-center rounded-full bg-primary text-white font-bold px-6 py-3 text-sm hover:bg-primary-dark transition-colors"
                   >
                     Liên hệ tư vấn
                   </a>
                   <a
-                    href="https://zalo.me/0938777888"
+                    href="https://zalo.me/0397507766"
                     target="_blank"
                     rel="noreferrer"
                     className="inline-flex items-center justify-center rounded-full border border-white/20 text-white font-semibold px-6 py-3 text-sm hover:bg-white/10 transition-colors"

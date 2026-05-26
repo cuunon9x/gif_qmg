@@ -215,11 +215,11 @@ export default function ProductDetailPage({ onCartOpen }) {
                 {addedMsg ? '✓ Đã thêm vào giỏ hàng!' : '🛒 Thêm vào giỏ hàng'}
               </button>
               <div className="flex gap-3">
-                <a href="https://zalo.me/0938777888" target="_blank" rel="noreferrer"
+                <a href="https://zalo.me/0397507766" target="_blank" rel="noreferrer"
                   className="flex-1 text-center border-2 border-primary text-primary font-bold py-2.5 rounded-full hover:bg-primary-light transition-colors text-sm">
                   💬 Zalo
                 </a>
-                <a href="tel:0938777888"
+                <a href="tel:0397507766"
                   className="flex-1 text-center border-2 border-gray-300 text-gray-700 font-bold py-2.5 rounded-full hover:bg-gray-50 transition-colors text-sm">
                   📞 Gọi ngay
                 </a>
