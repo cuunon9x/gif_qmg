@@ -6,13 +6,21 @@ import { displayPrice } from '../lib/price'
 export default function ProductCard({ product, className = '' }) {
   const { slug, name, image, images, badge } = product
   const primaryImage = (Array.isArray(images) && images.length ? images[0] : null) || image
-  const shownPrice = displayPrice(product)
   const { add, items } = useCart()
   const [added, setAdded] = useState(false)
   const inCart = items.some(i => i.slug === slug)
+  const hasVariants = Array.isArray(product?.variants) && product.variants.length > 0
+  const shownPrice = (() => {
+    if (!hasVariants) return displayPrice(product)
+    const nums = product.variants.map((v) => Number(v?.priceNum) || 0).filter((n) => n > 0)
+    if (!nums.length) return displayPrice(product)
+    const min = Math.min(...nums)
+    return `Từ ${displayPrice({ ...product, priceNum: min })}`
+  })()
 
   function handleAdd(e) {
     e.preventDefault()
+    if (hasVariants) return
     add(product, 1)
     setAdded(true)
     setTimeout(() => setAdded(false), 1500)
@@ -48,16 +56,25 @@ export default function ProductCard({ product, className = '' }) {
           </h3>
         </Link>
         <p className="text-primary font-bold text-base mb-3">{shownPrice}</p>
-        <button
-          onClick={handleAdd}
-          className={`w-full text-center text-xs font-bold py-2 rounded-full transition-all ${
-            added
-              ? 'bg-green-500 text-white'
-              : 'bg-primary text-white hover:bg-primary-dark'
-          }`}
-        >
-          {added ? '✓ Đã Thêm' : '🛒 Thêm Vào Giỏ'}
-        </button>
+        {hasVariants ? (
+          <Link
+            to={`/san-pham/${slug}`}
+            className="block w-full text-center text-xs font-bold py-2 rounded-full transition-all bg-primary text-white hover:bg-primary-dark"
+          >
+            Chọn vị / loại →
+          </Link>
+        ) : (
+          <button
+            onClick={handleAdd}
+            className={`w-full text-center text-xs font-bold py-2 rounded-full transition-all ${
+              added
+                ? 'bg-green-500 text-white'
+                : 'bg-primary text-white hover:bg-primary-dark'
+            }`}
+          >
+            {added ? '✓ Đã Thêm' : '🛒 Thêm Vào Giỏ'}
+          </button>
+        )}
       </div>
     </div>
   )

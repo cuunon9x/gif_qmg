@@ -20,3 +20,25 @@ export function submitResendEmail({ subject, fields }) {
   })
 }
 
+export function submitCheckout({ form, items }) {
+  return fetch(`${API_BASE}/api/checkout`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+    body: JSON.stringify({ form, items }),
+  }).then(async (res) => {
+    let data = {}
+    try {
+      data = await res.json()
+    } catch {
+      // ignore
+    }
+    if (!res.ok) {
+      const msg = data?.message || data?.error || `HTTP ${res.status}`
+      const err = new Error(msg)
+      err.data = data
+      throw err
+    }
+    return data
+  })
+}
+

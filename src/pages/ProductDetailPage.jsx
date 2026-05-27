@@ -14,9 +14,10 @@ export default function ProductDetailPage({ onCartOpen }) {
   const [activeVid, setActiveVid] = useState(0)
   const [mediaTab, setMediaTab] = useState('images')
   const [qty, setQty] = useState(1)
+  const [variantId, setVariantId] = useState('')
   const [addedMsg, setAddedMsg] = useState(false)
   const [relRef, relIn] = useInView()
-  const { add } = useCart()
+  const { add, buildCartKey } = useCart()
 
   useEffect(() => { window.scrollTo(0, 0) }, [slug])
   useEffect(() => {
@@ -24,15 +25,37 @@ export default function ProductDetailPage({ onCartOpen }) {
       ? product.images.filter(Boolean)
       : (product?.image ? [product.image] : [])
     const vids = Array.isArray(product?.videos) ? product.videos.filter(Boolean) : []
+    const variants = Array.isArray(product?.variants) ? product.variants : []
+    const firstVariantId = variants[0]?.id || ''
 
     setActiveImg(0)
     setActiveVid(0)
     setMediaTab(imgs.length ? 'images' : (vids.length ? 'video' : 'images'))
     setQty(1)
+    setVariantId(firstVariantId)
   }, [slug, product?.image, product?.images, product?.videos])
 
   function handleAddToCart() {
-    add(product, qty)
+    const variants = Array.isArray(product?.variants) ? product.variants : []
+    const selected = variants.find((v) => v?.id === variantId) || null
+    const safeVariantId = selected?.id || ''
+    const safeVariantLabel = selected?.label || ''
+    const variantPriceNum = Number(selected?.priceNum) || 0
+    const variantPrice = typeof selected?.price === 'string' ? selected.price : null
+    const variantStock = Number.isFinite(Number(selected?.stock)) ? Number(selected.stock) : null
+    if (variantStock === 0) return
+
+    const productForCart = {
+      ...product,
+      variantId: safeVariantId,
+      variantLabel: safeVariantLabel,
+      cartKey: buildCartKey({ slug: product?.slug, variantId: safeVariantId }),
+      priceNum: variantPriceNum > 0 ? variantPriceNum : product?.priceNum,
+      price: variantPriceNum > 0 ? (variantPrice || product?.price) : product?.price,
+      variantStock,
+    }
+
+    add(productForCart, qty)
     setAddedMsg(true)
     setTimeout(() => setAddedMsg(false), 2000)
     if (onCartOpen) onCartOpen()
@@ -61,11 +84,18 @@ export default function ProductDetailPage({ onCartOpen }) {
     ? product.images.filter(Boolean)
     : (product.image ? [product.image] : [])
   const videos = Array.isArray(product.videos) ? product.videos.filter(Boolean) : []
+  const variants = Array.isArray(product.variants) ? product.variants : []
 
   const related = products
     .filter(p => p.category === product.category && p.slug !== product.slug)
     .slice(0, 4)
-  const shownPrice = displayPrice(product)
+  const selectedVariant = variants.find((v) => v?.id === variantId) || null
+  const selectedStock = selectedVariant && Number.isFinite(Number(selectedVariant.stock))
+    ? Number(selectedVariant.stock)
+    : null
+  const shownPrice = selectedVariant?.priceNum > 0
+    ? displayPrice({ ...product, priceNum: selectedVariant.priceNum, price: selectedVariant.price || product.price })
+    : displayPrice(product)
 
   return (
     <main className="pt-20 min-h-screen">
@@ -195,6 +225,42 @@ export default function ProductDetailPage({ onCartOpen }) {
               </div>
             </div>
 
+            {/* Variants */}
+            {variants.length > 0 && (
+              <div className="mb-5">
+                <label className="text-sm font-medium text-gray-700 block mb-2">Chọn vị / loại:</label>
+                <div className="flex flex-wrap gap-2">
+                  {variants.map((v) => (
+                    <button
+                      key={v.id}
+                      type="button"
+                      onClick={() => setVariantId(v.id)}
+                      disabled={Number.isFinite(Number(v.stock)) && Number(v.stock) <= 0}
+                      className={`px-4 py-2 rounded-full text-xs font-bold border transition-colors ${
+                        Number.isFinite(Number(v.stock)) && Number(v.stock) <= 0
+                          ? 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed'
+                          : (v.id === variantId
+                              ? 'bg-primary text-white border-primary'
+                              : 'bg-white text-gray-700 border-gray-200 hover:border-primary')
+                      }`}
+                    >
+                      {v.label}
+                      {Number.isFinite(Number(v.stock)) && (
+                        <span className="ml-1 font-semibold">
+                          {Number(v.stock) <= 0 ? '(Hết)' : `(${Number(v.stock)})`}
+                        </span>
+                      )}
+                    </button>
+                  ))}
+                </div>
+                {selectedStock === 0 && (
+                  <p className="text-xs text-red-500 mt-2 font-semibold">
+                    Biến thể này đang hết hàng. Vui lòng chọn biến thể khác.
+                  </p>
+                )}
+              </div>
+            )}
+
             {/* Qty + Add to cart */}
             <div className="flex items-center gap-3 mb-4">
               <label className="text-sm font-medium text-gray-700">Số lượng:</label>
@@ -210,7 +276,12 @@ export default function ProductDetailPage({ onCartOpen }) {
             <div className="flex flex-col gap-3">
               <button
                 onClick={handleAddToCart}
-                className={`w-full font-bold py-3 rounded-full transition-all text-sm shadow ${ addedMsg ? 'bg-green-500 text-white' : 'bg-primary text-white hover:bg-primary-dark'}`}
+                disabled={selectedStock === 0}
+                className={`w-full font-bold py-3 rounded-full transition-all text-sm shadow ${
+                  selectedStock === 0
+                    ? 'bg-gray-200 text-gray-400 cursor-not-allowed shadow-none'
+                    : (addedMsg ? 'bg-green-500 text-white' : 'bg-primary text-white hover:bg-primary-dark')
+                }`}
               >
                 {addedMsg ? '✓ Đã thêm vào giỏ hàng!' : '🛒 Thêm vào giỏ hàng'}
               </button>

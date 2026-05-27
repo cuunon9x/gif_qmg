@@ -32,6 +32,7 @@ const EMPTY_PRODUCT = {
   badge: "",
   description: "",
   contents: "",
+  variants: "",
   minOrder: 50,
   lead: "",
   tags: "",
@@ -46,6 +47,26 @@ function toProductForm(p) {
   return {
     ...p,
     contents: Array.isArray(p.contents) ? p.contents.join("\n") : "",
+    variants: Array.isArray(p.variants)
+      ? p.variants
+          .map((v) => {
+            const label = String(v?.label || "").trim();
+            if (!label) return "";
+            const priceNum = Number(v?.priceNum) || 0;
+            const stock = Number.isFinite(Number(v?.stock)) ? Number(v.stock) : null;
+
+            const parts = [label];
+            if (priceNum > 0) parts.push(String(priceNum));
+            if (stock !== null) {
+              // keep slot for price if missing
+              if (parts.length === 1) parts.push("");
+              parts.push(String(stock));
+            }
+            return parts.join(" | ").trimEnd();
+          })
+          .filter(Boolean)
+          .join("\n")
+      : "",
     tags: Array.isArray(p.tags) ? p.tags.join(", ") : "",
     badge: p.badge ?? "",
     images: merged,
@@ -62,6 +83,23 @@ function fromProductForm(f) {
     ? f.videos.filter(Boolean)
     : (f.video ? [f.video].filter(Boolean) : []);
   const numericPrice = Number(f.priceNum) || 0
+  const variantLines = String(f.variants || '')
+    .split("\n")
+    .map((s) => s.trim())
+    .filter(Boolean)
+  const variants = variantLines.map((line) => {
+    const [rawLabel, rawPriceNum, rawStock] = line.split("|").map((s) => String(s || "").trim());
+    const label = rawLabel;
+    const priceNum = Number(rawPriceNum) || 0;
+    const stock = rawStock === "" ? null : (Number.isFinite(Number(rawStock)) ? Number(rawStock) : null);
+    return {
+      id: slugify(label),
+      label,
+      priceNum,
+      price: priceNum > 0 ? formatVND(priceNum) : null,
+      stock,
+    };
+  })
   return {
     ...f,
     id,
@@ -74,6 +112,7 @@ function fromProductForm(f) {
       .split("\n")
       .map((s) => s.trim())
       .filter(Boolean),
+    variants,
     tags: f.tags
       .split(",")
       .map((s) => s.trim())
@@ -477,6 +516,16 @@ function ProductForm({ product, categories, onSave, onCancel }) {
               placeholder={"Giỏ mây cao cấp\nRượu vang 750ml\n..."}
               value={form.contents}
               onChange={(e) => set("contents", e.target.value)}
+            />
+          </div>
+          <div className="sm:col-span-2">
+            <label className={label}>Biến thể / Vị (mỗi dòng một lựa chọn)</label>
+            <textarea
+              rows={4}
+              className={inp}
+              placeholder={"Socola | 69000 | 120\nDâu | 69000 | 0\nChuối | 75000 | 35\n..."}
+              value={form.variants}
+              onChange={(e) => set("variants", e.target.value)}
             />
           </div>
           <div className="sm:col-span-2">

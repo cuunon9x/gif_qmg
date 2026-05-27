@@ -4,24 +4,38 @@ const CartContext = createContext(null)
 
 const STORAGE_KEY = 'qmg_cart'
 
+function buildCartKey({ slug, variantId }) {
+  return `${slug || ''}::${variantId || ''}`
+}
+
+function clampQtyForItem(item, qty) {
+  const n = Number(qty) || 0
+  const min = Math.max(0, n)
+  const stock = Number.isFinite(Number(item?.variantStock)) ? Number(item.variantStock) : null
+  if (stock === null) return min
+  return Math.min(min, Math.max(stock, 0))
+}
+
 function reducer(state, action) {
   switch (action.type) {
     case 'ADD': {
-      const existing = state.find(i => i.slug === action.product.slug)
+      const key = action.product?.cartKey || buildCartKey(action.product || {})
+      const existing = state.find(i => i.cartKey === key)
       if (existing) {
         return state.map(i =>
-          i.slug === action.product.slug
-            ? { ...i, qty: i.qty + (action.qty || 1) }
+          i.cartKey === key
+            ? { ...i, qty: clampQtyForItem(i, i.qty + (action.qty || 1)) }
             : i
         )
       }
-      return [...state, { ...action.product, qty: action.qty || 1 }]
+      const next = { ...action.product, cartKey: key, qty: action.qty || 1 }
+      return [...state, { ...next, qty: clampQtyForItem(next, next.qty) }]
     }
     case 'REMOVE':
-      return state.filter(i => i.slug !== action.slug)
+      return state.filter(i => i.cartKey !== action.cartKey)
     case 'UPDATE_QTY':
-      if (action.qty <= 0) return state.filter(i => i.slug !== action.slug)
-      return state.map(i => i.slug === action.slug ? { ...i, qty: action.qty } : i)
+      if (action.qty <= 0) return state.filter(i => i.cartKey !== action.cartKey)
+      return state.map(i => i.cartKey === action.cartKey ? { ...i, qty: clampQtyForItem(i, action.qty) } : i)
     case 'CLEAR':
       return []
     case 'LOAD':
@@ -58,12 +72,12 @@ export function CartProvider({ children }) {
   }
 
   const add = (product, qty = 1) => dispatch({ type: 'ADD', product, qty })
-  const remove = (slug) => dispatch({ type: 'REMOVE', slug })
-  const updateQty = (slug, qty) => dispatch({ type: 'UPDATE_QTY', slug, qty })
+  const remove = (cartKey) => dispatch({ type: 'REMOVE', cartKey })
+  const updateQty = (cartKey, qty) => dispatch({ type: 'UPDATE_QTY', cartKey, qty })
   const clear = () => dispatch({ type: 'CLEAR' })
 
   return (
-    <CartContext.Provider value={{ items, totalQty, totalPrice, formatVND, add, remove, updateQty, clear }}>
+    <CartContext.Provider value={{ items, totalQty, totalPrice, formatVND, add, remove, updateQty, clear, buildCartKey }}>
       {children}
     </CartContext.Provider>
   )

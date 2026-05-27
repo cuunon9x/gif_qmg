@@ -2,7 +2,7 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
 import useInView from '../hooks/useInView'
-import { submitResendEmail } from '../lib/resend'
+import { submitCheckout } from '../lib/resend'
 import { displayPrice } from '../lib/price'
 
 export default function CheckoutPage() {
@@ -12,6 +12,7 @@ export default function CheckoutPage() {
   const [loading, setLoading] = useState(false)
   const [done, setDone] = useState(false)
   const [ref, inView] = useInView()
+  const hasOutOfStock = items.some((i) => Number.isFinite(Number(i.variantStock)) && Number(i.variantStock) <= 0)
 
   useEffect(() => { window.scrollTo(0, 0) }, [])
 
@@ -23,26 +24,23 @@ export default function CheckoutPage() {
 
   const handleSubmit = async e => {
     e.preventDefault()
+    if (hasOutOfStock) {
+      alert('Có sản phẩm/biến thể đang hết hàng. Vui lòng quay lại giỏ hàng để xoá hoặc chọn biến thể khác.')
+      return
+    }
     setLoading(true)
 
-    const orderLines = items.map(i => `• ${i.name} x${i.qty} — ${displayPrice(i)}`).join('\n')
-    const total = totalPrice > 0 ? `Tổng: ${formatVND(totalPrice)}` : 'Tổng: Liên hệ báo giá'
-
     try {
-      const { ok, message } = await submitResendEmail({
-        subject: `Đơn hàng mới – ${form.name} (${form.phone})`,
-        fields: {
-          ...form,
-          order_items: orderLines,
-          order_total: total,
-        },
+      await submitCheckout({
+        form,
+        items: items.map((i) => ({
+          slug: i.slug,
+          variantId: i.variantId || '',
+          qty: i.qty,
+        })),
       })
-      if (ok) {
-        clear()
-        setDone(true)
-      } else {
-        alert(message)
-      }
+      clear()
+      setDone(true)
     } finally {
       setLoading(false)
     }
@@ -128,10 +126,15 @@ export default function CheckoutPage() {
                 </div>
 
                 <div className="pt-2">
-                  <button type="submit" disabled={loading}
+                  <button type="submit" disabled={loading || hasOutOfStock}
                     className="w-full bg-primary text-white py-3.5 rounded-full font-bold hover:bg-primary-dark transition-colors text-sm shadow-lg disabled:opacity-60">
                     {loading ? 'Đang gửi đơn...' : 'Xác nhận đặt hàng'}
                   </button>
+                  {hasOutOfStock && (
+                    <p className="text-xs text-red-500 text-center mt-2 font-semibold">
+                      Có sản phẩm/biến thể hết hàng trong giỏ. Vui lòng điều chỉnh trước khi đặt.
+                    </p>
+                  )}
                   <p className="text-xs text-gray-400 text-center mt-2">
                     Nhân viên sẽ gọi xác nhận và báo giá chi tiết trong 5–15 phút (giờ làm việc 7h30–17h).
                   </p>
@@ -149,12 +152,17 @@ export default function CheckoutPage() {
 
               <div className="flex flex-col gap-4 mb-5">
                 {items.map(item => (
-                  <div key={item.slug} className="flex gap-3 items-start">
+                  <div key={item.cartKey || item.slug} className="flex gap-3 items-start">
                     <div className="w-14 h-14 rounded-xl overflow-hidden bg-gray-100 shrink-0">
                       <img src={item.images?.[0] || item.image} alt={item.name} className="w-full h-full object-cover" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="text-xs font-semibold text-gray-700 line-clamp-2 leading-snug">{item.name}</p>
+                      {item.variantLabel && (
+                        <p className="text-[11px] text-gray-500 mt-0.5">
+                          Vị/loại: <span className="font-semibold text-gray-700">{item.variantLabel}</span>
+                        </p>
+                      )}
                       <p className="text-xs text-gray-400 mt-0.5">SL: {item.qty}</p>
                     </div>
                     <div className="shrink-0 text-sm font-bold text-primary whitespace-nowrap">

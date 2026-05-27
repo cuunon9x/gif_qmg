@@ -44,7 +44,7 @@ export default function CartDrawer({ open, onClose }) {
           ) : (
             <div className="flex flex-col gap-4">
               {items.map(item => (
-                <div key={item.slug} className="flex gap-4 py-3 border-b border-gray-100 last:border-0">
+                <div key={item.cartKey || item.slug} className="flex gap-4 py-3 border-b border-gray-100 last:border-0">
                   {/* Image */}
                   <Link to={`/san-pham/${item.slug}`} onClick={onClose}
                     className="shrink-0 w-20 h-20 rounded-xl overflow-hidden bg-gray-100">
@@ -58,25 +58,35 @@ export default function CartDrawer({ open, onClose }) {
                         {item.name}
                       </p>
                     </Link>
+                    {item.variantLabel && (
+                      <p className="text-xs text-gray-500 mt-0.5">
+                        Vị/loại: <span className="font-semibold text-gray-700">{item.variantLabel}</span>
+                      </p>
+                    )}
+                    {Number.isFinite(Number(item.variantStock)) && (
+                      <p className={`text-xs mt-0.5 ${Number(item.variantStock) <= 0 ? 'text-red-500 font-semibold' : 'text-gray-400'}`}>
+                        Tồn kho: {Number(item.variantStock)}
+                      </p>
+                    )}
                     <p className="text-primary font-bold text-sm mt-1">{displayPrice(item)}</p>
 
                     {/* Qty controls */}
                     <div className="flex items-center justify-between mt-2">
                       <div className="flex items-center border border-gray-200 rounded-lg overflow-hidden">
                         <button
-                          onClick={() => updateQty(item.slug, item.qty - 1)}
+                          onClick={() => updateQty(item.cartKey || item.slug, item.qty - 1)}
                           className="w-8 h-8 flex items-center justify-center hover:bg-gray-100 text-gray-600 font-bold transition-colors"
                         >−</button>
                         <span className="w-8 h-8 flex items-center justify-center text-sm font-semibold border-x border-gray-200">
                           {item.qty}
                         </span>
                         <button
-                          onClick={() => updateQty(item.slug, item.qty + 1)}
+                          onClick={() => updateQty(item.cartKey || item.slug, item.qty + 1)}
                           className="w-8 h-8 flex items-center justify-center hover:bg-gray-100 text-gray-600 font-bold transition-colors"
                         >+</button>
                       </div>
                       <button
-                        onClick={() => remove(item.slug)}
+                        onClick={() => remove(item.cartKey || item.slug)}
                         className="text-gray-400 hover:text-red-500 transition-colors p-1"
                         title="Xóa"
                       >
