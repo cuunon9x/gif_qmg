@@ -55,7 +55,10 @@ export default function ProductDetailPage({ onCartOpen }) {
       variantStock,
     }
 
-    add(productForCart, qty)
+    const safeQty = selectedStock === null
+      ? Math.max(1, Math.floor(Number(qty) || 1))
+      : Math.min(Math.max(1, Math.floor(Number(qty) || 1)), Math.max(1, selectedStock))
+    add(productForCart, safeQty)
     setAddedMsg(true)
     setTimeout(() => setAddedMsg(false), 2000)
     if (onCartOpen) onCartOpen()
@@ -265,10 +268,41 @@ export default function ProductDetailPage({ onCartOpen }) {
             <div className="flex items-center gap-3 mb-4">
               <label className="text-sm font-medium text-gray-700">Số lượng:</label>
               <div className="flex items-center border border-gray-200 rounded-xl overflow-hidden">
-                <button onClick={() => setQty(q => Math.max(1, q - 1))}
+                <button
+                  type="button"
+                  onClick={() => setQty((q) => Math.max(1, q - 1))}
                   className="w-10 h-10 flex items-center justify-center hover:bg-gray-100 text-gray-600 font-bold transition-colors text-lg">−</button>
-                <span className="w-12 h-10 flex items-center justify-center text-sm font-bold border-x border-gray-200">{qty}</span>
-                <button onClick={() => setQty(q => q + 1)}
+                <input
+                  type="number"
+                  inputMode="numeric"
+                  min={1}
+                  max={selectedStock === null ? undefined : Math.max(1, selectedStock)}
+                  value={qty}
+                  onChange={(e) => {
+                    const raw = e.target.value
+                    if (raw === '') return
+                    const n = Math.floor(Number(raw) || 1)
+                    const clamped = selectedStock === null
+                      ? Math.max(1, n)
+                      : Math.min(Math.max(1, n), Math.max(1, selectedStock))
+                    setQty(clamped)
+                  }}
+                  onBlur={(e) => {
+                    const raw = e.target.value
+                    const n = Math.floor(Number(raw) || 1)
+                    const clamped = selectedStock === null
+                      ? Math.max(1, n)
+                      : Math.min(Math.max(1, n), Math.max(1, selectedStock))
+                    setQty(clamped)
+                  }}
+                  className="w-16 h-10 text-center text-sm font-bold border-x border-gray-200 outline-none focus:ring-2 focus:ring-primary/30"
+                />
+                <button
+                  type="button"
+                  onClick={() => setQty((q) => {
+                    const next = q + 1
+                    return selectedStock === null ? next : Math.min(next, Math.max(1, selectedStock))
+                  })}
                   className="w-10 h-10 flex items-center justify-center hover:bg-gray-100 text-gray-600 font-bold transition-colors text-lg">+</button>
               </div>
             </div>

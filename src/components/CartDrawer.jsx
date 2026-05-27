@@ -74,13 +74,30 @@ export default function CartDrawer({ open, onClose }) {
                     <div className="flex items-center justify-between mt-2">
                       <div className="flex items-center border border-gray-200 rounded-lg overflow-hidden">
                         <button
+                          type="button"
                           onClick={() => updateQty(item.cartKey || item.slug, item.qty - 1)}
                           className="w-8 h-8 flex items-center justify-center hover:bg-gray-100 text-gray-600 font-bold transition-colors"
                         >−</button>
-                        <span className="w-8 h-8 flex items-center justify-center text-sm font-semibold border-x border-gray-200">
-                          {item.qty}
-                        </span>
+                        <input
+                          type="number"
+                          inputMode="numeric"
+                          min={1}
+                          max={Number.isFinite(Number(item.variantStock)) ? Math.max(1, Number(item.variantStock)) : undefined}
+                          value={item.qty}
+                          onChange={(e) => {
+                            const raw = e.target.value
+                            if (raw === '') return
+                            const n = Math.floor(Number(raw) || 1)
+                            updateQty(item.cartKey || item.slug, n)
+                          }}
+                          onBlur={(e) => {
+                            const n = Math.floor(Number(e.target.value) || 1)
+                            updateQty(item.cartKey || item.slug, n)
+                          }}
+                          className="w-12 h-8 text-center text-sm font-semibold border-x border-gray-200 outline-none focus:ring-2 focus:ring-primary/30"
+                        />
                         <button
+                          type="button"
                           onClick={() => updateQty(item.cartKey || item.slug, item.qty + 1)}
                           className="w-8 h-8 flex items-center justify-center hover:bg-gray-100 text-gray-600 font-bold transition-colors"
                         >+</button>
