@@ -25,7 +25,7 @@ export default function CheckoutPage() {
   const handleSubmit = async e => {
     e.preventDefault()
     if (hasOutOfStock) {
-      alert('Có sản phẩm/biến thể đang hết hàng. Vui lòng quay lại giỏ hàng để xoá hoặc chọn biến thể khác.')
+      alert('Có sản phẩm/loại sản phẩm đang hết hàng. Vui lòng quay lại giỏ hàng để xoá hoặc chọn loại sản phẩm khác.')
       return
     }
     setLoading(true)
@@ -132,7 +132,7 @@ export default function CheckoutPage() {
                   </button>
                   {hasOutOfStock && (
                     <p className="text-xs text-red-500 text-center mt-2 font-semibold">
-                      Có sản phẩm/biến thể hết hàng trong giỏ. Vui lòng điều chỉnh trước khi đặt.
+                      Có sản phẩm/loại sản phẩm hết hàng trong giỏ. Vui lòng điều chỉnh trước khi đặt.
                     </p>
                   )}
                   <p className="text-xs text-gray-400 text-center mt-2">

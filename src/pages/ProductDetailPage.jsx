@@ -247,7 +247,7 @@ export default function ProductDetailPage({ onCartOpen }) {
                       {v.label}
                       {Number.isFinite(Number(v.stock)) && (
                         <span className="ml-1 font-semibold">
-                          {Number(v.stock) <= 0 ? '(Hết)' : `(${Number(v.stock)})`}
+                          {Number(v.stock) <= 0 ? '(Hết)' : `(còn lại ${Number(v.stock)})`}
                         </span>
                       )}
                     </button>
@@ -255,7 +255,7 @@ export default function ProductDetailPage({ onCartOpen }) {
                 </div>
                 {selectedStock === 0 && (
                   <p className="text-xs text-red-500 mt-2 font-semibold">
-                    Biến thể này đang hết hàng. Vui lòng chọn biến thể khác.
+                    Loại sản phẩm này đang hết hàng. Vui lòng chọn loại sản phẩm khác.
                   </p>
                 )}
               </div>

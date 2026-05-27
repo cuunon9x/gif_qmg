@@ -519,7 +519,7 @@ function ProductForm({ product, categories, onSave, onCancel }) {
             />
           </div>
           <div className="sm:col-span-2">
-            <label className={label}>Biến thể / Vị (mỗi dòng một lựa chọn)</label>
+            <label className={label}>Loại / Giá / Số lượng. Mỗi dòng một loại.</label>
             <textarea
               rows={4}
               className={inp}
