@@ -50,6 +50,10 @@ const ROUTES = {
     title: 'Chính Sách Mua Hàng | QMG HVAC',
     description: 'Chính sách đặt hàng, thanh toán, giao hàng, bảo hành và đổi trả của Quang Minh Group HVAC.',
   },
+  '/gioi-thieu': {
+    title: 'Giới Thiệu Công Ty | QMG HVAC – Quang Minh Group',
+    description: 'Quang Minh Group HVAC – chuyên gia giải pháp điều hòa không khí: cung cấp, thi công, bảo trì hệ thống HVAC chính hãng tại Bình Dương và toàn quốc.',
+  },
 }
 
 function stripTrailingSlash(p) {

@@ -17,8 +17,14 @@ export default function Navbar({ onCartOpen }) {
       { label: 'Trang Chủ', to: '/' },
       ...productCats.map((c) => ({ label: c.label, to: `/${c.slug}` })),
       ...(serviceCat ? [{ label: serviceCat.label, to: `/${serviceCat.slug}` }] : []),
+      { label: 'Giới Thiệu', to: '/gioi-thieu' },
     ]
   }, [categories])
+
+  const policyLinks = [
+    { label: 'Chính sách mua hàng', to: '/chinh-sach-mua-hang' },
+    { label: 'Chính sách bảo mật', to: '/chinh-sach-bao-mat' },
+  ]
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
@@ -54,6 +60,26 @@ export default function Navbar({ onCartOpen }) {
                     isActive
                       ? 'bg-primary text-white'
                       : 'text-gray-700 hover:bg-primary-light hover:text-primary'
+                  }`
+                }
+              >
+                {link.label}
+              </NavLink>
+            </li>
+          ))}
+        </ul>
+
+        {/* Policy links – desktop only */}
+        <ul className="hidden xl:flex items-center gap-1 border-l border-gray-200 pl-3">
+          {policyLinks.map(link => (
+            <li key={link.to}>
+              <NavLink
+                to={link.to}
+                className={({ isActive }) =>
+                  `px-2.5 py-1.5 rounded-full text-xs font-medium transition-colors ${
+                    isActive
+                      ? 'bg-primary/10 text-primary'
+                      : 'text-gray-500 hover:bg-primary-light hover:text-primary'
                   }`
                 }
               >
@@ -120,6 +146,21 @@ export default function Navbar({ onCartOpen }) {
               {link.label}
             </NavLink>
           ))}
+          <div className="mt-2 border-t border-gray-100 pt-2 flex flex-col gap-1">
+            {policyLinks.map((link) => (
+              <NavLink
+                key={link.to}
+                to={link.to}
+                className={({ isActive }) =>
+                  `block px-4 py-2 rounded-lg text-xs font-medium transition-all ${
+                    isActive ? 'bg-primary/10 text-primary' : 'text-gray-500 hover:bg-primary-light'
+                  }`
+                }
+              >
+                {link.label}
+              </NavLink>
+            ))}
+          </div>
           <a
             href="tel:0938777888"
             className="mt-2 flex items-center justify-center gap-2 bg-primary text-white py-2.5 rounded-full font-bold text-sm"

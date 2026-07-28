@@ -14,6 +14,7 @@ import CategoryOrService from './pages/CategoryOrService'
 import CheckoutPage from './pages/CheckoutPage'
 import PrivacyPolicyPage from './pages/PrivacyPolicyPage'
 import PurchasePolicyPage from './pages/PurchasePolicyPage'
+import AboutPage from './pages/AboutPage'
 import AdminPage from './pages/AdminPage'
 import AdminCategoriesPage from './pages/AdminCategoriesPage'
 import AdminProductsPage from './pages/AdminProductsPage'
@@ -35,6 +36,7 @@ function App() {
               <Route path="/checkout" element={<CheckoutPage />} />
               <Route path="/chinh-sach-bao-mat" element={<PrivacyPolicyPage />} />
               <Route path="/chinh-sach-mua-hang" element={<PurchasePolicyPage />} />
+              <Route path="/gioi-thieu" element={<AboutPage />} />
               <Route path="/admin" element={<AdminPage />} />
               <Route path="/admin/products" element={<AdminProductsPage />} />
               <Route path="/admin/categories" element={<AdminCategoriesPage />} />
