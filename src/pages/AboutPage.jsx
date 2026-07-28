@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import useInView from '../hooks/useInView'
 
@@ -37,6 +38,8 @@ export default function AboutPage() {
   const [s1Ref, s1In] = useInView()
   const [s2Ref, s2In] = useInView()
   const [s3Ref, s3In] = useInView()
+
+  useEffect(() => { window.scrollTo(0, 0) }, [])
 
   return (
     <main className="pt-20 min-h-screen">
@@ -117,6 +120,65 @@ export default function AboutPage() {
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── HVAC Explainer ── */}
+      <section className="py-14 bg-gray-50 border-y border-gray-100">
+        <div className="max-w-5xl mx-auto px-4">
+          <div className="text-center mb-10">
+            <span className="text-primary text-xs font-bold uppercase tracking-widest">Thuật ngữ</span>
+            <h2 className="text-2xl md:text-3xl font-extrabold text-gray-800 mt-2">
+              HVAC là gì?
+            </h2>
+            <p className="text-gray-500 text-sm mt-2">
+              <span className="font-bold text-primary">H</span>eating &nbsp;·&nbsp;
+              <span className="font-bold text-primary">V</span>entilation &nbsp;·&nbsp;
+              <span className="font-bold text-primary">A</span>ir &nbsp;
+              <span className="font-bold text-primary">C</span>onditioning
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-3 gap-5">
+            {[
+              {
+                letter: 'H',
+                term: 'Heating',
+                vi: 'Sưởi ấm',
+                icon: '🔥',
+                desc: 'Hệ thống cung cấp nhiệt cho không gian trong điều kiện thời tiết lạnh, duy trì nhiệt độ thoải mái và ổn định trong môi trường làm việc, sinh hoạt.',
+              },
+              {
+                letter: 'V',
+                term: 'Ventilation',
+                vi: 'Thông gió',
+                icon: '💨',
+                desc: 'Hệ thống lưu thông và lọc không khí, loại bỏ khí CO₂, mùi hôi và các chất ô nhiễm, đảm bảo chất lượng không khí trong lành cho mọi công trình.',
+              },
+              {
+                letter: 'AC',
+                term: 'Air Conditioning',
+                vi: 'Điều hòa không khí',
+                icon: '❄️',
+                desc: 'Hệ thống điều chỉnh nhiệt độ, độ ẩm và chất lượng không khí trong phòng, tạo môi trường mát mẻ, dễ chịu cho nhà ở, văn phòng và công trình công nghiệp.',
+              },
+            ].map((item) => (
+              <div key={item.letter} className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 text-center">
+                <div className="w-14 h-14 rounded-full bg-primary flex items-center justify-center mx-auto mb-4">
+                  <span className="text-white font-extrabold text-lg">{item.letter}</span>
+                </div>
+                <div className="text-2xl mb-2">{item.icon}</div>
+                <h3 className="font-extrabold text-gray-800 text-base">{item.term}</h3>
+                <p className="text-primary text-xs font-semibold mb-3">{item.vi}</p>
+                <p className="text-gray-500 text-xs leading-relaxed">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-8 bg-primary rounded-2xl p-6 text-white text-center">
+            <p className="text-sm leading-relaxed max-w-3xl mx-auto">
+              <strong>HVAC</strong> (Heating, Ventilation &amp; Air Conditioning) là hệ thống kỹ thuật tổng hợp giúp kiểm soát nhiệt độ, độ ẩm, lưu thông và chất lượng không khí trong các công trình — từ nhà ở dân dụng đến tòa nhà thương mại và nhà máy công nghiệp. QMG HVAC chuyên thiết kế và triển khai các giải pháp HVAC toàn diện, giúp tối ưu hiệu suất vận hành và tiết kiệm năng lượng.
+            </p>
           </div>
         </div>
       </section>
