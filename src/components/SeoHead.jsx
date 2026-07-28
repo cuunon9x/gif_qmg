@@ -42,6 +42,14 @@ const ROUTES = {
     title: 'Nhận Báo Giá | QMG HVAC',
     description: 'Gửi yêu cầu nhận báo giá miễn phí tư vấn và lắp đặt hệ thống điện lạnh HVAC.',
   },
+  '/chinh-sach-bao-mat': {
+    title: 'Chính Sách Bảo Mật | QMG HVAC',
+    description: 'Chính sách bảo mật thông tin khách hàng của QMG HVAC đối với website, form liên hệ và đơn hàng.',
+  },
+  '/chinh-sach-mua-hang': {
+    title: 'Chính Sách Mua Hàng | QMG HVAC',
+    description: 'Chính sách đặt hàng, thanh toán, giao hàng, bảo hành và đổi trả của Quang Minh Group HVAC.',
+  },
 }
 
 function stripTrailingSlash(p) {

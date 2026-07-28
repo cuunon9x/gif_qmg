@@ -12,6 +12,8 @@ import HomePage from './pages/HomePage'
 import ProductDetailPage from './pages/ProductDetailPage'
 import CategoryOrService from './pages/CategoryOrService'
 import CheckoutPage from './pages/CheckoutPage'
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage'
+import PurchasePolicyPage from './pages/PurchasePolicyPage'
 import AdminPage from './pages/AdminPage'
 import AdminCategoriesPage from './pages/AdminCategoriesPage'
 import AdminProductsPage from './pages/AdminProductsPage'
@@ -31,6 +33,8 @@ function App() {
               <Route path="/thiet-ke-rieng" element={<Navigate to="/dich-vu" replace />} />
               <Route path="/san-pham/:slug" element={<ProductDetailPage onCartOpen={() => setCartOpen(true)} />} />
               <Route path="/checkout" element={<CheckoutPage />} />
+              <Route path="/chinh-sach-bao-mat" element={<PrivacyPolicyPage />} />
+              <Route path="/chinh-sach-mua-hang" element={<PurchasePolicyPage />} />
               <Route path="/admin" element={<AdminPage />} />
               <Route path="/admin/products" element={<AdminProductsPage />} />
               <Route path="/admin/categories" element={<AdminCategoriesPage />} />

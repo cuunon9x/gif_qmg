@@ -79,7 +79,12 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-gray-700 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-500">
-          <p>© {new Date().getFullYear()} QMG HVAC – Giải Pháp Điện Lạnh Toàn Diện. All rights reserved.</p>
+          <p>
+            © {new Date().getFullYear()} QMG HVAC – Giải Pháp Điện Lạnh Toàn Diện.{' '}
+            <a href="/chinh-sach-mua-hang" className="hover:text-primary transition-colors">Chính sách mua hàng</a>
+            {' · '}
+            <a href="/chinh-sach-bao-mat" className="hover:text-primary transition-colors">Bảo mật</a>
+          </p>
           <p>Thiết kế & phát triển bởi <span className="text-primary">QMG Team</span></p>
         </div>
       </div>

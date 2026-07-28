@@ -203,10 +203,10 @@ export default function ProductDetailPage({ onCartOpen }) {
             <div className="text-2xl font-bold text-primary mb-4">{shownPrice}</div>
             <p className="text-gray-600 text-sm leading-relaxed mb-6">{product.description}</p>
 
-            {/* Contents */}
-            {product.contents && (
+            {/* Feature list */}
+            {Array.isArray(product.contents) && product.contents.length > 0 && (
               <div className="bg-primary-light rounded-xl p-5 mb-6">
-                <h3 className="font-bold text-gray-700 text-sm mb-3">📦 Thành phần quà</h3>
+                <h3 className="font-bold text-gray-700 text-sm mb-3">📋 Tính năng nổi bật</h3>
                 <ul className="space-y-1.5">
                   {product.contents.map((item, i) => (
                     <li key={i} className="flex items-start gap-2 text-sm text-gray-600">
@@ -217,15 +217,18 @@ export default function ProductDetailPage({ onCartOpen }) {
               </div>
             )}
 
-            <div className="grid grid-cols-2 gap-3 text-xs text-gray-500 mb-6">
-              <div className="bg-gray-50 rounded-lg p-3">
-                <div className="font-semibold text-gray-700 mb-0.5">Số lượng tối thiểu</div>
-                <div>{product.minOrder} sản phẩm</div>
-              </div>
-              <div className="bg-gray-50 rounded-lg p-3">
-                <div className="font-semibold text-gray-700 mb-0.5">Thời gian sản xuất</div>
-                <div>{product.lead}</div>
-              </div>
+            {/* Quick info chips */}
+            <div className="flex flex-wrap gap-2 mb-6">
+              {product.subcatLabel && (
+                <span className="bg-primary-light text-primary text-xs font-semibold px-3 py-1.5 rounded-full">
+                  {product.subcatLabel}
+                </span>
+              )}
+              {typeof product.tags === 'string' && product.tags.split(',').map((t) => t.trim()).filter(Boolean).map((tag) => (
+                <span key={tag} className="bg-gray-100 text-gray-600 text-xs px-3 py-1.5 rounded-full capitalize">
+                  {tag}
+                </span>
+              ))}
             </div>
 
             {/* Variants */}
@@ -331,6 +334,25 @@ export default function ProductDetailPage({ onCartOpen }) {
               </div>
             </div>
             <p className="text-xs text-gray-400 mt-3 text-center">✨ Thiết bị chính hãng – Bảo hành chính hãng – Hỗ trợ tận nơi</p>
+
+            <div className="mt-5 rounded-2xl border border-primary/15 bg-primary-light p-4">
+              <h3 className="text-sm font-bold text-gray-800 mb-2">QMG HVAC cam kết</h3>
+              <ul className="space-y-1.5 text-xs text-gray-600 leading-relaxed">
+                <li className="flex items-start gap-2"><span className="text-primary mt-0.5">✓</span> Cung cấp máy lạnh chính hãng, đầy đủ bảo hành từ nhà sản xuất.</li>
+                <li className="flex items-start gap-2"><span className="text-primary mt-0.5">✓</span> Thi công lắp đặt chuẩn kỹ thuật HVAC, đúng tiến độ và an toàn.</li>
+                <li className="flex items-start gap-2"><span className="text-primary mt-0.5">✓</span> Bảo trì, vệ sinh, sửa chữa tận nơi cho nhà ở, văn phòng và công trình.</li>
+                <li className="flex items-start gap-2"><span className="text-primary mt-0.5">✓</span> Tư vấn giải pháp điện lạnh miễn phí trong 5–15 phút.</li>
+              </ul>
+              <div className="mt-3 pt-3 border-t border-primary/10 flex flex-wrap gap-3 text-xs">
+                <Link to="/chinh-sach-mua-hang" className="text-primary hover:underline font-medium">
+                  📋 Chính sách mua hàng
+                </Link>
+                <span className="text-gray-300">|</span>
+                <Link to="/chinh-sach-bao-mat" className="text-gray-500 hover:text-primary hover:underline">
+                  Chính sách bảo mật
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </section>
