@@ -12,7 +12,7 @@ export default function CategoryNav() {
       <div className="max-w-7xl mx-auto px-4">
         <div ref={ref} className="text-center mb-10">
           <span className="text-primary font-semibold text-xs uppercase tracking-widest">Danh Mục</span>
-          <h2 className="text-2xl md:text-3xl font-bold mt-1 text-gray-800">Khám Phá Sản Phẩm &amp; Dịch Vụ</h2>
+          <h2 className="text-2xl md:text-3xl font-bold mt-1 text-gray-800">Khám Phá Sản Phẩm & Dịch Vụ</h2>
         </div>
 
         <div className={`grid grid-cols-2 lg:grid-cols-3 gap-5 fade-up ${inView ? 'in-view' : ''}`}>

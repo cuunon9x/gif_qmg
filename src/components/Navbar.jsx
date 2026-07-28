@@ -33,7 +33,7 @@ export default function Navbar({ onCartOpen }) {
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white shadow-md' : 'bg-white/95 backdrop-blur-sm'}`}>
       {/* Top bar */}
       <div className="bg-primary text-white text-xs py-1.5 px-4 hidden sm:flex items-center justify-between max-w-7xl mx-auto">
-        <span>Cung cấp, lắp đặt, bảo trì điện lạnh &amp; HVAC – Phục vụ tận nơi</span>
+        <span>Cung cấp, lắp đặt, bảo trì điện lạnh HVAC – Phục vụ tận nơi</span>
         <a href="tel:0938777888" className="font-semibold hover:text-primary-light transition-colors">
           Hotline: 0938 777 888
         </a>

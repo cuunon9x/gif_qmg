@@ -3,9 +3,9 @@ import useInView from '../hooks/useInView'
 
 const PROCESS = [
   { step: '01', title: 'Tiếp nhận yêu cầu', desc: 'Tiếp nhận thông tin từ khách hàng, tư vấn nhu cầu sử dụng, loại công trình, diện tích và ngân sách để đưa ra giải pháp phù hợp.' },
-  { step: '02', title: 'Khảo sát &amp; Báo giá', desc: 'Kỹ thuẫt viên khảo sát thực tế (nếu cần), tư vấn phương án lắp đặt tối ưu và gửi báo giá chi tiết, minh bạch, không phát sinh chi phí.' },
-  { step: '03', title: 'Thi công &amp; Lắp đặt', desc: 'Tiến hành thi công theo đúng tiêu chuẩn HVAC, đảm bảo kỹ thuẫt, an toàn, tính thẩm mỹ và đúng tiến độ đã cam kết.' },
-  { step: '04', title: 'Nghiệm thu &amp; Bảo hành', desc: 'Kiểm tra vận hành toàn bộ hệ thống, bàn giao cho khách hàng, hướng dẫn sử dụng và kích hoạt bảo hành, bảo trì định kỳ.' },
+  { step: '02', title: 'Khảo sát & Báo giá', desc: 'Kỹ thuẫt viên khảo sát thực tế (nếu cần), tư vấn phương án lắp đặt tối ưu và gửi báo giá chi tiết, minh bạch, không phát sinh chi phí.' },
+  { step: '03', title: 'Thi công & Lắp đặt', desc: 'Tiến hành thi công theo đúng tiêu chuẩn HVAC, đảm bảo kỹ thuẫt, an toàn, tính thẩm mỹ và đúng tiến độ đã cam kết.' },
+  { step: '04', title: 'Nghiệm thu & Bảo hành', desc: 'Kiểm tra vận hành toàn bộ hệ thống, bàn giao cho khách hàng, hướng dẫn sử dụng và kích hoạt bảo hành, bảo trì định kỳ.' },
 ]
 
 const STANDARDS = [

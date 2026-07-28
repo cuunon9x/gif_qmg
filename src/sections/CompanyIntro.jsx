@@ -34,13 +34,13 @@ export default function CompanyIntro() {
                 </div>
                 <div className="rounded-2xl border border-gray-100 bg-gray-50/60 p-4">
                   <div className="text-xs uppercase tracking-widest text-gray-500">Dịch vụ</div>
-                  <div className="mt-1 text-sm font-semibold text-gray-800">Thiết kế & in logo</div>
-                  <div className="text-xs text-gray-500 mt-1">Đồng bộ nhận diện thương hiệu</div>
+                  <div className="mt-1 text-sm font-semibold text-gray-800">Thiết kế & Thi công</div>
+                  <div className="text-xs text-gray-500 mt-1">Đảm bảo chất lượng</div>
                 </div>
                 <div className="rounded-2xl border border-gray-100 bg-gray-50/60 p-4">
                   <div className="text-xs uppercase tracking-widest text-gray-500">Vận hành</div>
-                  <div className="mt-1 text-sm font-semibold text-gray-800">Giao hàng đúng hẹn</div>
-                  <div className="text-xs text-gray-500 mt-1">Theo thỏa thuận từng đơn</div>
+                  <div className="mt-1 text-sm font-semibold text-gray-800">Vận hành hiệu quả</div>
+                  <div className="text-xs text-gray-500 mt-1">Hỗ trợ kỹ thuật tận nơi</div>
                 </div>
                 <div className="rounded-2xl border border-gray-100 bg-gray-50/60 p-4">
                   <div className="text-xs uppercase tracking-widest text-gray-500">Pháp lý</div>

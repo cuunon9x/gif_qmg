@@ -34,7 +34,7 @@ export default function BlogPreview() {
         <div ref={headRef} className={`flex items-end justify-between mb-10 fade-up ${headIn ? 'in-view' : ''}`}>
           <div>
             <span className="text-primary font-semibold text-xs uppercase tracking-widest">Tin Tức</span>
-            <h2 className="text-2xl md:text-3xl font-bold mt-1 text-gray-800">Kiến Thức HVAC &amp; Điện Lạnh</h2>
+            <h2 className="text-2xl md:text-3xl font-bold mt-1 text-gray-800">Kiến Thức HVAC & Điện Lạnh</h2>
           </div>
           <a href="#" className="hidden sm:block text-primary text-sm font-semibold hover:underline">
             Xem tất cả →
