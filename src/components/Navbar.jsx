@@ -40,9 +40,21 @@ export default function Navbar({ onCartOpen }) {
       {/* Top bar */}
       <div className="bg-primary text-white text-xs py-1.5 px-4 hidden sm:flex items-center justify-between max-w-7xl mx-auto">
         <span>Cung cấp, lắp đặt, bảo trì điện lạnh HVAC – Phục vụ tận nơi</span>
-        <a href="tel:0938777888" className="font-semibold hover:text-primary-light transition-colors">
-          Hotline: 0938 777 888
-        </a>
+        <div className="flex items-center gap-4">
+          {policyLinks.map(link => (
+            <NavLink key={link.to} to={link.to}
+              className={({ isActive }) =>
+                `hover:text-yellow-200 transition-colors ${
+                  isActive ? 'text-yellow-300 font-semibold' : 'text-white/80'
+                }`
+              }>
+              {link.label}
+            </NavLink>
+          ))}
+          <a href="tel:0938777888" className="font-semibold hover:text-primary-light transition-colors">
+            Hotline: 0938 777 888
+          </a>
+        </div>
       </div>
 
       <nav className="max-w-7xl mx-auto px-4 flex items-center justify-between h-16">
@@ -60,26 +72,6 @@ export default function Navbar({ onCartOpen }) {
                     isActive
                       ? 'bg-primary text-white'
                       : 'text-gray-700 hover:bg-primary-light hover:text-primary'
-                  }`
-                }
-              >
-                {link.label}
-              </NavLink>
-            </li>
-          ))}
-        </ul>
-
-        {/* Policy links – desktop only */}
-        <ul className="hidden xl:flex items-center gap-1 border-l border-gray-200 pl-3">
-          {policyLinks.map(link => (
-            <li key={link.to}>
-              <NavLink
-                to={link.to}
-                className={({ isActive }) =>
-                  `px-2.5 py-1.5 rounded-full text-xs font-medium transition-colors ${
-                    isActive
-                      ? 'bg-primary/10 text-primary'
-                      : 'text-gray-500 hover:bg-primary-light hover:text-primary'
                   }`
                 }
               >
