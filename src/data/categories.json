@@ -1,0 +1,50 @@
+[
+  {
+    "id": "daikin",
+    "slug": "daikin",
+    "label": "Daikin",
+    "description": "Máy lạnh Daikin chính hãng – tiết kiệm điện, bền bỉ, bảo hành chính hãng.",
+    "order": 1,
+    "isService": false
+  },
+  {
+    "id": "mitsubishi",
+    "slug": "mitsubishi",
+    "label": "Mitsubishi",
+    "description": "Máy lạnh Mitsubishi Electric & Heavy chính hãng – công nghệ Nhật, vận hành ổn định.",
+    "order": 2,
+    "isService": false
+  },
+  {
+    "id": "panasonic",
+    "slug": "panasonic",
+    "label": "Panasonic",
+    "description": "Máy lạnh Panasonic chính hãng – lọc không khí, tiết kiệm năng lượng cao.",
+    "order": 3,
+    "isService": false
+  },
+  {
+    "id": "toshiba",
+    "slug": "toshiba",
+    "label": "Toshiba",
+    "description": "Máy lạnh Toshiba chính hãng – thiết kế hiện đại, hiệu suất làm lạnh tốt.",
+    "order": 4,
+    "isService": false
+  },
+  {
+    "id": "midea",
+    "slug": "midea",
+    "label": "Midea",
+    "description": "Máy lạnh Midea chính hãng – giá tốt, tính năng đa dạng, phù hợp mọi nhu cầu.",
+    "order": 5,
+    "isService": false
+  },
+  {
+    "id": "dich-vu",
+    "slug": "dich-vu",
+    "label": "Dịch Vụ",
+    "description": "Thi công lắp đặt, bảo trì, vệ sinh máy lạnh và hệ thống HVAC toàn diện.",
+    "order": 6,
+    "isService": true
+  }
+]

@@ -14,7 +14,7 @@ export default function MobileFeaturedProducts() {
             <div className="text-xs uppercase tracking-widest text-gray-500">Sản phẩm nổi bật</div>
             <h3 className="text-xl font-extrabold text-gray-800 mt-1">Gợi ý nhanh</h3>
           </div>
-          <Link to="/qua-tang-doanh-nghiep" className="text-primary text-sm font-semibold hover:underline">
+          <Link to="/daikin" className="text-primary text-sm font-semibold hover:underline">
             Xem tất cả
           </Link>
         </div>

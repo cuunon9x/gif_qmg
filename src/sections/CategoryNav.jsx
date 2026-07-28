@@ -12,7 +12,7 @@ export default function CategoryNav() {
       <div className="max-w-7xl mx-auto px-4">
         <div ref={ref} className="text-center mb-10">
           <span className="text-primary font-semibold text-xs uppercase tracking-widest">Danh Mục</span>
-          <h2 className="text-2xl md:text-3xl font-bold mt-1 text-gray-800">Khám Phá Bộ Sưu Tập Quà Tặng</h2>
+          <h2 className="text-2xl md:text-3xl font-bold mt-1 text-gray-800">Khám Phá Sản Phẩm &amp; Dịch Vụ</h2>
         </div>
 
         <div className={`grid grid-cols-2 lg:grid-cols-3 gap-5 fade-up ${inView ? 'in-view' : ''}`}>
@@ -29,7 +29,7 @@ export default function CategoryNav() {
                 <span className="cat-icon text-3xl mb-2">{cat.icon}</span>
                 <h3 className="font-bold text-base leading-tight">{cat.label}</h3>
                 {cat.count && <p className="text-xs mt-1 opacity-80">{cat.count} sản phẩm</p>}
-                {cat.isService && <p className="text-xs mt-1 opacity-80">Miễn phí thiết kế</p>}
+                {cat.isService && <p className="text-xs mt-1 opacity-80">Tư vấn miễn phí</p>}
               </div>
             </Link>
           ))}

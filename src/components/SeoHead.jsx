@@ -1,43 +1,46 @@
 import { useEffect, useMemo } from 'react'
 import { useLocation } from 'react-router-dom'
 
-const SITE = 'https://quatangqmg.com'
+const SITE = 'https://qmghvac.com'
 
 const DEFAULT_DESC =
-  'QMG Gift chuyên quà tặng doanh nghiệp cao cấp: quà Tết, quà sức khỏe, thiết kế hộp quà riêng, in logo theo nhận diện. Tư vấn nhanh và giao hàng toàn quốc.'
+  'QMG HVAC – Giải pháp điện lạnh toàn diện: cung cấp, tư vấn, thiết kế, thi công và bảo trì hệ thống điều hòa không khí chính hãng. Hotline: 0938 777 888.'
 
 const INDEX_ROBOTS =
   'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1'
 
 const ROUTES = {
   '/': {
-    title: 'QMG Gift – Quà Tặng Doanh Nghiệp Cao Cấp',
+    title: 'QMG HVAC – Giải Pháp Điện Lạnh Toàn Diện',
     description: DEFAULT_DESC,
   },
-  '/qua-tang-doanh-nghiep': {
-    title: 'Quà Tặng Doanh Nghiệp | QMG Gift',
-    description:
-      'Quà tặng doanh nghiệp cao cấp: quà Tết, quà sự kiện, hộp quà thương hiệu. Thiết kế & in logo theo nhận diện, giao hàng toàn quốc.',
+  '/daikin': {
+    title: 'Máy Lạnh Daikin Chính Hãng | QMG HVAC',
+    description: 'Cung cấp, lắp đặt máy lạnh Daikin chính hãng. Tư vấn miễn phí, bảo hành chính hãng, thi công chuẩn kỹ thuật HVAC.',
   },
-  '/qua-tang-suc-khoe': {
-    title: 'Quà Tặng Sức Khỏe Doanh Nghiệp | QMG Gift',
-    description:
-      'Quà tặng sức khỏe cho doanh nghiệp: granola, ngũ cốc, set quà dinh dưỡng. Phù hợp nhân sự, đối tác và chiến dịch chăm sóc sức khỏe.',
+  '/midea': {
+    title: 'Máy Lạnh Midea Chính Hãng | QMG HVAC',
+    description: 'Cung cấp, lắp đặt máy lạnh Midea chính hãng. Giá tốt, bảo hành chính hãng, thi công chuẩn kỹ thuật HVAC.',
   },
-  '/thiet-ke-theo-yeu-cau': {
-    title: 'Thiết Kế Theo Yêu Cầu | QMG Gift',
-    description:
-      'Thiết kế và in logo theo nhận diện thương hiệu, mockup trước sản xuất, tối ưu ngân sách và timeline cho quà tặng doanh nghiệp.',
+  '/mitsubishi': {
+    title: 'Máy Lạnh Mitsubishi Chính Hãng | QMG HVAC',
+    description: 'Cung cấp, lắp đặt máy lạnh Mitsubishi chính hãng. Tư vấn miễn phí, bảo hành chính hãng, thi công chuẩn kỹ thuật HVAC.',
   },
-  '/thiet-ke-rieng': {
-    title: 'Thiết Kế Theo Yêu Cầu | QMG Gift',
-    description:
-      'Thiết kế và in logo theo nhận diện thương hiệu, mockup trước sản xuất, tối ưu ngân sách và timeline cho quà tặng doanh nghiệp.',
+  '/toshiba': {
+    title: 'Máy Lạnh Toshiba Chính Hãng | QMG HVAC',
+    description: 'Cung cấp, lắp đặt máy lạnh Toshiba chính hãng. Giá tốt, bảo hành chính hãng, thi công chuẩn kỹ thuật HVAC.',
+  },
+  '/panasonic': {
+    title: 'Máy Lạnh Panasonic Chính Hãng | QMG HVAC',
+    description: 'Cung cấp, lắp đặt máy lạnh Panasonic chính hãng. Tư vấn miễn phí, bảo hành chính hãng, thi công chuẩn kỹ thuật HVAC.',
+  },
+  '/dich-vu': {
+    title: 'Dịch Vụ HVAC | QMG HVAC',
+    description: 'Dịch vụ thi công lắp đặt, bảo trì, vệ sinh máy lạnh và hệ thống HVAC toàn diện cho nhà ở, văn phòng và công trình.',
   },
   '/checkout': {
-    title: 'Đặt Hàng / Liên Hệ | QMG Gift',
-    description:
-      'Gửi yêu cầu đặt quà tặng doanh nghiệp: thông tin liên hệ, ngân sách, số lượng và thời gian giao hàng mong muốn.',
+    title: 'Nhận Báo Giá | QMG HVAC',
+    description: 'Gửi yêu cầu nhận báo giá miễn phí tư vấn và lắp đặt hệ thống điện lạnh HVAC.',
   },
 }
 
@@ -51,17 +54,17 @@ function metaForPath(pathname) {
   if (ROUTES[path]) return ROUTES[path]
   if (path.startsWith('/san-pham/')) {
     return {
-      title: 'Sản phẩm | QMG Gift',
+      title: 'Sản phẩm | QMG HVAC',
       description: DEFAULT_DESC,
     }
   }
   if (path.startsWith('/admin')) {
     return {
-      title: 'Quản trị | QMG Gift',
+      title: 'Quản trị | QMG HVAC',
       description: 'Trang quản trị nội bộ.',
     }
   }
-  return { title: 'QMG Gift – Quà Tặng Doanh Nghiệp Cao Cấp', description: DEFAULT_DESC }
+  return { title: 'QMG HVAC – Giải Pháp Điện Lạnh Toàn Diện', description: DEFAULT_DESC }
 }
 
 function setMetaContent(selector, content) {

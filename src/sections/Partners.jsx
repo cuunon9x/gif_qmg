@@ -52,10 +52,10 @@ export default function Partners() {
     <section className="py-14 bg-white border-y border-gray-100">
       <div className="max-w-6xl mx-auto px-4">
         <div ref={ref} className={`text-center mb-8 fade-up ${inView ? 'in-view' : ''}`}>
-          <span className="text-primary font-semibold text-xs uppercase tracking-widest">Khách hàng & đối tác</span>
-          <h2 className="text-2xl md:text-3xl font-bold mt-1 text-gray-800">Đối tác tiêu biểu</h2>
+          <span className="text-primary font-semibold text-xs uppercase tracking-widest">Đại lý phân phối</span>
+          <h2 className="text-2xl md:text-3xl font-bold mt-1 text-gray-800">Thương hiệu chính hãng</h2>
           <p className="text-gray-500 text-sm mt-3 leading-relaxed max-w-2xl mx-auto">
-            QMG vinh dự được đồng hành cùng nhiều tổ chức, ngân hàng và doanh nghiệp uy tín.
+            QMG HVAC là đại lý phân phối chính thức của nhiều thương hiệu điện máy lớn, cam kết cung cấp sản phẩm 100% chính hãng.
           </p>
         </div>
       </div>

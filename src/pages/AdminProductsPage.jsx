@@ -12,8 +12,12 @@ import {
 import { displayPrice, formatVND } from "../lib/price";
 
 const PRODUCT_CATS = [
-  { value: "qua-tang-doanh-nghiep", label: "Quà Tặng Doanh Nghiệp" },
-  { value: "qua-tang-suc-khoe", label: "Quà Tặng Sức Khỏe" },
+  { value: "daikin", label: "Daikin" },
+  { value: "mitsubishi", label: "Mitsubishi" },
+  { value: "panasonic", label: "Panasonic" },
+  { value: "toshiba", label: "Toshiba" },
+  { value: "midea", label: "Midea" },
+  { value: "dich-vu", label: "Dịch Vụ" },
 ];
 
 const EMPTY_PRODUCT = {
@@ -22,7 +26,7 @@ const EMPTY_PRODUCT = {
   name: "",
   price: "",
   priceNum: 0,
-  category: "qua-tang-doanh-nghiep",
+  category: "daikin",
   subcat: "",
   subcatLabel: "",
   featured: false,

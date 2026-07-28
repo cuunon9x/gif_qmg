@@ -6,3 +6,5 @@ server/*
 .env
 .env.example
 Checklist .docx/*
+media/*
+CHECKLIST QMG HVAC/*

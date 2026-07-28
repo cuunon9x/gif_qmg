@@ -165,7 +165,7 @@
   position: absolute;
   inset: -5px;
   border-radius: 50%;
-  border: 2px solid #00A651;
+  border: 2px solid #0057A8;
   animation: pulse-ring 1.8s ease-out infinite;
   pointer-events: none;
 }
@@ -208,7 +208,7 @@
 .why-card:hover {
   transform: translateY(-6px);
   box-shadow: 0 12px 32px rgba(0,166,81,0.18);
-  border-color: #00A651;
+  border-color: #0057A8;
 }
 
 /* ═══════════════════════════════════════════════════
@@ -233,7 +233,7 @@
   position: absolute;
   bottom: -2px; left: 50%;
   width: 0; height: 2px;
-  background: #00A651;
+  background: #0057A8;
   border-radius: 2px;
   transition: width 0.3s ease, left 0.3s ease;
 }

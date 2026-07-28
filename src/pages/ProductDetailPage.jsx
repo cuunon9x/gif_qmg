@@ -324,13 +324,13 @@ export default function ProductDetailPage({ onCartOpen }) {
                   className="flex-1 text-center border-2 border-primary text-primary font-bold py-2.5 rounded-full hover:bg-primary-light transition-colors text-sm">
                   💬 Zalo
                 </a>
-                <a href="tel:0397507766"
+                <a href="tel:0938777888"
                   className="flex-1 text-center border-2 border-gray-300 text-gray-700 font-bold py-2.5 rounded-full hover:bg-gray-50 transition-colors text-sm">
                   📞 Gọi ngay
                 </a>
               </div>
             </div>
-            <p className="text-xs text-gray-400 mt-3 text-center">✨ Miễn phí thiết kế riêng theo thương hiệu doanh nghiệp</p>
+            <p className="text-xs text-gray-400 mt-3 text-center">✨ Thiết bị chính hãng – Bảo hành chính hãng – Hỗ trợ tận nơi</p>
           </div>
         </div>
       </section>

@@ -2,16 +2,16 @@ import { Link } from 'react-router-dom'
 import useInView from '../hooks/useInView'
 
 const PROCESS = [
-  { step: '01', title: 'Tiếp nhận brief', desc: 'Ghi nhận nhu cầu, số lượng, ngân sách, thời gian và mục tiêu tặng.' },
-  { step: '02', title: 'Đề xuất mẫu & báo giá', desc: 'Gửi phương án phù hợp theo nhận diện thương hiệu và ngân sách.' },
-  { step: '03', title: 'Chốt thiết kế', desc: 'Duyệt mockup, thống nhất quy cách đóng gói và tiêu chuẩn in ấn.' },
-  { step: '04', title: 'Sản xuất & bàn giao', desc: 'Kiểm soát chất lượng, đóng gói và giao đúng tiến độ đã cam kết.' },
+  { step: '01', title: 'Tiếp nhận yêu cầu', desc: 'Tiếp nhận thông tin từ khách hàng, tư vấn nhu cầu sử dụng, loại công trình, diện tích và ngân sách để đưa ra giải pháp phù hợp.' },
+  { step: '02', title: 'Khảo sát &amp; Báo giá', desc: 'Kỹ thuẫt viên khảo sát thực tế (nếu cần), tư vấn phương án lắp đặt tối ưu và gửi báo giá chi tiết, minh bạch, không phát sinh chi phí.' },
+  { step: '03', title: 'Thi công &amp; Lắp đặt', desc: 'Tiến hành thi công theo đúng tiêu chuẩn HVAC, đảm bảo kỹ thuẫt, an toàn, tính thẩm mỹ và đúng tiến độ đã cam kết.' },
+  { step: '04', title: 'Nghiệm thu &amp; Bảo hành', desc: 'Kiểm tra vận hành toàn bộ hệ thống, bàn giao cho khách hàng, hướng dẫn sử dụng và kích hoạt bảo hành, bảo trì định kỳ.' },
 ]
 
 const STANDARDS = [
-  { icon: '🧾', title: 'Minh bạch', desc: 'Báo giá rõ ràng theo số lượng và cấu hình sản phẩm.' },
-  { icon: '✅', title: 'Kiểm soát chất lượng', desc: 'Soát lỗi in ấn và đóng gói trước khi xuất kho.' },
-  { icon: '🚚', title: 'Giao hàng đúng hẹn', desc: 'Theo thỏa thuận từng đơn; hỗ trợ giao nhiều điểm khi cần.' },
+  { icon: '📝', title: 'Báo giá minh bạch', desc: 'Báo giá chi tiết theo từng hạng mục, thiết bị và vẫt tư. Cam kết không phát sinh chi phí ngoài thỏa thuận.' },
+  { icon: '✅', title: 'Thi công đúng kỹ thuẫt', desc: 'Đội ngũ kỹ thuẫt viên giàu kinh nghiệm, thi công theo tiêu chuẩn HVAC, đảm bảo an toàn và thẩm mỹ.' },
+  { icon: '🚚', title: 'Đúng tiến độ', desc: 'Cung cấp thiết bị và hoàn thành lắp đặt đúng thời gian cam kết, đáp ứng tiến độ cho mọi công trình.' },
 ]
 
 export default function WhyUs() {
@@ -26,9 +26,9 @@ export default function WhyUs() {
         <div className="max-w-7xl mx-auto px-4">
           <div ref={headRef} className={`text-center mb-12 fade-up ${headIn ? 'in-view' : ''}`}>
             <span className="text-primary font-semibold text-xs uppercase tracking-widest">Quy trình</span>
-            <h2 className="text-2xl md:text-3xl font-bold mt-1 text-gray-800">Triển khai gọn gàng, đúng chuẩn doanh nghiệp</h2>
+            <h2 className="text-2xl md:text-3xl font-bold mt-1 text-gray-800">Quy trình thi công chuẩn HVAC</h2>
             <p className="text-gray-500 text-sm mt-3 max-w-2xl mx-auto leading-relaxed">
-              Một quy trình rõ ràng giúp doanh nghiệp dễ duyệt — dễ kiểm soát chất lượng — và yên tâm về tiến độ bàn giao.
+              Một quy trình rõ ràng giúp khách hàng dễ theo dõi — kiểm soát tiến độ — và yên tâm về chất lượng bàn giao.
             </p>
           </div>
 
@@ -64,7 +64,7 @@ export default function WhyUs() {
               <div className="mt-6 rounded-2xl bg-primary-light border border-primary/20 p-5">
                 <div className="text-xs uppercase tracking-widest text-gray-600">Gợi ý nhanh</div>
                 <div className="mt-1 text-sm text-gray-700 leading-relaxed">
-                  Bạn chỉ cần gửi brief (mục tiêu, số lượng, ngân sách, deadline). QMG sẽ đề xuất mẫu phù hợp và gửi báo giá nhanh.
+                  Chỉ cần cho chúng tôi biết nhu cầu sử dụng, diện tích công trình và ngân sách. QMG HVAC sẽ tư vấn giải pháp phù hợp, khảo sát tận nơi (nếu cần) và gửi báo giá nhanh chóng, hoàn toàn miễn phí.
                 </div>
               </div>
             </div>
@@ -75,25 +75,25 @@ export default function WhyUs() {
       {/* Design Promo Banner */}
       <section className="py-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 overflow-hidden relative">
         <div className="absolute inset-0 opacity-10"
-          style={{ backgroundImage: 'repeating-linear-gradient(45deg, #00A651 0, #00A651 1px, transparent 0, transparent 50%)', backgroundSize: '20px 20px' }}
+          style={{ backgroundImage: 'repeating-linear-gradient(45deg, #0057A8 0, #0057A8 1px, transparent 0, transparent 50%)', backgroundSize: '20px 20px' }}
         />
         <div ref={promoRef} className={`relative max-w-5xl mx-auto px-4 flex flex-col lg:flex-row items-center gap-10 fade-up ${promoIn ? 'in-view' : ''}`}>
           <div className="flex-1 text-center lg:text-left">
             <span className="inline-block bg-white/10 border border-white/15 text-white text-xs font-bold px-3 py-1.5 rounded-full mb-4 uppercase tracking-wide">
-              Brief → Mockup → Sản xuất
+              Tư Vấn → Khảo Sát → Thi Công
             </span>
             <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4 leading-tight">
-              Nhận mockup theo nhận diện<br />trước khi sản xuất
+              Giải pháp điện lạnh toàn diện<br />cho mọi công trình
             </h2>
             <p className="text-gray-300 text-base leading-relaxed mb-6 max-w-lg mx-auto lg:mx-0">
-              Gửi logo, guideline màu sắc và thông điệp tri ân. QMG dựng mockup để doanh nghiệp duyệt nhanh, giảm rủi ro sai khác khi triển khai số lượng lớn.
+              Từ máy lạnh dân dụng đến hệ thống điều hòa trung tâm, QMG HVAC mang đến giải pháp trọn gói giúp công trình vận hành hiệu quả, bền bỉ và tối ưu chi phí đầu tư.
             </p>
             <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
-              <Link to="/thiet-ke-theo-yeu-cau"
+              <Link to="/checkout"
                 className="bg-primary text-white font-bold px-7 py-3 rounded-full hover:bg-primary-dark transition-colors text-sm">
-                Gửi brief thiết kế
+                Nhận báo giá miễn phí
               </Link>
-              <a href="tel:0397507766"
+              <a href="tel:0938777888"
                 className="border border-white/40 text-white font-semibold px-7 py-3 rounded-full hover:bg-white/10 transition-colors text-sm">
                 Hotline tư vấn
               </a>
@@ -102,7 +102,7 @@ export default function WhyUs() {
           <div className="lg:w-96 w-full max-w-sm rounded-2xl overflow-hidden shadow-2xl">
             <img
               src="https://res.cloudinary.com/dflar7nvn/image/upload/v1778763998/qmg/products/t8oc7foaybjgonoix5ue.png?w=800&q=80"
-              alt="Thiết kế hộp quà riêng"
+              alt="Thi công lắp đặt điện lạnh"
               className="w-full object-cover"
             />
           </div>

@@ -12,16 +12,16 @@ const BANNER_URLS = Object.keys(bannerModules)
 
 const SLIDE_META = [
   {
-    tag: 'Quà Tặng Doanh Nghiệp',
-    title: 'Sang Trọng Trong\nTừng Món Quà',
-    sub: 'Thiết kế riêng theo thương hiệu doanh nghiệp – miễn phí thiết kế – giao hàng toàn quốc.',
-    cta: { label: 'Xem Quà Doanh Nghiệp', to: '/qua-tang-doanh-nghiep' },
+    tag: 'Điện Lạnh • Máy Lạnh • HVAC',
+    title: 'Giải Pháp Điện Lạnh\nToàn Diện',
+    sub: 'Chuyên cung cấp, tư vấn, thiết kế, thi công và bảo trì hệ thống điều hòa không khí, thông gió (HVAC) cho nhà ở, văn phòng, nhà xưởng, khách sạn và công trình thương mại.',
+    cta: { label: 'Nhận Báo Giá Miễn Phí', to: '/checkout' },
   },
   {
-    tag: 'Quà Tặng Sức Khỏe',
-    title: 'Quà Tặng Sống Khỏe\nCho Doanh Nghiệp',
-    sub: 'Granola, ngũ cốc và thực phẩm dinh dưỡng phù hợp cho nhân sự, đối tác và các chiến dịch chăm sóc sức khỏe.',
-    cta: { label: 'Xem Quà Sức Khỏe', to: '/qua-tang-suc-khoe' },
+    tag: 'Đại Lý Phân Phối Chính Hãng',
+    title: 'Uy Tín – Chất Lượng\nGiá Tốt',
+    sub: 'Phân phối chính hãng Daikin, Mitsubishi, Panasonic, Toshiba, Midea và nhiều thương hiệu lớn. Bảo hành chính hãng – Hỗ trợ nhanh chóng.',
+    cta: { label: 'Xem Sản Phẩm', to: '/daikin' },
   },
 ]
 
@@ -31,10 +31,10 @@ const SLIDES = SLIDE_META.map((meta, i) => ({
 }))
 
 const STATS = [
-  { value: '20+', label: 'Doanh nghiệp tin dùng' },
-  { value: '1.000+', label: 'Hộp quà đã giao' },
-  { value: '100%', label: 'Miễn phí thiết kế' },
-  { value: '24h', label: 'Phản hồi tư vấn' },
+  { value: '10+', label: 'Năm kinh nghiệm' },
+  { value: '500+', label: 'Công trình hoàn thành' },
+  { value: '100%', label: 'Thiết bị chính hãng' },
+  { value: '5–15 phút', label: 'Phản hồi tư vấn' },
 ]
 
 export default function Hero() {
@@ -88,19 +88,19 @@ export default function Hero() {
                 {slide.cta.label}
               </Link>
               <a
-                href="tel:0397507766"
+                href="tel:0938777888"
                 onClick={() => setUserInteracted(true)}
                 className="rounded-full border border-white/30 bg-white/15 px-6 py-2.5 text-sm font-semibold text-white backdrop-blur-sm transition-colors hover:bg-white/25 sm:px-7 sm:py-3"
               >
-                Liên hệ tư vấn
+                Liên Hệ Tư Vấn
               </a>
             </div>
 
             <div className="mt-4 max-w-lg text-[11px] leading-relaxed text-gray-200/90 sm:mt-6 sm:text-[12px]">
               <span className="font-semibold text-white">MST:</span> 3703185328 <span className="mx-2 text-white/30">•</span>
               Bình Dương <span className="mx-2 text-white/30">•</span>
-              Phản hồi 5–15 phút (7h30–17h) <span className="mx-2 text-white/30">•</span>
-              Thiết kế & in logo theo nhận diện
+              Phản hồi 5–15 phút (7h30–20h) <span className="mx-2 text-white/30">•</span>
+              Thiết bị chính hãng 100%
             </div>
           </div>
 

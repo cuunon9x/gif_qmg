@@ -28,7 +28,7 @@ function App() {
             <Navbar onCartOpen={() => setCartOpen(true)} />
             <Routes>
               <Route path="/" element={<HomePage />} />
-              <Route path="/thiet-ke-rieng" element={<Navigate to="/thiet-ke-theo-yeu-cau" replace />} />
+              <Route path="/thiet-ke-rieng" element={<Navigate to="/dich-vu" replace />} />
               <Route path="/san-pham/:slug" element={<ProductDetailPage onCartOpen={() => setCartOpen(true)} />} />
               <Route path="/checkout" element={<CheckoutPage />} />
               <Route path="/admin" element={<AdminPage />} />

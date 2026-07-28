@@ -2,20 +2,13 @@ import { useState } from 'react'
 import useInView from '../hooks/useInView'
 import { submitResendEmail } from '../lib/resend'
 
-const NEED_OPTIONS = [
-  'Quà tặng doanh nghiệp',
-  'Giftset cao cấp',
-  'Quà tặng sức khỏe – thể thao',
-  'In logo sản phẩm',
+const SERVICE_OPTIONS = [
+  'Cung cấp máy lạnh chính hãng',
+  'Thi công lắp đặt điều hòa',
+  'Bảo trì – Vệ sinh máy lạnh',
+  'Sửa chữa hệ thống HVAC',
+  'Tư vấn hệ thống HVAC công trình lớn',
   'Khác',
-]
-
-const BUDGET_OPTIONS = [
-  '',
-  'Dưới 100.000đ/sp',
-  '100.000 – 200.000đ',
-  '200.000 – 400.000đ',
-  'Trên 500.000đ',
 ]
 
 export default function CTAForm() {
@@ -23,11 +16,8 @@ export default function CTAForm() {
     name: '',
     phone: '',
     email: '',
-    company: '',
-    need: '',
-    qty: '',
-    budget: '',
-    need_by: '',
+    service: '',
+    address: '',
     note: '',
   })
   const [sent, setSent] = useState(false)
@@ -41,7 +31,7 @@ export default function CTAForm() {
     setLoading(true)
     try {
       const { ok, message } = await submitResendEmail({
-        subject: `QMG GIF - Yêu cầu tư vấn quà tặng – ${form.name}`,
+        subject: `QMG HVAC - Yêu cầu tư vấn – ${form.name}`,
         fields: {
           ...form,
         },
@@ -56,14 +46,14 @@ export default function CTAForm() {
   return (
     <section className="py-16 bg-gradient-to-br from-gray-800 to-gray-900 relative overflow-hidden">
       <div className="absolute inset-0 opacity-5"
-        style={{ backgroundImage: 'radial-gradient(circle, #00A651 1px, transparent 1px)', backgroundSize: '28px 28px' }}
+        style={{ backgroundImage: 'radial-gradient(circle, #0057A8 1px, transparent 1px)', backgroundSize: '28px 28px' }}
       />
       <div ref={ref} className={`relative max-w-4xl mx-auto px-4 fade-up ${inView ? 'in-view' : ''}`}>
         <div className="text-center mb-10">
           <span className="text-primary font-semibold text-xs uppercase tracking-widest">Nhận tư vấn</span>
           <h2 className="text-2xl md:text-3xl font-bold mt-1 text-white">Đăng ký tư vấn miễn phí</h2>
           <p className="text-gray-400 text-sm mt-2">
-            Điền thông tin – đội ngũ QMG sẽ liên hệ trong 5–15 phút (giờ làm việc 7h30–17h) để gửi báo giá và hỗ trợ chi tiết.
+            Điền thông tin – đội ngũ QMG HVAC sẽ liên hệ trong 5–15 phút (giờ làm việc 7h30–20h) để gửi báo giá và hỗ trợ chi tiết.
           </p>
         </div>
 
@@ -78,7 +68,7 @@ export default function CTAForm() {
               <p className="text-gray-600 text-sm leading-relaxed mb-2">
                 Đội ngũ tư vấn sẽ liên hệ trong <strong>5–15 phút</strong> để gửi báo giá và hỗ trợ chi tiết.
               </p>
-              <p className="text-gray-500 text-sm">Cảm ơn bạn đã quan tâm đến QMG!</p>
+              <p className="text-gray-500 text-sm">Cảm ơn bạn đã quan tâm đến QMG HVAC!</p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -101,42 +91,23 @@ export default function CTAForm() {
                   className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary" />
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-700 mb-1">Tên công ty / thương hiệu</label>
-                <input name="company" value={form.company} onChange={handleChange}
-                  placeholder="Công ty ABC"
-                  className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary" />
-              </div>
-              <div className="sm:col-span-2">
-                <label className="block text-xs font-medium text-gray-700 mb-1">Nhu cầu quà tặng *</label>
-                <select name="need" required value={form.need} onChange={handleChange}
+                <label className="block text-xs font-medium text-gray-700 mb-1">Dịch vụ cần tư vấn *</label>
+                <select name="service" required value={form.service} onChange={handleChange}
                   className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary bg-white">
-                  <option value="">-- Chọn hoặc mô tả ở ghi chú --</option>
-                  {NEED_OPTIONS.map(t => <option key={t} value={t}>{t}</option>)}
-                </select>
-              </div>
-              <div>
-                <label className="block text-xs font-medium text-gray-700 mb-1">Số lượng dự kiến</label>
-                <input name="qty" value={form.qty} onChange={handleChange}
-                  placeholder="Ví dụ: 100"
-                  className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary" />
-              </div>
-              <div>
-                <label className="block text-xs font-medium text-gray-700 mb-1">Ngân sách dự kiến</label>
-                <select name="budget" value={form.budget} onChange={handleChange}
-                  className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary bg-white">
-                  <option value="">-- Chọn --</option>
-                  {BUDGET_OPTIONS.filter(Boolean).map(t => <option key={t} value={t}>{t}</option>)}
+                  <option value="">—— Chọn dịch vụ ——</option>
+                  {SERVICE_OPTIONS.map(t => <option key={t} value={t}>{t}</option>)}
                 </select>
               </div>
               <div className="sm:col-span-2">
-                <label className="block text-xs font-medium text-gray-700 mb-1">Thời gian cần hàng</label>
-                <input name="need_by" type="date" value={form.need_by} onChange={handleChange}
-                  className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary bg-white" />
+                <label className="block text-xs font-medium text-gray-700 mb-1">Khu vực / địa chỉ công trình</label>
+                <input name="address" value={form.address} onChange={handleChange}
+                  placeholder="Ví dụ: Quận 12, TP.HCM"
+                  className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary" />
               </div>
               <div className="sm:col-span-2">
                 <label className="block text-xs font-medium text-gray-700 mb-1">Ghi chú / yêu cầu chi tiết</label>
                 <textarea name="note" rows={3} value={form.note} onChange={handleChange}
-                  placeholder="Màu sắc, in logo, địa chỉ giao, ghi chú khác..."
+                  placeholder="Loại máy lạnh, diện tích phòng, số lượng, ghi chú khác..."
                   className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary resize-none" />
               </div>
               <div className="sm:col-span-2">

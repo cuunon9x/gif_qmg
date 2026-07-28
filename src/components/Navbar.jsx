@@ -33,9 +33,9 @@ export default function Navbar({ onCartOpen }) {
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white shadow-md' : 'bg-white/95 backdrop-blur-sm'}`}>
       {/* Top bar */}
       <div className="bg-primary text-white text-xs py-1.5 px-4 hidden sm:flex items-center justify-between max-w-7xl mx-auto">
-        <span>Thiết kế & in logo theo nhận diện – Giao hàng toàn quốc</span>
-        <a href="tel:0397507766" className="font-semibold hover:text-primary-light transition-colors">
-          Hotline: 0397 507 766
+        <span>Cung cấp, lắp đặt, bảo trì điện lạnh &amp; HVAC – Phục vụ tận nơi</span>
+        <a href="tel:0938777888" className="font-semibold hover:text-primary-light transition-colors">
+          Hotline: 0938 777 888
         </a>
       </div>
 
@@ -66,10 +66,10 @@ export default function Navbar({ onCartOpen }) {
         {/* CTA + cart + hamburger */}
         <div className="flex items-center gap-2">
           <a
-            href="tel:0397507766"
+            href="tel:0938777888"
             className="hidden sm:inline-flex items-center gap-1.5 bg-primary text-white text-sm font-semibold px-4 py-2 rounded-full hover:bg-primary-dark transition-colors"
           >
-            Liên hệ tư vấn
+            Nhận báo giá miễn phí
           </a>
           {/* Cart button */}
           <button
@@ -121,7 +121,7 @@ export default function Navbar({ onCartOpen }) {
             </NavLink>
           ))}
           <a
-            href="tel:0397507766"
+            href="tel:0938777888"
             className="mt-2 flex items-center justify-center gap-2 bg-primary text-white py-2.5 rounded-full font-bold text-sm"
           >
             Gọi tư vấn ngay

@@ -63,7 +63,7 @@ export default function CheckoutPage() {
               className="bg-primary text-white font-bold px-7 py-3 rounded-full hover:bg-primary-dark transition-colors text-sm">
               Về trang chủ
             </Link>
-            <a href="tel:0397507766"
+            <a href="tel:0938777888"
               className="border border-primary text-primary font-semibold px-7 py-3 rounded-full hover:bg-primary-light transition-colors text-sm">
               Gọi ngay
             </a>
@@ -109,7 +109,7 @@ export default function CheckoutPage() {
                 <div>
                   <label className="block text-xs font-medium text-gray-700 mb-1">Tên công ty</label>
                   <input name="company" value={form.company} onChange={handleChange}
-                    placeholder="Công ty TNHH ABC"
+                    placeholder="Công ty TNHH Bảo Tín"
                     className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary" />
                 </div>
                 <div>

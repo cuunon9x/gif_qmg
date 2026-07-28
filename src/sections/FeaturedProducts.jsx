@@ -15,7 +15,7 @@ export default function FeaturedProducts() {
           <span className="text-primary font-semibold text-xs uppercase tracking-widest">Sản phẩm nổi bật</span>
           <h2 className="text-2xl md:text-3xl font-bold mt-1 text-gray-800">Gợi ý từ QMG</h2>
           <p className="text-gray-500 text-sm mt-2 max-w-lg mx-auto">
-            Danh mục nổi bật: Quà Tặng Sức Khỏe, Quà Tặng Doanh Nghiệp — chọn mẫu phù hợp chiến dịch của bạn.
+            Thương hiệu nổi bật: Daikin, Mitsubishi, Panasonic, Toshiba, Midea — chọn sản phẩm phù hợp công trình của bạn.
           </p>
         </div>
 
