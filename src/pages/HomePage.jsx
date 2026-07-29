@@ -15,6 +15,7 @@ export default function HomePage() {
   return (
     <main>
       <Hero />
+      <Partners />
       <CategoryNav />
       <CompanyIntro />
       <MobileCatalogCTA />
