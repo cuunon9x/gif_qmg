@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import useInView from '../hooks/useInView'
+import postImg from '../assets/post/post.png'
 
 const PROCESS = [
   { step: '01', title: 'Tiếp nhận yêu cầu', desc: 'Tiếp nhận thông tin từ khách hàng, tư vấn nhu cầu sử dụng, loại công trình, diện tích và ngân sách để đưa ra giải pháp phù hợp.' },
@@ -101,7 +102,7 @@ export default function WhyUs() {
           </div>
           <div className="lg:w-96 w-full max-w-sm rounded-2xl overflow-hidden shadow-2xl">
             <img
-              src="https://res.cloudinary.com/dflar7nvn/image/upload/v1778763998/qmg/products/t8oc7foaybjgonoix5ue.png?w=800&q=80"
+              src={postImg}
               alt="Thi công lắp đặt điện lạnh"
               className="w-full object-cover"
             />

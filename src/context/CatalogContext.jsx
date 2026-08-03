@@ -15,6 +15,7 @@ const CatalogContext = createContext(null)
 export function CatalogProvider({ children }) {
   const [products, setProducts] = useState([])
   const [categories, setCategories] = useState([])
+  const [subcategories, setSubcategories] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
 
@@ -22,22 +23,26 @@ export function CatalogProvider({ children }) {
     setLoading(true)
     setError('')
     try {
-      const [productsRes, categoriesRes] = await Promise.all([
+      const [productsRes, categoriesRes, subcatsRes] = await Promise.all([
         fetch(`${API_BASE}/api/products`, { headers: apiHeaders() }),
         fetch(`${API_BASE}/api/categories`, { headers: apiHeaders() }),
+        fetch(`${API_BASE}/api/subcategories`, { headers: apiHeaders() }),
       ])
       if (!productsRes.ok || !categoriesRes.ok) {
         throw new Error(`Catalog API failed: ${productsRes.status}/${categoriesRes.status}`)
       }
-      const [productsJson, categoriesJson] = await Promise.all([
+      const [productsJson, categoriesJson, subcatsJson] = await Promise.all([
         productsRes.json(),
         categoriesRes.json(),
+        subcatsRes.ok ? subcatsRes.json() : Promise.resolve([]),
       ])
       setProducts(Array.isArray(productsJson) ? productsJson : [])
       setCategories(Array.isArray(categoriesJson) ? categoriesJson : [])
+      setSubcategories(Array.isArray(subcatsJson) ? subcatsJson : [])
     } catch (err) {
       setProducts([])
       setCategories([])
+      setSubcategories([])
       setError(err.message || 'Failed to load catalog')
     } finally {
       setLoading(false)
@@ -49,8 +54,8 @@ export function CatalogProvider({ children }) {
   }, [])
 
   const value = useMemo(
-    () => ({ products, categories, loading, error, reloadCatalog: loadCatalog }),
-    [products, categories, loading, error],
+    () => ({ products, categories, subcategories, loading, error, reloadCatalog: loadCatalog }),
+    [products, categories, subcategories, loading, error],
   )
 
   return <CatalogContext.Provider value={value}>{children}</CatalogContext.Provider>

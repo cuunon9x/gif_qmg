@@ -5,14 +5,15 @@ import { API, AdminLogin, adminHeaders } from '../components/AdminShared'
 /* ── Dashboard ── */
 export default function AdminPage() {
   const [authed, setAuthed] = useState(sessionStorage.getItem('qmg_admin') === '1')
-  const [stats,  setStats]  = useState({ products: null, categories: null })
+  const [stats,  setStats]  = useState({ products: null, categories: null, subcategories: null })
 
   useEffect(() => {
     if (!authed) return
     Promise.all([
       fetch(`${API}/api/products`, { headers: adminHeaders() }).then(r => r.json()).catch(() => []),
       fetch(`${API}/api/categories`, { headers: adminHeaders() }).then(r => r.json()).catch(() => []),
-    ]).then(([p, c]) => setStats({ products: p.length, categories: c.length }))
+      fetch(`${API}/api/subcategories`, { headers: adminHeaders() }).then(r => r.json()).catch(() => []),
+    ]).then(([p, c, s]) => setStats({ products: Array.isArray(p) ? p.length : p.total ?? 0, categories: c.length, subcategories: s.length }))
   }, [authed])
 
   function handleAuth() { sessionStorage.setItem('qmg_admin', '1'); setAuthed(true) }
@@ -23,7 +24,7 @@ export default function AdminPage() {
     <div className="min-h-screen bg-gray-50 mt-32">
 
       <div className="max-w-2xl mx-auto p-8 mt-12">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
 
           <Link to="/admin/products"
             className="group bg-white rounded-2xl shadow-sm border border-gray-100 p-8 flex flex-col items-center gap-4 hover:shadow-md hover:border-primary/40 transition-all">
@@ -51,6 +52,21 @@ export default function AdminPage() {
               )}
             </div>
             <span className="mt-auto bg-amber-600 text-white font-bold px-6 py-2 rounded-lg group-hover:bg-amber-700 transition-colors text-sm w-full text-center">
+              Quản lý →
+            </span>
+          </Link>
+
+          <Link to="/admin/categories"
+            className="group bg-white rounded-2xl shadow-sm border border-gray-100 p-8 flex flex-col items-center gap-4 hover:shadow-md hover:border-green-400/50 transition-all">
+            <div className="text-6xl">🏷️</div>
+            <div className="text-center">
+              <div className="text-xl font-bold text-gray-800 group-hover:text-green-600 transition-colors">Thương Hiệu</div>
+              <div className="text-gray-400 text-sm mt-1">Daikin, LG, Samsung...</div>
+              {stats.subcategories !== null && (
+                <div className="mt-3 text-3xl font-bold text-green-600">{stats.subcategories}</div>
+              )}
+            </div>
+            <span className="mt-auto bg-green-600 text-white font-bold px-6 py-2 rounded-lg group-hover:bg-green-700 transition-colors text-sm w-full text-center">
               Quản lý →
             </span>
           </Link>

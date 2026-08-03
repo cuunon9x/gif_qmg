@@ -11,14 +11,7 @@ import {
 } from "../components/AdminShared";
 import { displayPrice, formatVND } from "../lib/price";
 
-const PRODUCT_CATS = [
-  { value: "daikin", label: "Daikin" },
-  { value: "mitsubishi", label: "Mitsubishi" },
-  { value: "panasonic", label: "Panasonic" },
-  { value: "toshiba", label: "Toshiba" },
-  { value: "midea", label: "Midea" },
-  { value: "dich-vu", label: "Dịch Vụ" },
-];
+// Removed hardcoded PRODUCT_CATS — now uses dynamic subcategories from API
 
 const EMPTY_PRODUCT = {
   id: null,
@@ -26,19 +19,16 @@ const EMPTY_PRODUCT = {
   name: "",
   price: "",
   priceNum: 0,
-  category: "daikin",
-  subcat: "",
-  subcatLabel: "",
+  category: "",      // brand subcategory slug (e.g. "daikin")
+  subcat: "",         // HP-size group slug (e.g. "9000-btu")
+  subcatLabel: "",    // HP-size group label (auto-filled from brand selection)
   featured: false,
   image: "",
   images: [],
   videos: [],
   badge: "",
   description: "",
-  contents: "",
   variants: "",
-  minOrder: 50,
-  lead: "",
   tags: "",
 };
 
@@ -50,7 +40,6 @@ function toProductForm(p) {
     : (p.video ? [p.video].filter(Boolean) : [])
   return {
     ...p,
-    contents: Array.isArray(p.contents) ? p.contents.join("\n") : "",
     variants: Array.isArray(p.variants)
       ? p.variants
           .map((v) => {
@@ -76,6 +65,8 @@ function toProductForm(p) {
     images: merged,
     image: merged[0] || "",
     videos: vids,
+    subcat: p.subcat ?? "",
+    subcatLabel: p.subcatLabel ?? "",
   };
 }
 
@@ -86,7 +77,9 @@ function fromProductForm(f) {
   const videos = Array.isArray(f.videos)
     ? f.videos.filter(Boolean)
     : (f.video ? [f.video].filter(Boolean) : []);
-  const numericPrice = Number(f.priceNum) || 0
+  const numericPrice = Number(f.priceNum) || 0;
+  // strip internal helper fields
+  const { _parentSlug: _p, contents: _c, minOrder: _m, lead: _l, ...rest } = f;
   const variantLines = String(f.variants || '')
     .split("\n")
     .map((s) => s.trim())
@@ -105,17 +98,12 @@ function fromProductForm(f) {
     };
   })
   return {
-    ...f,
+    ...rest,
     id,
     slug,
     priceNum: numericPrice,
     price: f.price?.trim() ? f.price.trim() : (numericPrice > 0 ? formatVND(numericPrice) : "Liên hệ"),
-    minOrder: Number(f.minOrder) || 0,
     badge: f.badge.trim() || null,
-    contents: f.contents
-      .split("\n")
-      .map((s) => s.trim())
-      .filter(Boolean),
     variants,
     tags: f.tags
       .split(",")
@@ -136,6 +124,7 @@ function ProductList({
   search,
   filterCat,
   categories,
+  subcategories,
   loading,
   onSearchChange,
   onFilterCatChange,
@@ -145,18 +134,25 @@ function ProductList({
   onEdit,
   onDelete,
 }) {
-  const catList = categories.filter((c) => !c.isService).length
-    ? categories.filter((c) => !c.isService)
-    : PRODUCT_CATS.map((c) => ({ slug: c.value, label: c.label }));
+  // Filter tabs: parent categories only (6 tabs max)
+  const parentCats = categories.filter((c) => !c.isService);
   const totalItems = total;
   const totalPages = Math.max(1, Math.ceil(totalItems / pageSize));
   const currentPage = Math.min(Math.max(page, 1), totalPages);
+
+  // Resolve display label: brand subcategory name preferred
+  function catLabel(p) {
+    const sub = subcategories.find((s) => s.slug === p.category);
+    if (sub) return sub.label;
+    const parent = categories.find((c) => c.slug === p.category);
+    return parent?.label ?? p.category ?? '—';
+  }
 
   return (
     <div className="max-w-6xl mx-auto p-6 mt-3">
       <div className="flex items-center justify-between mb-5 mt-3 flex-wrap gap-3">
         <div className="flex gap-2 flex-wrap">
-          {[{ slug: "all", label: "Tất cả" }, ...catList].map((c) => (
+          {[{ slug: "all", label: "Tất cả" }, ...parentCats].map((c) => (
             <button
               key={c.slug}
               onClick={() => onFilterCatChange(c.slug)}
@@ -259,12 +255,7 @@ function ProductList({
                     )}
                   </td>
                   <td className="px-4 py-3 text-gray-500 text-xs">
-                    {
-                      (
-                        categories.find((c) => c.slug === p.category) ??
-                        PRODUCT_CATS.find((c) => c.value === p.category)
-                      )?.label
-                    }
+                    {catLabel(p)}
                   </td>
                   <td className="px-4 py-3 font-semibold text-primary text-xs">
                     {displayPrice(p)}
@@ -326,24 +317,32 @@ function ProductList({
 }
 
 /* ── Product form ── */
-function ProductForm({ product, categories, onSave, onCancel }) {
+function ProductForm({ product, categories, subcategories, onSave, onCancel }) {
   const isNew = !product.id;
+  // derive _parentSlug from existing brand when editing
+  const initParent = () => {
+    if (!product.category) return '';
+    const sub = subcategories.find(s => s.slug === product.category);
+    return sub?.parentSlug ?? '';
+  };
   const [form, setForm] = useState(
-    isNew ? { ...EMPTY_PRODUCT } : toProductForm(product),
+    isNew ? { ...EMPTY_PRODUCT, _parentSlug: '' } : { ...toProductForm(product), _parentSlug: initParent() },
   );
   const [saving, setSaving] = useState(false);
   const [toast, setToast] = useState("");
   const inp =
     "w-full border border-gray-300 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-primary";
   const label = "block text-xs font-semibold text-gray-600 mb-1";
-  const catOpts = categories.filter((c) => !c.isService).length
-    ? categories
-        .filter((c) => !c.isService)
-        .map((c) => ({
-          value: c.slug,
-          label: `${c.icon ? c.icon + " " : ""}${c.label}`,
-        }))
-    : PRODUCT_CATS;
+
+  // parent cats for first-level picker
+  const parentCats = categories.filter((c) => !c.isService);
+  // brands filtered by selected parent
+  const brandOpts = form._parentSlug
+    ? subcategories.filter(s => s.parentSlug === form._parentSlug)
+    : subcategories;
+  // service cat option
+  const serviceCat = categories.find(c => c.isService);
+
   function set(k, v) {
     setForm((f) => ({ ...f, [k]: v }));
   }
@@ -419,64 +418,79 @@ function ProductForm({ product, categories, onSave, onCancel }) {
             />
           </div>
           <div>
-            <label className={label}>Danh mục *</label>
+            <label className={label}>Danh mục cha *</label>
+            <select
+              className={inp}
+              value={form._parentSlug}
+              onChange={(e) => {
+                set('_parentSlug', e.target.value);
+                set('category', '');
+                set('subcatLabel', '');
+              }}
+            >
+              <option value="">-- Chọn danh mục --</option>
+              {parentCats.map((c) => (
+                <option key={c.slug} value={c.slug}>
+                  {c.icon ? c.icon + ' ' : ''}{c.label}
+                </option>
+              ))}
+              {serviceCat && (
+                <option value={serviceCat.slug}>
+                  {serviceCat.icon ? serviceCat.icon + ' ' : ''}{serviceCat.label}
+                </option>
+              )}
+            </select>
+          </div>
+          <div>
+            <label className={label}>Thương hiệu *</label>
             <select
               required
               className={inp}
               value={form.category}
-              onChange={(e) => set("category", e.target.value)}
+              onChange={(e) => {
+                const slug = e.target.value;
+                set('category', slug);
+                const sub = subcategories.find(s => s.slug === slug);
+                if (sub) set('subcatLabel', sub.label);
+                // if parent not set yet, infer it
+                if (!form._parentSlug && sub?.parentSlug) set('_parentSlug', sub.parentSlug);
+              }}
             >
-              {catOpts.map((c) => (
-                <option key={c.value} value={c.value}>
-                  {c.label}
-                </option>
+              <option value="">-- Chọn thương hiệu --</option>
+              {brandOpts.map((s) => (
+                <option key={s.slug} value={s.slug}>{s.label}</option>
               ))}
+              {/* allow dich-vu products too */}
+              {serviceCat && form._parentSlug === serviceCat.slug && (
+                <option value={serviceCat.slug}>{serviceCat.label}</option>
+              )}
             </select>
           </div>
           <div>
             <label className={label}>Badge nhãn</label>
             <input
               className={inp}
-              placeholder="Bán chạy / Premium..."
+              placeholder="Bán chạy / Mới / Inverter..."
               value={form.badge}
               onChange={(e) => set("badge", e.target.value)}
             />
           </div>
           <div>
-            <label className={label}>Danh mục con (slug)</label>
+            <label className={label}>Nhóm HP / loại (slug)</label>
             <input
               className={inp}
-              placeholder="hop-qua / gio-qua"
+              placeholder="9000-btu / 12000-btu..."
               value={form.subcat}
               onChange={(e) => set("subcat", e.target.value)}
             />
           </div>
           <div>
-            <label className={label}>Tên danh mục con</label>
+            <label className={label}>Nhãn nhóm HP</label>
             <input
               className={inp}
-              placeholder="Hộp Quà Tết..."
+              placeholder="9.000 BTU / 12.000 BTU..."
               value={form.subcatLabel}
               onChange={(e) => set("subcatLabel", e.target.value)}
-            />
-          </div>
-          <div>
-            <label className={label}>Đặt hàng tối thiểu</label>
-            <input
-              type="number"
-              className={inp}
-              min={1}
-              value={form.minOrder}
-              onChange={(e) => set("minOrder", e.target.value)}
-            />
-          </div>
-          <div>
-            <label className={label}>Thời gian giao hàng</label>
-            <input
-              className={inp}
-              placeholder="5-7 ngày làm việc"
-              value={form.lead}
-              onChange={(e) => set("lead", e.target.value)}
             />
           </div>
           <div>
@@ -513,21 +527,11 @@ function ProductForm({ product, categories, onSave, onCancel }) {
             />
           </div>
           <div className="sm:col-span-2">
-            <label className={label}>Thành phần (mỗi dòng một mục)</label>
-            <textarea
-              rows={5}
-              className={inp}
-              placeholder={"Giỏ mây cao cấp\nRượu vang 750ml\n..."}
-              value={form.contents}
-              onChange={(e) => set("contents", e.target.value)}
-            />
-          </div>
-          <div className="sm:col-span-2">
-            <label className={label}>Loại / Giá / Số lượng. Mỗi dòng một loại.</label>
+            <label className={label}>Biến thể / Giá / Tồn kho. Mỗi dòng một loại.</label>
             <textarea
               rows={4}
               className={inp}
-              placeholder={"Socola | 69000 | 120\nDâu | 69000 | 0\nChuối | 75000 | 35\n..."}
+              placeholder={"1 HP | 7900000 | 20\n1.5 HP | 9500000 | 15\n2 HP | 12500000 | 10\n..."}
               value={form.variants}
               onChange={(e) => set("variants", e.target.value)}
             />
@@ -570,6 +574,7 @@ export default function AdminProductsPage() {
   );
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [subcategories, setSubcategories] = useState([]);
   const [editing, setEditing] = useState(null);
   const [loading, setLoading] = useState(false);
   const [searchInput, setSearchInput] = useState("");
@@ -640,10 +645,12 @@ export default function AdminProductsPage() {
 
   async function loadCategories() {
     try {
-      const res = await fetch(`${API}/api/categories`, {
-        headers: adminHeaders(),
-      });
-      if (res.ok) setCategories(await res.json());
+      const [catRes, subRes] = await Promise.all([
+        fetch(`${API}/api/categories`, { headers: adminHeaders() }),
+        fetch(`${API}/api/subcategories`, { headers: adminHeaders() }),
+      ]);
+      if (catRes.ok) setCategories(await catRes.json());
+      if (subRes.ok) setSubcategories(await subRes.json());
     } catch {
       /* silent */
     }
@@ -710,6 +717,7 @@ export default function AdminProductsPage() {
       <ProductForm
         product={editing}
         categories={categories}
+        subcategories={subcategories}
         onSave={handleSave}
         onCancel={() => setEditing(null)}
       />
@@ -726,6 +734,7 @@ export default function AdminProductsPage() {
         search={searchInput}
         filterCat={filterCat}
         categories={categories}
+        subcategories={subcategories}
         loading={loading}
         onSearchChange={setSearchInput}
         onFilterCatChange={(v) => {

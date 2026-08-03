@@ -1,22 +1,23 @@
 import useInView from '../hooks/useInView'
+import postImg from '../assets/post/post.png'
 
 const POSTS = [
   {
-    image: 'https://res.cloudinary.com/dflar7nvn/image/upload/v1778487271/qmg/products/yde0dtlinu0dmxt68y3o.png?w=600&q=80',
+    image: postImg,
     category: 'Máy Lạnh',
     date: '20/07/2026',
     title: '5 Lưu Ý Khi Chọn Máy Lạnh Cho Văn Phòng Và Nhà Xưởng',
     excerpt: 'Chọn máy lạnh đúng công suất và thương hiệu là yếu tố quyết định hiệu quả làm lạnh và tiết kiệm điện. QMG HVAC chia sẻ những tiêu chí quan trọng giúp bạn quyết định đúng.',
   },
   {
-    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80',
+    image: postImg,
     category: 'Bảo Trì',
     date: '15/07/2026',
     title: 'Tần Suất Vệ Sinh Máy Lạnh Lý Tưởng – Giữ Hiệu Suất, Tiết Kiệm Chi Phí',
     excerpt: 'Máy lạnh cần vệ sinh định kỳ theo tần suất sử dụng và môi trường. QMG HVAC hướng dẫn chi tiết giúp thiết bị vận hành tốt hơn và tiết kiệm 15–30% điện năng.',
   },
   {
-    image: 'https://res.cloudinary.com/dflar7nvn/image/upload/v1778763998/qmg/products/t8oc7foaybjgonoix5ue.png?w=600&q=80',
+    image: postImg,
     category: 'HVAC',
     date: '10/07/2026',
     title: 'HVAC Trung Tâm Khác Gì So Với Máy Lạnh Dân Dụng?',
