@@ -234,7 +234,7 @@ export default function ProductDetailPage({ onCartOpen }) {
             {/* Variants */}
             {variants.length > 0 && (
               <div className="mb-5">
-                <label className="text-sm font-medium text-gray-700 block mb-2">Chọn vị / loại:</label>
+                <label className="text-sm font-medium text-gray-700 block mb-2">Chọn loại:</label>
                 <div className="flex flex-wrap gap-2">
                   {variants.map((v) => (
                     <button

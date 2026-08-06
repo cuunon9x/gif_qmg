@@ -61,7 +61,7 @@ export default function ProductCard({ product, className = '' }) {
             to={`/san-pham/${slug}`}
             className="block w-full text-center text-xs font-bold py-2 rounded-full transition-all bg-primary text-white hover:bg-primary-dark"
           >
-            Chọn vị / loại →
+            Xem chi tiết
           </Link>
         ) : (
           <button
