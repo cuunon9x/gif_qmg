@@ -107,7 +107,7 @@ export default function CategoryPage({ category, childSlugs, parentCat, subCat }
       )}
 
       {/* HP/size filter tabs */}
-      {subcats.length > 2 && (
+      {/* {subcats.length > 2 && (
         <div className={`bg-white border-b border-gray-100 ${isParent && brandTabs.length > 0 ? '' : 'sticky top-[62px] sm:top-[92px] z-20 shadow-sm'}`}>
           <div className="max-w-7xl mx-auto px-4 py-3 flex gap-2 overflow-x-auto">
             {subcats.map(s => (
@@ -123,7 +123,7 @@ export default function CategoryPage({ category, childSlugs, parentCat, subCat }
             ))}
           </div>
         </div>
-      )}
+      )} */}
 
       {/* Products grid */}
       <section className="py-10">
